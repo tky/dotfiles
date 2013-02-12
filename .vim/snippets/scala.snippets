@@ -1,0 +1,33 @@
+############################
+##playframework
+#
+#play controller
+snippet playcon
+    package ${1:package}
+
+    import play.api._
+    import play.api.mvc._
+    import play.api.data._
+    import play.api.data.format._
+    import play.api.data.Forms._
+    import play.api.libs.Files._
+
+    object ${2:controllers} extends Controller {
+    ${3:/* code */}	
+    }
+
+snippet playmapping
+    val ${1}Form = Form[${2:class}](
+      mapping(
+      )(${3:class}.apply)(${4:class}.unapply)
+    )
+
+snippet playaction
+    def ${1:method} = Action {
+      Ok(views.html.${2:view})
+    }
+
+snippet playbindrequest
+    ${1:form}.bindFromRequest.fold(
+    { formWithErrors => BadRequest(${2:html}(formWithErrors)},
+    { ${3:form} => })
