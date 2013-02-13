@@ -152,3 +152,15 @@ set number
 set nowrap
 set backupdir=/tmp/vim/backup
 set directory=/tmp/vim/swp
+
+" for javascript
+NeoBundle 'JavaScript-syntax'
+NeoBundle 'pangloss/vim-javascript'
+
+"gxでブラウザ起動。なぜもっと早く気がつかなかった。。
+NeoBundle 'open-browser.vim'
+let g:netrw_nogx = 1 " disable netrw's gx mapping.
+nmap gx <Plug>(openbrowser-smart-search)
+vmap gx <Plug>(openbrowser-smart-search)
+
+NeoBundle 'tell-k/vim-browsereload-mac'
