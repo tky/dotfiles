@@ -42,7 +42,7 @@ autocmd WinEnter,BufRead * set cursorline
 augroup END
 :hi clear CursorLine
 :hi CursorLine gui=underline
-highlight CursorLine ctermbg=Blue guibg=Blue
+highlight CursorLine ctermbg=grey guibg=grey
 
 
 "neocomplcacheを起動時に有効にする
@@ -146,7 +146,7 @@ noremap <silent>:e :VimFiler -split -simple -winwidth=35 -no-quit<CR>
 " split open <c-x>
 NeoBundle 'kien/ctrlp.vim'
 let g:ctrlp_custom_ignore = { "file": ".*target\/.*$" }
-let g:ctrlp_working_path_mode = 'c'
+let g:ctrlp_working_path_mode = 'ra'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
 set clipboard=unnamed
@@ -171,3 +171,7 @@ noremap <C-j> <C-w>-
 noremap <C-k> <C-w>+
 noremap <C-h> <C-w><
 noremap <C-l> <C-w>>
+
+set tabstop=2
+set expandtab
+set shiftwidth=2
