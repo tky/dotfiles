@@ -164,3 +164,8 @@ nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
 
 NeoBundle 'tell-k/vim-browsereload-mac'
+
+noremap <C-j> <C-w>-
+noremap <C-k> <C-w>+
+noremap <C-h> <C-w><
+noremap <C-l> <C-w>>
