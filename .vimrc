@@ -47,10 +47,12 @@ highlight CursorLine ctermbg=grey guibg=grey
 
 "neocomplcacheを起動時に有効にする
 let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_dictionary_filetype_lists = {
-  \ 'default' : '',
-  \ 'scala' : $HOME . '/.vim/dict/scala.dict',
-  \ }
+" 保管候補の一番先頭を選択状態にする
+let g:neocomplcache_enable_auto_select = 1
+" CamelCase保管
+let g:neocomplcache_enable_camel_case_completion = 1
+" Underbar保管
+let g:neocomplcache_enable_underbar_completion = 1
 
 
 let g:unite_source_file_ignore_pattern='target/.*'
@@ -118,7 +120,9 @@ nnoremap <F6> <Esc>q/
  
 NeoBundle 'Shougo/neocomplcache.git'
 NeoBundle 'Shougo/neosnippet.git'
-let g:neocomplcache_snippets_dir='~/.vim/snippets'
+
+let g:neosnippet#snippets_directory='~/.vim/snippets/'
+let g:neosnippet#disable_runtime_snippets = { '_' : 1 }
 
 "neocomplcacheのマッピング
 imap <C-k> <Plug>(neocomplcache_snippets_expand)
