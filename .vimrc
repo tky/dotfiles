@@ -53,6 +53,9 @@ let g:neocomplcache_enable_auto_select = 1
 let g:neocomplcache_enable_camel_case_completion = 1
 " Underbar保管
 let g:neocomplcache_enable_underbar_completion = 1
+let g:neocomplcache_dictionary_filetype_lists = {
+  \ 'java' : '~/.vim/dict/java.dict'
+  \ }
 
 
 let g:unite_source_file_ignore_pattern='target/.*'
