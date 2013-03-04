@@ -173,3 +173,5 @@ noremap <C-l> <C-w>>
 set tabstop=2
 set expandtab
 set shiftwidth=2
+
+NeoBundle 'fuenor/qfixgrep.git'
