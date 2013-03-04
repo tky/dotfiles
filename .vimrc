@@ -147,9 +147,7 @@ noremap <silent>:e :VimFiler -split -simple -winwidth=35 -no-quit<CR>
 NeoBundle 'kien/ctrlp.vim'
 let g:ctrlp_custom_ignore = { "file": ".*target\/.*$" }
 let g:ctrlp_working_path_mode = 'ra'
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
-set clipboard=unnamed
 set number
 set nowrap
 set backupdir=/tmp/vim/backup
