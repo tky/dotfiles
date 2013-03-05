@@ -175,6 +175,17 @@ noremap <C-k> <C-w>+
 noremap <C-h> <C-w><
 noremap <C-l> <C-w>>
 
+" インサートモードでもhjklで移動
+" jとkはほかと衝突するので保留
+"inoremap <C-j> <Down>
+"inoremap <C-k> <Up>
+inoremap <C-h> <Left>
+inoremap <C-l> <Right>
+
+" 最後に編集された位置に移動
+nnoremap gb '[
+nnoremap gp ']
+
 set expandtab
 
 NeoBundle 'fuenor/qfixgrep.git'
