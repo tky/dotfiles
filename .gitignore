@@ -3,7 +3,6 @@
 /.vim/bundle
 
 !/.bash_aliases
-!/.bash_profile
 !/.vimrc
 !/.vim
 !/.gitignore
