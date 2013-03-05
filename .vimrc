@@ -28,8 +28,6 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
 
 NeoBundle 'thinca/vim-quickrun'
 
-filetype plugin indent on     " required!
-filetype indent on
 syntax on
 
 "  カーソル行をハイライト
@@ -177,8 +175,9 @@ noremap <C-k> <C-w>+
 noremap <C-h> <C-w><
 noremap <C-l> <C-w>>
 
-set tabstop=2
 set expandtab
-set shiftwidth=2
 
 NeoBundle 'fuenor/qfixgrep.git'
+
+"インデント設定
+source ~/.vimrc.indent
