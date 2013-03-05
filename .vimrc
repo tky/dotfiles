@@ -192,3 +192,6 @@ NeoBundle 'fuenor/qfixgrep.git'
 
 "インデント設定
 source ~/.vimrc.indent
+
+" スネークケース、キャメルケースの変換など crc crs
+NeoBundle 'tpope/vim-abolish'
