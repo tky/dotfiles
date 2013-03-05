@@ -155,8 +155,8 @@ let g:ctrlp_working_path_mode = 'ra'
 
 set number
 set nowrap
-set backupdir=/tmp/vim/backup
-set directory=/tmp/vim/swp
+set nobackup
+set noswapfile
 
 " for javascript
 NeoBundle 'JavaScript-syntax'
@@ -195,3 +195,4 @@ source ~/.vimrc.indent
 
 " スネークケース、キャメルケースの変換など crc crs
 NeoBundle 'tpope/vim-abolish'
+
