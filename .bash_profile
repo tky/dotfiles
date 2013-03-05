@@ -1,9 +1,6 @@
 if [ -f ~/.bashrc ]; then
   . ~/.bashrc   # --> Read /etc/bashrc, if present.
 fi
-export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
-alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
-alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 
 alias ll='ls -al'
 alias up='cd ../;ll'
