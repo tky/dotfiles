@@ -195,3 +195,8 @@ source ~/.vimrc.indent
 
 " スネークケース、キャメルケースの変換など crc crs
 NeoBundle 'tpope/vim-abolish'
+
+" ステータスラインにファイル名を常に表示
+:set statusline=%F%m%r%h%w\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
+:set laststatus=2 
+
