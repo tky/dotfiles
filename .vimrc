@@ -93,12 +93,12 @@ noremap <silent>:us :Unite snippet<CR>
 " escape２回で終了
 au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
 au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
-" Ctrl + J ウィンドウを分割して開く
-au FileType unite nnoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
-au FileType unite inoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
-" " Ctrl + k ウィンドウを縦に分割して開く
-au FileType unite nnoremap <silent> <buffer> <expr> <C-K> unite#do_action('vsplit')
-au FileType unite inoremap <silent> <buffer> <expr> <C-K> unite#do_action('vsplit')
+" ウィンドウを分割して開く
+au FileType unite nnoremap <silent> <buffer> <expr> <C-x> unite#do_action('split')
+au FileType unite inoremap <silent> <buffer> <expr> <C-x> unite#do_action('split')
+" ウィンドウを縦に分割して開く
+au FileType unite nnoremap <silent> <buffer> <expr> <C-v> unite#do_action('vsplit')
+au FileType unite inoremap <silent> <buffer> <expr> <C-v> unite#do_action('vsplit')
 " %コマンドのジャンプを拡張 divとかも飛べるようになる。
 :runtime macros/matchit.vim
 
@@ -216,3 +216,7 @@ NeoBundle 'docunext/closetag.vim'
 
 NeoBundle 'majutsushi/tagbar'
 nmap <C-t> :TagbarToggle<CR>
+
+" ステータスラインにファイル名を常に表示
+:set statusline=%F%m%r%h%w\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
+:set laststatus=2 
