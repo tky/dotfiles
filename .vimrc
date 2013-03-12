@@ -201,6 +201,8 @@ command! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | d
 "ファイルまたはバッファ番号を指定して差分表示。#なら裏バッファと比較
 command! -nargs=? -complete=file Diff if '<args>'=='' | browse vertical diffsplit|else| vertical diffsplit <args>|endif
 
+" JavaScriptの処理系が必要？
+" brew install rhino
 NeoBundle 'basyura/jslint.vim'
 function! s:javascript_filetype_settings()
   autocmd BufLeave     <buffer> call jslint#clear()
