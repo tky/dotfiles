@@ -189,7 +189,6 @@ nnoremap gp ']
 set expandtab
 
 NeoBundle 'fuenor/qfixgrep.git'
-let QFixHowm_SplitMode = 0
 
 "インデント設定
 source ~/.vimrc.indent
@@ -201,3 +200,11 @@ NeoBundle 'tpope/vim-abolish'
 command! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
 "ファイルまたはバッファ番号を指定して差分表示。#なら裏バッファと比較
 command! -nargs=? -complete=file Diff if '<args>'=='' | browse vertical diffsplit|else| vertical diffsplit <args>|endif
+
+NeoBundle 'basyura/jslint.vim'
+function! s:javascript_filetype_settings()
+  autocmd BufLeave     <buffer> call jslint#clear()
+  autocmd BufWritePost <buffer> call jslint#check()
+  autocmd CursorMoved  <buffer> call jslint#message()
+endfunction
+autocmd FileType javascript call s:javascript_filetype_settings()
