@@ -210,3 +210,6 @@ function! s:javascript_filetype_settings()
   autocmd CursorMoved  <buffer> call jslint#message()
 endfunction
 autocmd FileType javascript call s:javascript_filetype_settings()
+
+" </ を入力したときに自動的に補完してくれる。
+NeoBundle 'docunext/closetag.vim'
