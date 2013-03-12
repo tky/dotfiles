@@ -213,3 +213,6 @@ autocmd FileType javascript call s:javascript_filetype_settings()
 
 " </ を入力したときに自動的に補完してくれる。
 NeoBundle 'docunext/closetag.vim'
+
+NeoBundle 'majutsushi/tagbar'
+nmap <C-t> :TagbarToggle<CR>
