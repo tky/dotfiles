@@ -9,3 +9,4 @@
 !/.gitmodules
 !/.vimrc.indent
 !/README.md
+!/.tmux.conf

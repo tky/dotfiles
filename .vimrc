@@ -151,7 +151,8 @@ noremap <silent>:e :VimFiler -split -simple -winwidth=35 -no-quit<CR>
 " split open <c-x>
 NeoBundle 'kien/ctrlp.vim'
 let g:ctrlp_custom_ignore = { "file": ".*target\/.*$" }
-let g:ctrlp_working_path_mode = 'ra'
+"let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_working_path_mode = 'w'
 
 set number
 set nowrap
@@ -220,3 +221,5 @@ nmap <C-t> :TagbarToggle<CR>
 " ステータスラインにファイル名を常に表示
 :set statusline=%F%m%r%h%w\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
 :set laststatus=2 
+
+NeoBundle 'groovy.vim'
