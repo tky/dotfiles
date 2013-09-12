@@ -71,8 +71,6 @@ else
 
     endfunction
 
-    NeoBundleLazy 'Shougo/neosnippet.vim', {
-        \ "autoload": {"insert": 1}}
     " 'GundoToggle'が呼ばれるまでロードしない
     NeoBundleLazy 'sjl/gundo.vim', {
         \ "autoload": {"commands": ["GundoToggle"]}}
@@ -228,11 +226,7 @@ else
     endif
 
 
-    NeoBundleLazy "Shougo/neosnippet.vim", {
-          \ "depends": ["honza/vim-snippets"],
-          \ "autoload": {
-          \   "insert": 1,
-          \ }}
+    NeoBundle "Shougo/neosnippet.vim"
     let s:hooks = neobundle#get_hooks("neosnippet.vim")
     function! s:hooks.on_source(bundle)
       " Plugin key-mappings.
