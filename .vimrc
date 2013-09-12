@@ -324,6 +324,17 @@ else
     NeoBundle 'tpope/vim-abolish'
     NeoBundle 'fuenor/qfixgrep.git'
 
+    " for javascript
+    NeoBundleLazy "JavaScript-syntax", {
+          \ "autoload": {
+          \   "filetypes": ["js"],
+          \ }}
+
+    NeoBundleLazy "pangloss/vim-javascript", {
+          \ "autoload": {
+          \   "filetypes": ["js"],
+          \ }}
+
     " インストールされていないプラグインのチェックおよびダウンロード
     NeoBundleCheck
 endif
@@ -332,8 +343,10 @@ endif
 " これはNeoBundleによる処理が終了したあとに呼ばなければならない
 filetype plugin indent on
 
-" %コマンドのジャンプを拡張 divとかも飛べるようになる。
-:runtime macros/matchit.vim
+" %コマンドのジャンプを拡張
+:source $VIMRUNTIME/macros/matchit.vim
+:let b:match_words='\<if\>:\<endif\>,(:),{:},[:],\<begin\>:\<end\>'
+:let b:match_ignorecase = 1
 
 "  カーソル行をハイライト
 set cursorline
