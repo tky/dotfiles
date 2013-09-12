@@ -31,3 +31,15 @@ snippet playbindrequest
     ${1:form}.bindFromRequest.fold(
     { formWithErrors => BadRequest(${2:html}(formWithErrors)},
     { ${3:form} => })
+
+snippet impselenium
+    import org.openqa.selenium._
+    import firefox._
+    import java.util.concurrent.TimeUnit
+    import org.openqa.selenium.support.ui._
+    import org.openqa.selenium.support.ui.ExpectedConditions._
+    import org.openqa.selenium.interactions._
+
+snippet impspec
+    import org.scalatest.FlatSpec                                                                                                                                                                                                                                                 
+    import org.scalatest.matchers._
