@@ -4,17 +4,10 @@ if [ -f ~/.bashrc ]; then
 
   alias ll='ls -al'
   alias up='cd ../;ll'
-
-  export JAVA_HOME=/usr/bin/java
-
-  ##########################
-  # add Scala env.
-  ##########################
-  SCALA_HOME=/usr/local/bin/scala
-  export SCALA_HOME
-  export PATH=$PATH:$SCALA_HOME/bin
-
-  export ANT_HOME=/usr/local/apache-ant-1.8.4
-  export PATH=$PATH:$ANT_HOME/bin
-
   export SVN_EDITOR=vi
+
+
+
+
+#THIS MUST BE AT THE END OF THE FILE FOR GVM TO WORK!!!
+[[ -s "/Users/t-murata/.gvm/bin/gvm-init.sh" ]] && source "/Users/t-murata/.gvm/bin/gvm-init.sh"

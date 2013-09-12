@@ -1,6 +1,13 @@
 set nocompatible               " be iMproved
 filetype off
 
+set list                " 不可視文字の可視化
+" デフォルト不可視文字は美しくないのでUnicodeで綺麗に
+ set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%,eol:↲
+" 前時代的スクリーンベルを無効化
+set t_vb=
+set novisualbell
+
 if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim
   call neobundle#rc(expand('~/.vim/bundle/'))
@@ -223,3 +230,30 @@ nmap <C-t> :TagbarToggle<CR>
 :set laststatus=2 
 
 NeoBundle 'groovy.vim'
+
+" pythonの入力補完
+"NeoBundle 'davidhalter/jedi-vim'
+" rename用のマッピングを無効にしたため、代わりにコマンドを定義
+"command! -nargs=0 JediRename :call jedi#rename()
+
+" pythonのrename用のマッピングがquickrunとかぶるため回避させる
+ let g:jedi#rename_command = ""
+
+" pythonのコーディング規約チェック <F7>
+" 要flake8
+" sudo pip install flake8
+NeoBundle 'nvie/vim-flake8'
+
+
+NeoBundle  'vim-scripts/taglist.vim'
+"set tags = tags
+" ctagsのコマンド
+let Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
+" 現在表示中のファイルのみのタグしか表示しない
+"let Tlist_Show_One_File = 1
+" 右側にtag listのウインドうを表示する
+let Tlist_Use_Right_Window = 1
+" taglistのウインドウだけならVimを閉じる
+let Tlist_Exit_OnlyWindow = 1
+" \lでtaglistウインドウを開いたり閉じたり出来るショートカット
+map <silent> <leader>l :TlistToggle<CR>
