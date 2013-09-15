@@ -10,4 +10,4 @@ if [ -f ~/.bashrc ]; then
 
 
 #THIS MUST BE AT THE END OF THE FILE FOR GVM TO WORK!!!
-[[ -s "/Users/t-murata/.gvm/bin/gvm-init.sh" ]] && source "/Users/t-murata/.gvm/bin/gvm-init.sh"
+#[[ -s "/Users/t-murata/.gvm/bin/gvm-init.sh" ]] && source "/Users/t-murata/.gvm/bin/gvm-init.sh"
