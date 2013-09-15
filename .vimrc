@@ -59,7 +59,7 @@ else
         let g:neocomplete#enable_smart_case = 1
 
         " 補完候補の一番先頭を選択状態にする
-        let g:neocomplcache_enable_auto_select = 1
+        "let g:neocomplcache_enable_auto_select = 1
         " CamelCase補完
         let g:neocomplcache_enable_camel_case_completion = 1
         " Underbar補完
@@ -303,11 +303,12 @@ else
       " 自動設定機能をOFFにし手動で設定を行う
       let g:jedi#auto_vim_configuration = 0
       " 補完の最初の項目が選択された状態だと使いにくいためオフにする
-      let g:jedi#popup_select_first = 0
+      let g:jedi#popup_select_first=0
+      let g:jedi#popup_on_dot=0
       " quickrunと被るため大文字に変更
       let g:jedi#rename_command = '<Leader>R'
       " gundoと被るため大文字に変更
-      let g:jedi#goto_command = '<Leader>G'
+      "let g:jedi#goto_command = '<Leader>P'
     endfunction
 
     " 起動<c-p>
@@ -334,6 +335,18 @@ else
           \ "autoload": {
           \   "filetypes": ["js"],
           \ }}
+
+    NeoBundleLazy "teramako/jscomplete-vim", {
+          \ "autoload": {
+          \   "filetypes": ["js"],
+          \ }}
+    let g:jscomplete_use = ['dom', 'moz', 'es6th']
+
+    "gxでブラウザ起動。なぜもっと早く気がつかなかった。。
+    NeoBundle 'open-browser.vim'
+    let g:netrw_nogx = 1 " disable netrw's gx mapping.
+    nmap gx <Plug>(openbrowser-smart-search)
+    vmap gx <Plug>(openbrowser-smart-search)
 
     " インストールされていないプラグインのチェックおよびダウンロード
     NeoBundleCheck
