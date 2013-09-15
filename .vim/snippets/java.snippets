@@ -1,0 +1,6 @@
+# Junit test code with Exception
+snippet jte
+    @Test
+    public void test_${1:test}() throws Exception {
+         tb().add("$1", "${3:expected}").assertRedirect();
+    }
