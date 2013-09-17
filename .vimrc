@@ -428,6 +428,12 @@ else
       return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
     endfunction
 
+    NeoBundleLazy "skammer/vim-css-color", {
+          \ "autoload": {
+          \   "filetypes": ["css"],
+          \ }}
+    let g:cssColorVimDoNotMessMyUpdatetime = 1
+
     function! MyMode()
       return winwidth(0) > 60 ? lightline#mode() : ''
     endfunction
