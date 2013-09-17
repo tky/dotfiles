@@ -369,6 +369,69 @@ else
     let g:undotree_HighlightChangedText = 1
     let g:undotree_HighlightSyntax = "UnderLined"
 
+
+    NeoBundle 'itchyny/lightline.vim'
+    let g:lightline = {
+            \ 'colorscheme': 'wombat',
+            \ 'mode_map': {'c': 'NORMAL'},
+            \ 'active': {
+            \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
+            \ },
+            \ 'component_function': {
+            \   'modified': 'MyModified',
+            \   'readonly': 'MyReadonly',
+            \   'fugitive': 'MyFugitive',
+            \   'filename': 'MyFilename',
+            \   'fileformat': 'MyFileformat',
+            \   'filetype': 'MyFiletype',
+            \   'fileencoding': 'MyFileencoding',
+            \   'mode': 'MyMode'
+            \ }
+            \ }
+    
+    function! MyModified()
+      return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+    endfunction
+    
+    function! MyReadonly()
+      return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? 'x' : ''
+    endfunction
+    
+    function! MyFilename()
+      return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
+            \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
+            \  &ft == 'unite' ? unite#get_status_string() :
+            \  &ft == 'vimshell' ? vimshell#get_status_string() :
+            \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
+            \ ('' != MyModified() ? ' ' . MyModified() : '')
+    endfunction
+
+    function! MyFugitive()
+      try
+        if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
+          return fugitive#head()
+        endif
+      catch
+      endtry
+      return ''
+    endfunction
+
+    function! MyFileformat()
+      return winwidth(0) > 70 ? &fileformat : ''
+    endfunction
+    
+    function! MyFiletype()
+      return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+    endfunction
+
+    function! MyFileencoding()
+      return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+    endfunction
+
+    function! MyMode()
+      return winwidth(0) > 60 ? lightline#mode() : ''
+    endfunction
+
     " インストールされていないプラグインのチェックおよびダウンロード
     NeoBundleCheck
 endif
@@ -408,7 +471,7 @@ nnoremap <F5> <Esc>q:
 nnoremap <F6> <Esc>q/
 
 " ステータスラインにファイル名を常に表示
-:set statusline=%F%m%r%h%w\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
+":set statusline=%F%m%r%h%w\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
 :set laststatus=2 
 
 "現バッファの差分表示。
