@@ -348,6 +348,9 @@ else
     nmap gx <Plug>(openbrowser-smart-search)
     vmap gx <Plug>(openbrowser-smart-search)
 
+
+    NeoBundle 'Lokaltog/vim-easymotion'
+    let g:EasyMotion_leader_key="'"
     " インストールされていないプラグインのチェックおよびダウンロード
     NeoBundleCheck
 endif
