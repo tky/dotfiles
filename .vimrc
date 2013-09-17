@@ -351,6 +351,24 @@ else
 
     NeoBundle 'Lokaltog/vim-easymotion'
     let g:EasyMotion_leader_key="'"
+
+
+
+    NeoBundle 'mbbill/undotree'
+    " undotree.vim
+    " http://vimblog.com/blog/2012/09/02/undotree-dot-vim-display-your-undo-history-in-a-graph/
+    " https://github.com/r1chelt/dotfiles/blob/master/.vimrc
+    nmap <Leader>u :UndotreeToggle<CR>
+    let g:undotree_SetFocusWhenToggle = 1
+    let g:undotree_SplitLocation = 'topleft'
+    let g:undotree_SplitWidth = 35
+    let g:undotree_diffAutoOpen = 1
+    let g:undotree_diffpanelHeight = 25
+    let g:undotree_RelativeTimestamp = 1
+    let g:undotree_TreeNodeShape = '*'
+    let g:undotree_HighlightChangedText = 1
+    let g:undotree_HighlightSyntax = "UnderLined"
+
     " インストールされていないプラグインのチェックおよびダウンロード
     NeoBundleCheck
 endif
