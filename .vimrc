@@ -434,6 +434,8 @@ else
       return winwidth(0) > 60 ? lightline#mode() : ''
     endfunction
 
+    NeoBundle "vcscommand.vim"
+
     " インストールされていないプラグインのチェックおよびダウンロード
     NeoBundleCheck
 endif
