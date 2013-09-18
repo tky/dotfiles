@@ -260,18 +260,7 @@ else
     endfunction
 
 
-
-    NeoBundleLazy "thinca/vim-quickrun", {
-          \ "autoload": {
-          \   "mappings": [['nxo', '<Plug>(quickrun)']]
-          \ }}
-    nmap <Leader>r <Plug>(quickrun)
-    let s:hooks = neobundle#get_hooks("vim-quickrun")
-    function! s:hooks.on_source(bundle)
-      let g:quickrun_config = {
-          \ "*": {"runner": "remote/vimproc"},
-          \ }
-    endfunction
+    NeoBundle "thinca/vim-quickrun"
 
     NeoBundleLazy 'majutsushi/tagbar', {
           \ "autload": {
@@ -435,6 +424,11 @@ else
           \   "filetypes": ["css"],
           \ }}
     let g:cssColorVimDoNotMessMyUpdatetime = 1
+
+    NeoBundleLazy "derekwyatt/vim-scala", {
+          \ "autoload": {
+          \   "filetypes": ["scala"],
+          \ }}
 
     function! MyMode()
       return winwidth(0) > 60 ? lightline#mode() : ''
