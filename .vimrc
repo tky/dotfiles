@@ -78,8 +78,8 @@ else
     NeoBundleLazy 'vim-scripts/TaskList.vim', {
         \ "autoload": {"mappings": ['<Plug>TaskList']}}
     " HTMLが開かれるまでロードしない
-    NeoBundleLazy 'mattn/zencoding-vim', {
-        \ "autoload": {"filetypes": ['html']}}
+    NeoBundleLazy 'mattn/emmet-vim', {
+        \ "autoload": {"filetypes": ['html', 'jsp']}}
 
     nnoremap <Leader>g :GundoToggle<CR>
 
@@ -435,6 +435,15 @@ else
     endfunction
 
     NeoBundle "vcscommand.vim"
+    let howm_dir = '~/howmdir'
+    let howm_fileencoding = 'utf-8'
+    let howm_fielformat = 'unix'
+    let QFixHowm_FileType = 'markdown'
+    let QFixHowm_Title = '#'
+    let howm_filename        = '%Y/%m/%Y-%m-%d-%H%M%S.howm'
+    let QFixHowm_DiaryFile = 'diary/%Y/%m/%Y-%m-%d-000000.howm'
+
+    NeoBundle 'fuenor/qfixhowm'
 
     " インストールされていないプラグインのチェックおよびダウンロード
     NeoBundleCheck
