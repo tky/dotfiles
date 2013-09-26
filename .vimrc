@@ -364,7 +364,7 @@ else
     NeoBundle 'w0ng/vim-hybrid'
     NeoBundle 'nanotech/jellybeans.vim'
     NeoBundle 'Wombat'
-    colorscheme hybrid
+    colorscheme desert
     NeoBundle 'itchyny/lightline.vim'
     let g:lightline = {
             \ 'mode_map': {'c': 'NORMAL'},
@@ -471,7 +471,7 @@ autocmd WinEnter,BufRead * set cursorline
 augroup END
 :hi clear CursorLine
 :hi CursorLine gui=underline
-"highlight CursorLine ctermbg=red guibg=red
+"highlight CursorLine ctermbg=glay guibg=glay
 
 " ywで単語のどこにいても全単語をヤンクできる。
 noremap <silent>yw yiw
