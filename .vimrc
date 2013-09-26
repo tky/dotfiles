@@ -361,6 +361,7 @@ else
     let g:undotree_HighlightSyntax = "UnderLined"
 
 
+    NeoBundle 'Wombat'
     NeoBundle 'itchyny/lightline.vim'
     let g:lightline = {
             \ 'colorscheme': 'wombat',
