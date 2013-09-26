@@ -361,10 +361,12 @@ else
     let g:undotree_HighlightSyntax = "UnderLined"
 
 
+    NeoBundle 'w0ng/vim-hybrid'
+    NeoBundle 'nanotech/jellybeans.vim'
     NeoBundle 'Wombat'
+    colorscheme hybrid
     NeoBundle 'itchyny/lightline.vim'
     let g:lightline = {
-            \ 'colorscheme': 'wombat',
             \ 'mode_map': {'c': 'NORMAL'},
             \ 'active': {
             \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
@@ -469,7 +471,7 @@ autocmd WinEnter,BufRead * set cursorline
 augroup END
 :hi clear CursorLine
 :hi CursorLine gui=underline
-highlight CursorLine ctermbg=grey guibg=grey
+"highlight CursorLine ctermbg=red guibg=red
 
 " ywで単語のどこにいても全単語をヤンクできる。
 noremap <silent>yw yiw
