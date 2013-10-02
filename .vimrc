@@ -447,6 +447,8 @@ else
     let QFixHowm_DiaryFile = 'diary/%Y/%m/%Y-%m-%d-000000.howm'
 
     NeoBundle 'fuenor/qfixhowm'
+    NeoBundle 'szw/vim-tags'
+
 
     " インストールされていないプラグインのチェックおよびダウンロード
     NeoBundleCheck
@@ -504,5 +506,6 @@ nnoremap Gb '[
 nnoremap Gp ']
 
 
+nnoremap <F3> <C-]>
 "インデント設定
 source ~/.vimrc.indent
