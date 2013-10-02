@@ -114,7 +114,7 @@ else
     nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
     nnoremap <silent> [unite]c :<C-u>Unite bookmark<CR>
     nnoremap <silent> [unite]o :<C-u>Unite outline<CR>
-    nnoremap <silent> [unite]t :<C-u>Unite tab<CR>
+    nnoremap <silent> [unite]t :<C-u>Unite tag<CR>
     nnoremap <silent> [unite]w :<C-u>Unite window<CR>
     nnoremap <silent> [unite]s :<C-u>Unite snippet<CR>
     let s:hooks = neobundle#get_hooks("unite.vim")
@@ -454,6 +454,13 @@ else
     NeoBundleLazy 'ruby-matchit', {
         \ "autoload": {"filetypes": ['ruby']}}
     
+
+    " for tag
+    NeoBundle  "tsukkee/unite-tag"
+    
+    NeoBundle "vim-scripts/taglist.vim"
+    let Tlist_Exit_OnlyWindow = 1                      " taglistのウインドウだけならVimを閉じる
+    map <silent> <leader>l :TlistToggle<CR>      " \lでtaglistウインドウを開いたり閉じたり出来るショートカット
 
     " インストールされていないプラグインのチェックおよびダウンロード
     NeoBundleCheck
