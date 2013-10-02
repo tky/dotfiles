@@ -511,6 +511,9 @@ nnoremap Gb '[
 nnoremap Gp ']
 
 
+" タグジャンプ & バック
 nnoremap <F3> <C-]>
+nnoremap <F4> <C-t>
+
 "インデント設定
 source ~/.vimrc.indent
