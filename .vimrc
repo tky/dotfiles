@@ -450,6 +450,11 @@ else
     NeoBundle 'szw/vim-tags'
 
 
+    " for ruby
+    NeoBundleLazy 'ruby-matchit', {
+        \ "autoload": {"filetypes": ['ruby']}}
+    
+
     " インストールされていないプラグインのチェックおよびダウンロード
     NeoBundleCheck
 endif
