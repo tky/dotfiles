@@ -467,6 +467,12 @@ else
     let Tlist_Exit_OnlyWindow = 1                      " taglistのウインドウだけならVimを閉じる
     map <silent> <leader>l :TlistToggle<CR>      " \lでtaglistウインドウを開いたり閉じたり出来るショートカット
 
+    " for textobj
+    NeoBundle "kana/vim-textobj-user"
+
+    NeoBundleLazy "rhysd/vim-textobj-ruby" , {
+        \ "autoload": {"filetypes": ['ruby']}}
+
     " インストールされていないプラグインのチェックおよびダウンロード
     NeoBundleCheck
 endif
