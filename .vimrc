@@ -117,6 +117,7 @@ else
     nnoremap <silent> [unite]t :<C-u>Unite tag<CR>
     nnoremap <silent> [unite]w :<C-u>Unite window<CR>
     nnoremap <silent> [unite]s :<C-u>Unite snippet<CR>
+    nnoremap <silent> [unite]r :<C-u>Unite ruby/require<CR>
     let s:hooks = neobundle#get_hooks("unite.vim")
     function! s:hooks.on_source(bundle)
       " start unite in insert mode
@@ -454,6 +455,8 @@ else
     NeoBundleLazy 'ruby-matchit', {
         \ "autoload": {"filetypes": ['ruby']}}
     
+    NeoBundle 'rhysd/unite-ruby-require.vim'
+
 
     " for tag
     NeoBundle  "tsukkee/unite-tag"
