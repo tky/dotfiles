@@ -469,6 +469,7 @@ else
 
     " for textobj
     NeoBundle "kana/vim-textobj-user"
+    NeoBundle "h1mesuke/textobj-wiw"
 
     NeoBundleLazy "rhysd/vim-textobj-ruby" , {
         \ "autoload": {"filetypes": ['ruby']}}
