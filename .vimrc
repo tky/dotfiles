@@ -457,6 +457,8 @@ else
     
     NeoBundle 'rhysd/unite-ruby-require.vim'
 
+    NeoBundleLazy 'rhysd/neco-ruby-keyword-args' , {
+        \ "autoload": {"filetypes": ['ruby']}}
 
     " for tag
     NeoBundle  "tsukkee/unite-tag"
