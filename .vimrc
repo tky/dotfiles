@@ -480,6 +480,23 @@ else
     NeoBundleLazy "rhysd/vim-textobj-ruby" , {
         \ "autoload": {"filetypes": ['ruby']}}
 
+
+    NeoBundleLazy "wesleyche/SrcExpl", {
+        \ "autoload": {"mappings": [' :SrcExplToggle']}}
+    NeoBundleLazy "wesleyche/Trinity", {
+        \ "autoload": {"mappings": [' :SrcExplToggle']}}
+
+    nmap <F8> :SrcExplToggle<CR>
+    let s:bundle = neobundle#get("SrcExpl")
+    function! s:bundle.hooks.on_source(bundle)
+      let g:SrcExpl_winHeight = 8
+      let g:SrcExpl_refreshTime = 100
+      let g:SrcExpl_pluginList = [ 
+            \ "__Tag_List__"
+        \ ] 
+    endfunction
+    unlet s:bundle
+
     " インストールされていないプラグインのチェックおよびダウンロード
     NeoBundleCheck
 endif
