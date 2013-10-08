@@ -466,15 +466,20 @@ else
     NeoBundleLazy 'rhysd/neco-ruby-keyword-args' , {
         \ "autoload": {"filetypes": ['ruby']}}
 
-    NeoBundle 'Shougo/neocomplcache-rsense'
+    NeoBundleLazy 'Shougo/neocomplcache-rsense', {
+        \ "autoload": {"filetypes": ['ruby']}}
 
-    let g:neocomplcache_enable_at_startup = 1
-    let g:neocomplcache#sources#rsense#home_directory = '/usr/local/Cellar/rsense/0.3'
+    let s:bundle = neobundle#get("neocomplcache-rsense")
+    function! s:bundle.hooks.on_source(bundle)
+      let g:neocomplcache_enable_at_startup = 1
+      let g:neocomplcache#sources#rsense#home_directory = '/usr/local/Cellar/rsense/0.3'
 
-    if !exists('g:neocomplcache_omni_patterns')
-      let g:neocomplcache_omni_patterns = {}
-    endif
-    let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+      if !exists('g:neocomplcache_omni_patterns')
+        let g:neocomplcache_omni_patterns = {}
+      endif
+      let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+    endfunction
+    unlet s:bundle
 
     " for tag
     NeoBundle  "tsukkee/unite-tag"
