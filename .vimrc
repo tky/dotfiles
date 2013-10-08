@@ -317,6 +317,12 @@ else
     NeoBundle 'tpope/vim-abolish'
     NeoBundle 'fuenor/qfixgrep.git'
 
+    "for java
+    NeoBundleLazy "java_getset.vim", {
+          \ "autoload": {
+          \   "filetypes": ["java"],
+          \ }}
+
     " for javascript
     NeoBundleLazy "JavaScript-syntax", {
           \ "autoload": {
@@ -531,6 +537,7 @@ nnoremap Gp ']
 
 
 " タグジャンプ & バック
+nnoremap <F2> <C-W><C-]>
 nnoremap <F3> <C-]>
 nnoremap <F4> <C-t>
 
