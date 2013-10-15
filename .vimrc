@@ -11,6 +11,7 @@ set nowrap
 set nobackup
 set noswapfile
 set expandtab
+set clipboard=unnamed
 
 if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim
@@ -33,6 +34,8 @@ else
 
     " NeoBundle自身をNeoBundleで管理させる
     NeoBundleFetch 'Shougo/neobundle.vim'
+
+    NeoBundle 'git://github.com/kana/vim-fakeclip.git'
 
     " 非同期通信を可能にする
     " 'build'が指定されているのでインストール時に自動的に
@@ -322,6 +325,12 @@ else
           \ "autoload": {
           \   "filetypes": ["java"],
           \ }}
+    NeoBundleLazy 'KamunagiChiduru/unite-javaimport', {
+          \ "autoload": {
+          \   "filetypes": ["java"],
+          \ },
+          \ 'depends': ['Shougo/unite.vim'], 
+          \}
 
     " for javascript
     NeoBundleLazy "JavaScript-syntax", {

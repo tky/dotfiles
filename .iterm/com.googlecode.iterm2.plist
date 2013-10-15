@@ -304,9 +304,9 @@
 	<key>NSScrollAnimationEnabled</key>
 	<false/>
 	<key>NSWindow Frame Preferences</key>
-	<string>191 357 924 485 0 0 1440 878 </string>
+	<string>125 325 924 485 0 0 1440 878 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>-498 988 2062 1352 -669 900 2560 1440 </string>
+	<string>-427 1209 1901 1131 -669 900 2560 1440 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>183 427 585 451 0 0 1440 878 </string>
 	<key>NeverWarnAboutShortLivedSessions_C130088F-A798-46C4-8EE8-E85A97CBBA96</key>
@@ -1112,7 +1112,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2013-10-08T07:49:13Z</date>
+	<date>2013-10-11T06:03:44Z</date>
 	<key>SavePasteHistory</key>
 	<true/>
 	<key>ShowBookmarkName</key>

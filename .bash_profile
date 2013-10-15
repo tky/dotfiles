@@ -2,7 +2,7 @@ if [ -f ~/.bashrc ]; then
       . ~/.bashrc   # --> Read /etc/bashrc, if present.
   fi
 
-  alias ll='ls -al'
+  alias ll='ls -l'
   alias up='cd ../;ll'
   export SVN_EDITOR=vi
 
