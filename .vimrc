@@ -82,7 +82,7 @@ else
         \ "autoload": {"mappings": ['<Plug>TaskList']}}
     " HTMLが開かれるまでロードしない
     NeoBundleLazy 'mattn/emmet-vim', {
-        \ "autoload": {"filetypes": ['html', 'jsp']}}
+        \ "autoload": {"filetypes": ['html', 'jsp', 'xml']}}
 
     nnoremap <Leader>g :GundoToggle<CR>
 
