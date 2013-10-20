@@ -4,8 +4,7 @@ augroup MyAutoCmd
 augroup END
 
 " 前時代的スクリーンベルを無効化
-set t_vb=
-set novisualbell
+set vb t_vb= " ビープ音を鳴らさない
 set number
 set nowrap
 set nobackup
