@@ -578,7 +578,7 @@ nnoremap Gp ']
 
 " タグジャンプ & バック
 nnoremap <F2> <C-W><C-]>
-nnoremap <F3> <C-]>
+nnoremap <F3> <C-]> g<C-]> 
 nnoremap <F4> <C-t>
 
 "インデント設定
