@@ -11,6 +11,7 @@ set nobackup
 set noswapfile
 set expandtab
 set clipboard=unnamed
+set tags=/var/tags/jdk.tags,.tags
 
 if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim
@@ -566,10 +567,10 @@ nnoremap <F6> <Esc>q/
 command! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
 
 " windowsのサイズ変更
-noremap <C-j> <C-w>-
-noremap <C-k> <C-w>+
-noremap <C-h> <C-w><
-noremap <C-l> <C-w>>
+noremap <C-j> 5<C-w>-
+noremap <C-k> 5<C-w>+
+noremap <C-h> 5<C-w><
+noremap <C-l> 5<C-w>>
 
 " 最後に編集された位置に移動
 nnoremap Gb '[
@@ -578,7 +579,7 @@ nnoremap Gp ']
 
 " タグジャンプ & バック
 nnoremap <F2> <C-W><C-]>
-nnoremap <F3> <C-]> g<C-]> 
+nnoremap <F3> g<C-]> 
 nnoremap <F4> <C-t>
 
 "インデント設定
