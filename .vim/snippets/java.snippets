@@ -1,6 +1,94 @@
+####################################################
+# utilities for java
+# prefix u
+# array list
+snippet u.al
+  List<${1:class}> ${2:var} = new ArrayList<$1>();
+  ${3:code}
+
+snippet u.m
+  Map<${1:class}, ${2:class}> ${3:var} = new HashMap<$1, $2>();
+  ${4:code}
+
+snippet u.for
+  for (${1:class} ${2:var}: ${3:collections}) {
+    ${4:code}
+  }
+
+
 # Junit test code with Exception
-snippet jte
+snippet t.e
     @Test
     public void test_${1:test}() throws Exception {
          tb().add("$1", "${3:expected}").assertRedirect();
     }
+
+snippet t.b
+  @Before
+  public void setUp() throws Exception {
+    ${1:code}
+  }
+
+snippet t.t
+  @Test
+  public void test_${1:test}() throws Exception {
+    ${2:code}
+  }
+
+# joda-time today
+snippet y.t
+  new DateTime().toDateMidnight().toDateTime();
+
+###################################################
+## spring
+
+#spring controller
+snippet s.c
+  package com.marsflag.case_search.application.controller;
+
+  import org.apache.commons.logging.*;
+  import org.springframework.beans.factory.annotation.*;
+  import org.springframework.stereotype.*;
+  import org.springframework.web.bind.annotation.*;
+  import org.springframework.web.servlet.*;
+
+  @Controller
+  @RequestMapping("${1:path}")
+  public class ${2:name}Controller {
+    private static Log log = LogFactory.getLog($2Controller.class);
+    ${3:code}
+  }
+
+# spring autowired
+snippet s.a
+    @Autowired
+    private ${1:ClassName} ${2:var};
+
+
+# spring request mapping
+snippet s.r1
+  @RequestMapping(value = "${1:path}", method = RequestMethod.${2:GET,POST,PUT,DELET})
+  public ModelAndView ${3:name}() {
+    ModelAndView mav = new ModelAndView("${4:view}");
+    ${5:code}
+    return mav;
+  }
+
+# spring request mapping
+snippet s.r2
+    @RequestMapping(value = "${1:path}", method = RequestMethod.${2:GET,POST,PUT,DELET})
+    public void ${3:name}(Model model) {
+    }
+
+###################################################
+## import
+
+snippet i.t
+  import static org.hamcrest.CoreMatchers.*;
+  import static org.junit.Assert.*;
+
+snippet i.s.a
+  import org.springframework.beans.factory.annotation.*;
+
+snippet i.j-t
+  import org.joda.time.*;

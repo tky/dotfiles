@@ -2,7 +2,7 @@
 ##playframework
 #
 #play controller
-snippet playcon
+snippet p.c
     package ${1:package}
 
     import play.api._
@@ -16,23 +16,23 @@ snippet playcon
     ${3:/* code */}	
     }
 
-snippet playmapping
+snippet p.m
     val ${1}Form = Form[${2:class}](
       mapping(
       )(${3:class}.apply)(${4:class}.unapply)
     )
 
-snippet playaction
+snippet p.a
     def ${1:method} = Action {
       Ok(views.html.${2:view})
     }
 
-snippet playbindrequest
+snippet p.b
     ${1:form}.bindFromRequest.fold(
     { formWithErrors => BadRequest(${2:html}(formWithErrors)},
     { ${3:form} => })
 
-snippet impselenium
+snippet i.sl
     import org.openqa.selenium._
     import firefox._
     import java.util.concurrent.TimeUnit
@@ -40,6 +40,6 @@ snippet impselenium
     import org.openqa.selenium.support.ui.ExpectedConditions._
     import org.openqa.selenium.interactions._
 
-snippet impspec
+snippet i.s
     import org.scalatest.FlatSpec                                                                                                                                                                                                                                                 
     import org.scalatest.matchers._
