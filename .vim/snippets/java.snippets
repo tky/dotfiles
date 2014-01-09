@@ -36,10 +36,10 @@ snippet t.t
   }
 
 # joda-time today
-snippet y.t
+snippet j-t.t
   new DateTime().toDateMidnight().toDateTime();
 # joda-time format
-snippet y.f
+snippet j-t.f
   DateTimeFormat.forPattern("${1:yyyyMMdd}").parseDateTime(${2:value})
 
 ###################################################
@@ -47,8 +47,6 @@ snippet y.f
 
 #spring controller
 snippet s.c
-  package com.marsflag.case_search.application.controller;
-
   import org.apache.commons.logging.*;
   import org.springframework.beans.factory.annotation.*;
   import org.springframework.stereotype.*;
@@ -109,8 +107,11 @@ snippet i.t
   import static org.hamcrest.CoreMatchers.*;
   import static org.junit.Assert.*;
 
+  import org.junit.*;
+
 snippet i.s.a
   import org.springframework.beans.factory.annotation.*;
+  import org.springframework.stereotype.*;
 
 snippet i.s.t
   import org.springframework.transaction.annotation.*;
@@ -125,3 +126,7 @@ snippet i.mb
   import org.apache.ibatis.annotations.*;
 
 
+###################################################
+## eclipse like snippets
+snippet sysout
+  System.out.println(${code});
