@@ -43,3 +43,14 @@ snippet i.sl
 snippet i.s
     import org.scalatest.FlatSpec                                                                                                                                                                                                                                                 
     import org.scalatest.matchers._
+
+snippet spec
+  import org.scalatest.{ FunSpec, Matchers }
+  import org.scalatest.matchers._
+
+  class ${1:class}Spec extends FunSpec with Matchers {
+  describe("${2:describe}") {
+    it("${3:behavior}") {
+    }
+  }
+

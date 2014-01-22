@@ -18,6 +18,11 @@ if has('vim_starting')
   call neobundle#rc(expand('~/.vim/bundle/'))
 endif
 
+if $GOROOT != ''
+  set rtp+=$GOROOT/misc/vim
+endif
+exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
+
 let s:noplugin = 0
 let s:bundle_root = expand('~/.vim/bundle')
 let s:neobundle_root = s:bundle_root . '/neobundle.vim'
@@ -34,6 +39,8 @@ else
 
     " NeoBundle自身をNeoBundleで管理させる
     NeoBundleFetch 'Shougo/neobundle.vim'
+
+    NeoBundle "rhysd/unite-codic.vim"
 
     NeoBundle 'git://github.com/kana/vim-fakeclip.git'
 
@@ -115,12 +122,13 @@ else
     nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
     nnoremap <silent> [unite]r :<C-u>Unite register<CR>
     nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
-    nnoremap <silent> [unite]c :<C-u>Unite bookmark<CR>
+    nnoremap <silent> [unite]b :<C-u>Unite bookmark<CR>
     nnoremap <silent> [unite]o :<C-u>Unite outline<CR>
     nnoremap <silent> [unite]t :<C-u>Unite tag<CR>
     nnoremap <silent> [unite]w :<C-u>Unite window<CR>
     nnoremap <silent> [unite]s :<C-u>Unite snippet<CR>
     nnoremap <silent> [unite]r :<C-u>Unite ruby/require<CR>
+    nnoremap <silent> [unite]c :<C-u>Unite codic<CR>
     let s:hooks = neobundle#get_hooks("unite.vim")
     function! s:hooks.on_source(bundle)
       " start unite in insert mode
@@ -183,6 +191,7 @@ else
         nmap <buffer> <C-l> <C-w>l
       endfunction
     endfunction
+
 
 
     NeoBundleLazy "mattn/gist-vim", {
@@ -520,6 +529,7 @@ else
         \ ] 
     endfunction
     unlet s:bundle
+    NeoBundle "koron/codic-vim"
 
     " インストールされていないプラグインのチェックおよびダウンロード
     NeoBundleCheck
