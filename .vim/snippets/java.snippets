@@ -71,7 +71,6 @@ snippet s.r1
   @RequestMapping(value = "${1:path}", method = RequestMethod.${2:GET,POST,PUT,DELET})
   public ModelAndView ${3:name}() {
     ModelAndView mav = new ModelAndView("${4:view}");
-    ${5:code}
     return mav;
   }
 
