@@ -3,6 +3,8 @@ augroup MyAutoCmd
   autocmd!
 augroup END
 
+au BufRead,BufNewFile,BufReadPre *.coffee   set filetype=coffee
+
 " 前時代的スクリーンベルを無効化
 set vb t_vb= " ビープ音を鳴らさない
 set number
@@ -536,6 +538,9 @@ else
     NeoBundle "koron/codic-vim"
 
     NeoBundle 'Blackrush/vim-gocode'
+
+    NeoBundleLazy "kchmck/vim-coffee-script" , {
+        \ "autoload": {"filetypes": ['coffee']}}
 
     " インストールされていないプラグインのチェックおよびダウンロード
     NeoBundleCheck
