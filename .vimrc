@@ -18,6 +18,10 @@ if has('vim_starting')
   call neobundle#rc(expand('~/.vim/bundle/'))
 endif
 
+" gocode
+set rtp+=$GOROOT/misc/vim
+exe "set rtp+=" . globpath($GOPATH, "src/github.com/golang/lint/misc/vim")
+
 if $GOROOT != ''
   set rtp+=$GOROOT/misc/vim
 endif
@@ -530,6 +534,8 @@ else
     endfunction
     unlet s:bundle
     NeoBundle "koron/codic-vim"
+
+    NeoBundle 'Blackrush/vim-gocode'
 
     " インストールされていないプラグインのチェックおよびダウンロード
     NeoBundleCheck
