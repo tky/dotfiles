@@ -1,6 +1,8 @@
 /*
 /.*
 /.vim/bundle
+/.vim/plugin
+/.vim/.netrwhist
 
 !/.bash_aliases
 !/.vimrc
