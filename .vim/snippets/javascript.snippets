@@ -1,0 +1,33 @@
+snippet fn1
+  function() {
+    ${1:code}
+  }
+
+snippet fn2
+  function(${1:args}) {
+    ${2:code}
+  }
+
+snippet ko.a
+  ko.applyBindings(new ${1:model}()));
+
+snippet ko.oa
+  ko.observableArray
+
+snippet ko.o
+  ko.observable
+
+snippet ko.c
+  ko.computed
+
+snippet an.when
+  when('${1:path}', {
+    templateUrl: '${2:template}',
+    controller: '${3:controller}'
+  })
+
+snippet an.otherwise
+  otherwise({
+    redirectTo: '${1:path}'
+  })
+
