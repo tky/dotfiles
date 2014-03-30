@@ -61,14 +61,21 @@ snippet ng.it
     ${2:code}
   });
 
+snippet ng.service
+  var ${1:service}Services = angular.module('$1Services', [${2:dependancies}]);${3}
+
 snippet $httpBackend.expectGET
   $httpBackend.expectGET('${1:path}').respond({${2:json}});
+  ${3}
 
 snippet expect.toBeUndefined
  expect(${1:actual}).toBeUndefined();
+ ${2}
 
 snippet expect.toEqual
   expect(${1:actual}).toEqual(${2:expect}});
+  ${3}
 
 snippet expect.toBe
   expect(${1:actual}).toBe(${2:expect});
+  ${3}
