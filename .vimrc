@@ -247,6 +247,7 @@ else
     endif
 
 
+    NeoBundle "Shougo/neosnippet-snippets"
     NeoBundle "Shougo/neosnippet.vim"
     let s:hooks = neobundle#get_hooks("neosnippet.vim")
     function! s:hooks.on_source(bundle)
