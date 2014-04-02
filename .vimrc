@@ -359,11 +359,11 @@ else
           \   "filetypes": ["js"],
           \ }}
 
-    NeoBundleLazy "teramako/jscomplete-vim", {
-          \ "autoload": {
-          \   "filetypes": ["js"],
-          \ }}
-    let g:jscomplete_use = ['dom', 'moz', 'es6th']
+    "NeoBundleLazy "teramako/jscomplete-vim", {
+          "\ "autoload": {
+          "\   "filetypes": ["js"],
+          "\ }}
+    "let g:jscomplete_use = ['dom', 'moz', 'es6th']
 
     "gxでブラウザ起動。なぜもっと早く気がつかなかった。。
     NeoBundle 'open-browser.vim'
