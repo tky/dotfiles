@@ -15,6 +15,8 @@ set expandtab
 set clipboard=unnamed
 set tags=/var/tags/jdk.tags,.tags
 
+syntax on
+
 if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim
   call neobundle#rc(expand('~/.vim/bundle/'))
@@ -353,6 +355,7 @@ else
           \ "autoload": {
           \   "filetypes": ["js"],
           \ }}
+
 
     NeoBundleLazy "pangloss/vim-javascript", {
           \ "autoload": {
