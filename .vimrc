@@ -376,7 +376,7 @@ else
 
 
     NeoBundle 'Lokaltog/vim-easymotion'
-    let g:EasyMotion_leader_key="'"
+    let g:EasyMotion_leader_key="&"
 
 
 
