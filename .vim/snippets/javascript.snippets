@@ -79,3 +79,12 @@ snippet expect.toEqual
 snippet expect.toBe
   expect(${1:actual}).toBe(${2:expect});
   ${3}
+
+snippet ng.$http
+  $http({
+    method: '${1:POST,GET,DELETE,PUT}',
+    url: '${2:url}',
+    params: {
+      ${3}
+    }
+  });
