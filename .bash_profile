@@ -6,6 +6,7 @@ if [ -f ~/.bashrc ]; then
   alias up='cd ../;ll'
   export SVN_EDITOR=vi
 
+export PATH=/usr/local/bin:$PATH
 
 
 [[ -s "$HOME/.nvm/nvm.sh" ]] && . "$HOME/.nvm/nvm.sh"
