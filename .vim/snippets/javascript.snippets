@@ -1,3 +1,8 @@
+snippet (fn1
+  (function() {
+    ${1:code}
+  })
+
 snippet fn1
   function() {
     ${1:code}
@@ -80,7 +85,7 @@ snippet expect.toBe
   expect(${1:actual}).toBe(${2:expect});
   ${3}
 
-snippet ng.$http
+snippet $http
   $http({
     method: '${1:POST,GET,DELETE,PUT}',
     url: '${2:url}',
@@ -88,3 +93,9 @@ snippet ng.$http
       ${3}
     }
   });
+
+snippet ng.con
+ controller('${1:name}', function ($scope, $rootScope) {
+   ${2}
+ });
+
