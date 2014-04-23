@@ -25,23 +25,23 @@ snippet ko.o
 snippet ko.c
   ko.computed
 
-snippet ng.when
+snippet when
   when('${1:path}', {
     templateUrl: '${2:template}',
     controller: '${3:controller}'
   })
 
-snippet ng.otherwise
+snippet otherwise
   otherwise({
     redirectTo: '${1:path}'
   })
 
-snippet ng.inject
+snippet inject
   inject(function(${1:args}) {
     ${2:code}
   });
 
-snippet ng.ctrl.spec
+snippet ctrl.spec
   describe('${1:ctrl}', function(){
     var scope, $httpBackend, ctrl;
 
@@ -50,7 +50,7 @@ snippet ng.ctrl.spec
     });
   });
 
-snippet ng.spec
+snippet spec
   describe('${1:spec}', function() {
     beforeEach(module('${2:module}'));
 
@@ -61,13 +61,35 @@ snippet ng.spec
 
 
 
-snippet ng.it
+snippet it
   it('${1:behavor}', function() {
     ${2:code}
   });
 
 snippet ng.service
   var ${1:service}Services = angular.module('$1Services', [${2:dependancies}]);${3}
+
+snippet ng.con
+ controller('${1:name}', function ($scope, $rootScope) {
+   ${2}
+ });
+
+snippet ng.dir
+  directive('${1:name}', function () {
+  });
+
+snippet dir.1
+  return {
+    replace: ${1:true/false},
+    restrict: '${2:E/A/EA}',
+    templateUrl: '${3:url}',
+    scope: {
+    }
+  };
+
+snippet link
+  link: function(scope, element, attrs) {
+  }
 
 snippet $httpBackend.expectGET
   $httpBackend.expectGET('${1:path}').respond({${2:json}});
@@ -93,9 +115,4 @@ snippet $http
       ${3}
     }
   });
-
-snippet ng.con
- controller('${1:name}', function ($scope, $rootScope) {
-   ${2}
- });
 
