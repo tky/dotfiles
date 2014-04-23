@@ -18,6 +18,7 @@ set t_Co=256
 
 syntax on
 
+let g:angular_root = 'ok'
 " Anywhere SID.
 function! s:SID_PREFIX()
   return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
@@ -318,6 +319,15 @@ else
       let g:neosnippet#enable_snipmate_compatibility = 1
       " Tell Neosnippet about the other snippets
       let g:neosnippet#snippets_directory=s:bundle_root . '~./vim/snippets'
+
+      function! s:AngularSnippet()
+        if exists("g:angular_root") && (&filetype == "javascript")
+          NeoSnippetSource ~/.vim/snippets/angular.snippets
+        endif
+      endfunction
+
+    autocmd BufEnter * call s:AngularSnippet()
+
     endfunction
 
     NeoBundle "nathanaelkane/vim-indent-guides"
