@@ -325,8 +325,14 @@ else
           NeoSnippetSource ~/.vim/snippets/angular.snippets
         endif
       endfunction
+      function! s:KnockoutSnippet()
+        if exists("g:knockout_root") && (&filetype == "javascript")
+          NeoSnippetSource ~/.vim/snippets/knockout.snippets
+        endif
+      endfunction
 
-    autocmd BufEnter * call s:AngularSnippet()
+      autocmd BufEnter * call s:AngularSnippet()
+      autocmd BufEnter * call s:KnockoutSnippet()
 
     endfunction
 
