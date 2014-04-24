@@ -257,6 +257,15 @@ else
 
     " vim-fugitiveは'autocmd'多用してるっぽくて遅延ロード不可
     NeoBundle "tpope/vim-fugitive"
+    " for Fugitive {{{
+    nnoremap <Space>gd :<C-u>Gdiff<Enter>
+    nnoremap <Space>gs :<C-u>Gstatus<Enter>
+    nnoremap <Space>gl :<C-u>Glog<Enter>
+    nnoremap <Space>ga :<C-u>Gwrite<Enter>
+    nnoremap <Space>gc :<C-u>Gcommit -m<Enter>
+    nnoremap <Space>gC :<C-u>Git commit --amend<Enter>
+    nnoremap <Space>gb :<C-u>Gblame<Enter>
+    " }}}
     NeoBundleLazy "gregsexton/gitv", {
           \ "depends": ["tpope/vim-fugitive"],
           \ "autoload": {
