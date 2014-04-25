@@ -275,8 +275,18 @@ else
 
     NeoBundle 'tpope/vim-surround'
     NeoBundle 'vim-scripts/Align'
-    NeoBundle 'vim-scripts/YankRing.vim'
 
+  NeoBundle 'LeafCage/yankround.vim'
+  "http://leafcage.hateblo.jp/entry/2013/10/31/yankroundvim
+  " for yankround {{{
+  nmap p <Plug>(yankround-p)
+  nmap P <Plug>(yankround-P)
+  nmap gp <Plug>(yankround-gp)
+  nmap gP <Plug>(yankround-gP)
+  nmap <C-p> <Plug>(yankround-prev)
+  nmap <C-n> <Plug>(yankround-next)
+  nnoremap <silent>g<C-p> :<C-u>CtrlPYankRound<CR>
+  " "}}}
 
     if has('lua') && v:version >= 703 && has('patch885')
         NeoBundleLazy "Shougo/neocomplete.vim", {
