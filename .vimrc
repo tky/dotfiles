@@ -618,6 +618,11 @@ else
     NeoBundleLazy "kchmck/vim-coffee-script" , {
         \ "autoload": {"filetypes": ['coffee']}}
 
+    " ({とかをうったときに対応するのを自動追加
+    NeoBundle 'kana/vim-smartinput'
+    NeoBundle 'cohama/vim-smartinput-endwise'
+    call smartinput_endwise#define_default_rules()
+
     " インストールされていないプラグインのチェックおよびダウンロード
     NeoBundleCheck
 endif
