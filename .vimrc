@@ -285,7 +285,7 @@ else
   nmap gP <Plug>(yankround-gP)
   nmap <C-b> <Plug>(yankround-prev)
   nmap <C-n> <Plug>(yankround-next)
-  nnoremap <silent>g<C-p> :<C-u>CtrlPYankRound<CR>
+  nnoremap <silent>y<C-p> :<C-u>CtrlPYankRound<CR>
   " "}}}
 
     if has('lua') && v:version >= 703 && has('patch885')
