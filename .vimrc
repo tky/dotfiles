@@ -283,7 +283,7 @@ else
   nmap P <Plug>(yankround-P)
   nmap gp <Plug>(yankround-gp)
   nmap gP <Plug>(yankround-gP)
-  nmap <C-b> <Plug>(yankround-prev)
+  nmap <C-m> <Plug>(yankround-prev)
   nmap <C-n> <Plug>(yankround-next)
   nnoremap <silent>y<C-p> :<C-u>CtrlPYankRound<CR>
   " "}}}
