@@ -486,7 +486,7 @@ else
             \ 'colorscheme': 'wombat',
             \ 'mode_map': {'c': 'NORMAL'},
             \ 'active': {
-            \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
+            \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename', 'directory' ] ]
             \ },
             \ 'component_function': {
             \   'modified': 'MyModified',
@@ -496,10 +496,15 @@ else
             \   'fileformat': 'MyFileformat',
             \   'filetype': 'MyFiletype',
             \   'fileencoding': 'MyFileencoding',
+            \   'directory': 'MyDirectory',
             \   'mode': 'MyMode'
             \ }
             \ }
     
+    function! MyDirectory()
+      return expand('%:p')
+    endfunction
+
     function! MyModified()
       return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
     endfunction
