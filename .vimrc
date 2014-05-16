@@ -701,3 +701,11 @@ nnoremap <F4> <C-t>
 
 "インデント設定
 source ~/.vimrc.indent
+
+function! s:MyOpenRedmine()
+  let a:line = expand("<cword>")
+  let a:url = $REDMINE_URL . '/issues/' . a:line
+  call OpenBrowser(a:url)
+endfunction
+command! -nargs=0 OpenRedmine call s:MyOpenRedmine()
+nnoremap gr :OpenRedmine<CR>
