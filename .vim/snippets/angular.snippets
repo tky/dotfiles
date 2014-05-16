@@ -14,6 +14,11 @@ snippet inject
     ${2:code}
   });
 
+snippet beforeEach
+  beforeEach(function () {
+    ${1}
+  });
+
 snippet ctrl.spec
   describe('${1:ctrl}', function(){
     var scope, $httpBackend, ctrl;
@@ -42,6 +47,9 @@ snippet it
   it('${1:behavor}', function() {
     ${2:code}
   });
+
+snippet excss
+  expect(element(by.css('.${1:css}')).getText()).toBe(${2:expected})
 
 snippet ng.service
   var ${1:service}Services = angular.module('$1Services', [${2:dependancies}]);${3}

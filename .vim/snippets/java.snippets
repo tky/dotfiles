@@ -125,7 +125,10 @@ snippet i.mb
   import org.apache.ibatis.annotations.*;
 
 
+snippet Logger
+  Logger logger = Logger.getLogger(`expand("%:t")`.class); 
+
 ###################################################
 ## eclipse like snippets
 snippet sysout
-  System.out.println(${code});
+  System.out.println(${1});
