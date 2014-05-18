@@ -18,6 +18,7 @@ set t_Co=256
 
 syntax on
 
+let g:angular_root = 'ok'
 " Anywhere SID.
 function! s:SID_PREFIX()
   return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
@@ -256,6 +257,15 @@ else
 
     " vim-fugitiveは'autocmd'多用してるっぽくて遅延ロード不可
     NeoBundle "tpope/vim-fugitive"
+    " for Fugitive {{{
+    nnoremap <Space>gd :<C-u>Gdiff<Enter>
+    nnoremap <Space>gs :<C-u>Gstatus<Enter>
+    nnoremap <Space>gl :<C-u>Glog<Enter>
+    nnoremap <Space>ga :<C-u>Gwrite<Enter>
+    nnoremap <Space>gc :<C-u>Gcommit<Enter>
+    nnoremap <Space>gC :<C-u>Git commit --amend<Enter>
+    nnoremap <Space>gb :<C-u>Gblame<Enter>
+    " }}}
     NeoBundleLazy "gregsexton/gitv", {
           \ "depends": ["tpope/vim-fugitive"],
           \ "autoload": {
@@ -265,8 +275,18 @@ else
 
     NeoBundle 'tpope/vim-surround'
     NeoBundle 'vim-scripts/Align'
-    NeoBundle 'vim-scripts/YankRing.vim'
 
+  NeoBundle 'LeafCage/yankround.vim'
+  "http://leafcage.hateblo.jp/entry/2013/10/31/yankroundvim
+  " for yankround {{{
+  nmap p <Plug>(yankround-p)
+  nmap P <Plug>(yankround-P)
+  nmap gp <Plug>(yankround-gp)
+  nmap gP <Plug>(yankround-gP)
+  nmap <C-m> <Plug>(yankround-prev)
+  nmap <C-n> <Plug>(yankround-next)
+  nnoremap <silent>y<C-p> :<C-u>CtrlPYankRound<CR>
+  " "}}}
 
     if has('lua') && v:version >= 703 && has('patch885')
         NeoBundleLazy "Shougo/neocomplete.vim", {
@@ -318,6 +338,21 @@ else
       let g:neosnippet#enable_snipmate_compatibility = 1
       " Tell Neosnippet about the other snippets
       let g:neosnippet#snippets_directory=s:bundle_root . '~./vim/snippets'
+
+      function! s:AngularSnippet()
+        if exists("g:angular_root") && (&filetype == "javascript")
+          NeoSnippetSource ~/.vim/snippets/angular.snippets
+        endif
+      endfunction
+      function! s:KnockoutSnippet()
+        if exists("g:knockout_root") && (&filetype == "javascript")
+          NeoSnippetSource ~/.vim/snippets/knockout.snippets
+        endif
+      endfunction
+
+      autocmd BufEnter * call s:AngularSnippet()
+      autocmd BufEnter * call s:KnockoutSnippet()
+
     endfunction
 
     NeoBundle "nathanaelkane/vim-indent-guides"
@@ -451,7 +486,7 @@ else
             \ 'colorscheme': 'wombat',
             \ 'mode_map': {'c': 'NORMAL'},
             \ 'active': {
-            \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
+            \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename', 'directory' ] ]
             \ },
             \ 'component_function': {
             \   'modified': 'MyModified',
@@ -461,10 +496,15 @@ else
             \   'fileformat': 'MyFileformat',
             \   'filetype': 'MyFiletype',
             \   'fileencoding': 'MyFileencoding',
+            \   'directory': 'MyDirectory',
             \   'mode': 'MyMode'
             \ }
             \ }
     
+    function! MyDirectory()
+      return expand('%:p')
+    endfunction
+
     function! MyModified()
       return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
     endfunction
@@ -593,6 +633,11 @@ else
     NeoBundleLazy "kchmck/vim-coffee-script" , {
         \ "autoload": {"filetypes": ['coffee']}}
 
+    " ({とかをうったときに対応するのを自動追加
+    NeoBundle 'kana/vim-smartinput'
+    NeoBundle 'cohama/vim-smartinput-endwise'
+    call smartinput_endwise#define_default_rules()
+
     " インストールされていないプラグインのチェックおよびダウンロード
     NeoBundleCheck
 endif
@@ -656,3 +701,11 @@ nnoremap <F4> <C-t>
 
 "インデント設定
 source ~/.vimrc.indent
+
+function! s:MyOpenRedmine()
+  let a:line = expand("<cword>")
+  let a:url = $REDMINE_URL . '/issues/' . a:line
+  call OpenBrowser(a:url)
+endfunction
+command! -nargs=0 OpenRedmine call s:MyOpenRedmine()
+nnoremap gr :OpenRedmine<CR>

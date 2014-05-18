@@ -1,9 +1,5 @@
-snippet s1
-  ${1:src}に渡したパラメタがリダイレクト後${2:dest}に渡されている事　
+snippet     fname
+    `expand("%")`
 
-snippet s2
-  ${1:src}に渡した"${2:para}が"リダイレクト後${3:dest}に"${4:dest}"として渡されている事　
-
-snippet CDATA
-  <![CDATA[${1:code}]]>
-
+snippet       ffname
+    `substitute(expand("%:p"), '\', '/', "g")`

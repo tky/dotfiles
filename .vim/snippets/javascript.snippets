@@ -1,101 +1,21 @@
-snippet (fn1
-  (function() {
-    ${1:code}
-  })
-
 snippet fn1
+options word
   function() {
     ${1:code}
   }
 
 snippet fn2
+options word
   function(${1:args}) {
     ${2:code}
   }
 
-snippet ko.a
-  ko.applyBindings(new ${1:model}()));
-
-snippet ko.oa
-  ko.observableArray
-
-snippet ko.o
-  ko.observable
-
-snippet ko.c
-  ko.computed
-
-snippet ng.when
-  when('${1:path}', {
-    templateUrl: '${2:template}',
-    controller: '${3:controller}'
-  })
-
-snippet ng.otherwise
-  otherwise({
-    redirectTo: '${1:path}'
-  })
-
-snippet ng.inject
-  inject(function(${1:args}) {
+snippet function
+  function ${1:name}() {
     ${2:code}
-  });
+  };
 
-snippet ng.ctrl.spec
-  describe('${1:ctrl}', function(){
-    var scope, $httpBackend, ctrl;
-
-    beforeEach( inject(function(_$httpBackend_, $rootScope, $routeParams, $controller) {
-      $httpBackend = _$httpBackend_;
-    });
-  });
-
-snippet ng.spec
-  describe('${1:spec}', function() {
-    beforeEach(module('${2:module}'));
-
-    describe('${3:describe}', function() {
-      ${4}
-    });
-  });
-
-
-
-snippet ng.it
-  it('${1:behavor}', function() {
-    ${2:code}
-  });
-
-snippet ng.service
-  var ${1:service}Services = angular.module('$1Services', [${2:dependancies}]);${3}
-
-snippet $httpBackend.expectGET
-  $httpBackend.expectGET('${1:path}').respond({${2:json}});
-  ${3}
-
-snippet expect.toBeUndefined
- expect(${1:actual}).toBeUndefined();
- ${2}
-
-snippet expect.toEqual
-  expect(${1:actual}).toEqual(${2:expect}});
-  ${3}
-
-snippet expect.toBe
-  expect(${1:actual}).toBe(${2:expect});
-  ${3}
-
-snippet $http
-  $http({
-    method: '${1:POST,GET,DELETE,PUT}',
-    url: '${2:url}',
-    params: {
-      ${3}
-    }
-  });
-
-snippet ng.con
- controller('${1:name}', function ($scope, $rootScope) {
-   ${2}
- });
-
+snippet (fun
+  (function(){
+    ${1:code}
+  })
