@@ -1,4 +1,16 @@
-snippet jstl.for
+snippet <c:for
   <c:forEach var="${1:var}" items="${2:items}">
     ${3:code}
   </c:forEach>
+
+snippet <c:if
+  <c:if test="${1}">${2}</c:if>
+
+snippet new
+  <tags:new topic="${topic}" />
+
+snippet <script
+  <script type="text/javascript" src="${1}"</script>
+
+snippet <link
+  <link rel="stylesheet" href="${1}">
