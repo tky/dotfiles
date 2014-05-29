@@ -24,6 +24,20 @@ function! s:SID_PREFIX()
   return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
 endfunction
 
+function! s:java_version()
+  let lines = split(system("java -version"), "\n")
+  for l in lines
+    if (l =~ "java version")
+      if (l =~ "1\.7")
+        return "1_7"
+        elseif (l =~ "1\.8")
+        return "1_8"
+      endif
+    endif
+  endfor
+  return ""
+endfunction
+
 " Set tabline.
 function! s:my_tabline()  "{{{
   let s = ''
@@ -349,8 +363,20 @@ else
         endif
       endfunction
 
+      function! s:JavaSnippet()
+        if (&filetype == 'java')
+          let java_version = s:java_version()
+          if (java_version =~ "1.7")
+            NeoSnippetSource ~/.vim/snippets/java1_7.snippets
+          elseif (java_version =~ "1.8")
+            NeoSnippetSource ~/.vim/snippets/java1_8.snippets
+          endif
+        endif
+      endfunction
+
       autocmd BufEnter * call s:AngularSnippet()
       autocmd BufEnter * call s:KnockoutSnippet()
+      autocmd BufEnter * call s:JavaSnippet()
 
     endfunction
 
