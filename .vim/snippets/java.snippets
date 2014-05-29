@@ -2,13 +2,11 @@
 # utilities for java
 # prefix u
 # array list
-snippet u.al
+snippet List
   List<${1:class}> ${2:var} = new ArrayList<$1>();
-  ${3:code}
 
-snippet u.m
+snippet Map
   Map<${1:class}, ${2:class}> ${3:var} = new HashMap<$1, $2>();
-  ${4:code}
 
 snippet u.for
   for (${1:class} ${2:var}: ${3:collections}) {
