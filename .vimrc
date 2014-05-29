@@ -15,7 +15,7 @@ set expandtab
 set clipboard=unnamed
 set tags=/var/tags/jdk.tags,.tags
 set t_Co=256
-
+set fileencodings=utf-8,iso-2022-jp,euc-jp,cp932,ucs-bom,default,latin1
 syntax on
 
 let g:angular_root = 'ok'
@@ -234,7 +234,6 @@ else
       " .から始まるファイルおよび.pycで終わるファイルを不可視パターンに
       let g:vimfiler_ignore_pattern = "\%(^\..*\|\.pyc$\)"
       let g:vimfiler_as_default_explorer = 1
-
       " vimfiler specific key mappings
       autocmd MyAutoCmd FileType vimfiler call s:vimfiler_settings()
       function! s:vimfiler_settings()
@@ -455,6 +454,8 @@ else
     nmap gx <Plug>(openbrowser-smart-search)
     vmap gx <Plug>(openbrowser-smart-search)
 
+    NeoBundle 'tky/open-redmine'
+    nnoremap gr :OpenRedmine<CR>
 
     NeoBundle 'Lokaltog/vim-easymotion'
     let g:EasyMotion_leader_key="&"
@@ -633,10 +634,6 @@ else
     NeoBundleLazy "kchmck/vim-coffee-script" , {
         \ "autoload": {"filetypes": ['coffee']}}
 
-    " ({とかをうったときに対応するのを自動追加
-    NeoBundle 'kana/vim-smartinput'
-    NeoBundle 'cohama/vim-smartinput-endwise'
-    call smartinput_endwise#define_default_rules()
 
     " インストールされていないプラグインのチェックおよびダウンロード
     NeoBundleCheck
@@ -701,11 +698,3 @@ nnoremap <F4> <C-t>
 
 "インデント設定
 source ~/.vimrc.indent
-
-function! s:MyOpenRedmine()
-  let a:line = expand("<cword>")
-  let a:url = $REDMINE_URL . '/issues/' . a:line
-  call OpenBrowser(a:url)
-endfunction
-command! -nargs=0 OpenRedmine call s:MyOpenRedmine()
-nnoremap gr :OpenRedmine<CR>
