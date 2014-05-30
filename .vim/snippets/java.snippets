@@ -2,13 +2,14 @@
 # utilities for java
 # prefix u
 # array list
+
 snippet List
   List<${1:class}> ${2:var} = new ArrayList<$1>();
 
 snippet Map
   Map<${1:class}, ${2:class}> ${3:var} = new HashMap<$1, $2>();
 
-snippet u.for
+snippet for
   for (${1:class} ${2:var}: ${3:collections}) {
     ${4:code}
   }
@@ -44,7 +45,7 @@ snippet j-t.f
 ## spring
 
 #spring controller
-snippet s.c
+snippet @Controller
   import org.apache.commons.logging.*;
   import org.springframework.beans.factory.annotation.*;
   import org.springframework.stereotype.*;
@@ -59,13 +60,13 @@ snippet s.c
   }
 
 # spring autowired
-snippet s.a
+snippet @Autow
     @Autowired
     private ${1:ClassName} ${2:var};
 
 
 # spring request mapping
-snippet s.r1
+snippet @RequestM
   @RequestMapping(value = "${1:path}", method = RequestMethod.${2:GET,POST,PUT,DELET})
   public ModelAndView ${3:name}() {
     ModelAndView mav = new ModelAndView("${4:view}");
@@ -73,28 +74,20 @@ snippet s.r1
   }
 
 # spring request mapping
-snippet s.r2
+snippet @RequestM2
   @RequestMapping(value = "${1:path}", method = RequestMethod.${2:GET,POST,PUT,DELET})
   public void ${3:name}(Model model) {
   }
 
 # spring path variable
-snippet s.@pv
+snippet @PathV
   (@PathVariable("${1:var}") String $1
 
-snippet s.@rp
+snippet @Request
   @RequestParam(value = "${1:var}") final String $1
 
-snippet s.@rp2
+snippet @Request2
   @RequestParam(value = "${1:var}", required= ${2:true false} defaultValue = "${3:default}") final String $1
-
-
-###################################################
-## mybatis
-snippet mb.@r
-  @Results({
-      @Result(property = "${1:java}", column = "${2:column}")
-  })
 
 
 ###################################################
@@ -125,6 +118,11 @@ snippet i.mb
 
 snippet Logger
   Logger logger = Logger.getLogger(`expand("%:t")`.class); 
+
+snippet @Test
+  @Test
+  public void ${1:}() {
+  }
 
 ###################################################
 ## eclipse like snippets
