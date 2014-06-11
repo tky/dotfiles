@@ -175,6 +175,7 @@ else
         \ |   silent! execute 'normal! "_da>'
         \ | endif
 
+    NeoBundle 'yuratomo/w3m.vim'
 
     NeoBundleLazy "Shougo/unite.vim", {
           \ "autoload": {
@@ -417,7 +418,10 @@ else
 
 
 
-    NeoBundle "scrooloose/syntastic", {
+    NeoBundleLazy "scrooloose/syntastic", {
+          \ "autoload": {
+          \   "filetypes": ["java", "javascript", "ruby"],
+          \ },
           \ "build": {
           \   "mac": ["pip install flake8", "npm -g install coffeelint"],
           \   "unix": ["pip install flake8", "npm -g install coffeelint"],
