@@ -461,6 +461,18 @@ else
     NeoBundle 'fuenor/qfixgrep.git'
 
     "for java
+    "
+    NeoBundleLazy 'Shougo/javacomplete', {
+      \ 'build': {
+      \ 'cygwin': 'javac autoload/Reflection.java',
+      \ 'mac': 'javac autoload/Reflection.java',
+      \ 'unix': 'javac autoload/Reflection.java',
+      \ },
+      \ 'autoload' : {
+      \ 'filetypes' : 'java',
+      \ }
+      \}
+
     NeoBundleLazy "java_getset.vim", {
           \ "autoload": {
           \   "filetypes": ["java"],
