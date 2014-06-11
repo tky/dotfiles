@@ -1,0 +1,12 @@
+snippet Controller
+  import play.api._
+  import play.api.mvc._
+
+  object ${1} extends Controller {
+    ${2}
+  }
+
+snippet Act
+  def ${1:index} = Action {
+    ${2}
+  }

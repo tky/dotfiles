@@ -374,9 +374,25 @@ else
         endif
       endfunction
 
+      function! s:ScalaSpecSnippet()
+        let s:current_file_path = expand("%:p:h")
+        if (&filetype == 'scala' && s:current_file_path =~ "test")
+          NeoSnippetSource ~/.vim/snippets/specs2_scala.snippets
+        endif
+      endfunction
+
+      function! s:PlayControllerSnippet()
+        let s:current_file_path = expand("%:p:h")
+        if (&filetype == 'scala' && s:current_file_path =~ "app/controllers")
+          NeoSnippetSource ~/.vim/snippets/play_controller.snippets
+        endif
+      endfunction
+
       autocmd BufEnter * call s:AngularSnippet()
       autocmd BufEnter * call s:KnockoutSnippet()
       autocmd BufEnter * call s:JavaSnippet()
+      autocmd BufEnter * call s:ScalaSpecSnippet()
+      autocmd BufEnter * call s:PlayControllerSnippet()
 
     endfunction
 
