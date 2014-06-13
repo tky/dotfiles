@@ -13,7 +13,7 @@ set nobackup
 set noswapfile
 set expandtab
 set clipboard=unnamed
-set tags=/var/tags/jdk.tags,.tags
+set tags=.tags
 set t_Co=256
 set fileencodings=utf-8,iso-2022-jp,euc-jp,cp932,ucs-bom,default,latin1
 syntax on
@@ -126,7 +126,6 @@ else
 
     NeoBundle 'Shougo/vimshell'
 
-
     " Insertモードに入るまではneocompleteはロードされない
     NeoBundleLazy 'Shougo/neocomplete.vim', {
         \ "autoload": {"insert": 1}}
@@ -227,8 +226,6 @@ else
        au FileType unite nnoremap <silent> <buffer> <expr> <C-v> unite#do_action('vsplit')
        au FileType unite inoremap <silent> <buffer> <expr> <C-v> unite#do_action('vsplit')
     endfunction
-
-
 
     NeoBundleLazy "Shougo/vimfiler", {
       \ "depends": ["Shougo/unite.vim"],
@@ -416,8 +413,6 @@ else
           \ }}
     nmap <Leader>t :TagbarToggle<CR>
 
-
-
     NeoBundleLazy "scrooloose/syntastic", {
           \ "autoload": {
           \   "filetypes": ["java", "javascript", "ruby"],
@@ -426,7 +421,6 @@ else
           \   "mac": ["pip install flake8", "npm -g install coffeelint"],
           \   "unix": ["pip install flake8", "npm -g install coffeelint"],
           \ }}
-
 
     NeoBundleLazy "davidhalter/jedi-vim", {
           \ "autoload": {
@@ -454,7 +448,7 @@ else
     " vsplit open <c-v>
     " split open <c-x>
     NeoBundle 'kien/ctrlp.vim'
-    let g:ctrlp_custom_ignore = { "file": ".*target\/.*$" }
+    let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|bower_components)|(\.(swp|ico|git|svn))$'
     "let g:ctrlp_working_path_mode = 'ra'
     let g:ctrlp_working_path_mode = 'w'
 
@@ -465,46 +459,32 @@ else
     NeoBundle 'fuenor/qfixgrep.git'
 
     "for java
-    "
     NeoBundleLazy 'Shougo/javacomplete', {
       \ 'build': {
       \ 'cygwin': 'javac autoload/Reflection.java',
       \ 'mac': 'javac autoload/Reflection.java',
       \ 'unix': 'javac autoload/Reflection.java',
       \ },
-      \ 'autoload' : {
       \ 'filetypes' : 'java',
-      \ }
       \}
 
     NeoBundleLazy "java_getset.vim", {
-          \ "autoload": {
-          \   "filetypes": ["java"],
-          \ }}
+      \ 'filetypes' : 'java',
+      \ }
+
     NeoBundleLazy 'KamunagiChiduru/unite-javaimport', {
-          \ "autoload": {
-          \   "filetypes": ["java"],
-          \ },
-          \ 'depends': ['Shougo/unite.vim'], 
-          \}
+      \ 'filetypes' : 'java',
+      \ 'depends': ['Shougo/unite.vim'], 
+      \}
 
     " for javascript
     NeoBundleLazy "JavaScript-syntax", {
-          \ "autoload": {
-          \   "filetypes": ["js"],
-          \ }}
-
+      \ 'filetypes' : 'javascript',
+      \ }
 
     NeoBundleLazy "pangloss/vim-javascript", {
-          \ "autoload": {
-          \   "filetypes": ["js"],
-          \ }}
-
-    "NeoBundleLazy "teramako/jscomplete-vim", {
-          "\ "autoload": {
-          "\   "filetypes": ["js"],
-          "\ }}
-    "let g:jscomplete_use = ['dom', 'moz', 'es6th']
+      \ 'filetypes' : 'javascript',
+      \ }
 
     "gxでブラウザ起動。なぜもっと早く気がつかなかった。。
     NeoBundle 'open-browser.vim'
@@ -517,8 +497,6 @@ else
 
     NeoBundle 'Lokaltog/vim-easymotion'
     let g:EasyMotion_leader_key="&"
-
-
 
     NeoBundle 'mbbill/undotree'
     " undotree.vim
@@ -604,15 +582,16 @@ else
     endfunction
 
     NeoBundleLazy "skammer/vim-css-color", {
-          \ "autoload": {
-          \   "filetypes": ["css"],
-          \ }}
-    let g:cssColorVimDoNotMessMyUpdatetime = 1
+      \ 'filetypes' : 'css',
+      \ }
+    let s:bundle = neobundle#get('vim-css-color')
+    function! s:bundle.hooks.on_source(bundle)
+      let g:cssColorVimDoNotMessMyUpdatetime = 1
+    endfunction
 
     NeoBundleLazy "derekwyatt/vim-scala", {
-          \ "autoload": {
-          \   "filetypes": ["scala"],
-          \ }}
+      \ 'filetypes' : 'scala',
+      \ }
 
     function! MyMode()
       return winwidth(0) > 60 ? lightline#mode() : ''
@@ -630,18 +609,22 @@ else
     NeoBundle 'fuenor/qfixhowm'
     NeoBundle 'szw/vim-tags'
 
-
     " for ruby
     NeoBundleLazy 'ruby-matchit', {
-        \ "autoload": {"filetypes": ['ruby']}}
+      \ 'filetypes' : 'ruby',
+      \ }
     
-    NeoBundle 'rhysd/unite-ruby-require.vim'
+    NeoBundleLazy 'rhysd/unite-ruby-require.vim', {
+      \ 'filetypes' : 'ruby',
+      \ }
 
     NeoBundleLazy 'rhysd/neco-ruby-keyword-args' , {
-        \ "autoload": {"filetypes": ['ruby']}}
+      \ 'filetypes' : 'ruby',
+      \ }
 
     NeoBundleLazy 'Shougo/neocomplcache-rsense', {
-        \ "autoload": {"filetypes": ['ruby']}}
+      \ 'filetypes' : 'ruby',
+      \ }
 
     let s:bundle = neobundle#get("neocomplcache-rsense")
     function! s:bundle.hooks.on_source(bundle)
@@ -667,13 +650,15 @@ else
     NeoBundle "h1mesuke/textobj-wiw"
 
     NeoBundleLazy "rhysd/vim-textobj-ruby" , {
-        \ "autoload": {"filetypes": ['ruby']}}
-
+      \ 'filetypes' : 'ruby',
+      \ }
 
     NeoBundleLazy "wesleyche/SrcExpl", {
-        \ "autoload": {"mappings": [' :SrcExplToggle']}}
+      \ "autoload": {"mappings": [' :SrcExplToggle']}
+      \ }
     NeoBundleLazy "wesleyche/Trinity", {
-        \ "autoload": {"mappings": [' :SrcExplToggle']}}
+      \ "autoload": {"mappings": [' :SrcExplToggle']}
+      \ }
 
     nmap <F8> :SrcExplToggle<CR>
     let s:bundle = neobundle#get("SrcExpl")
@@ -687,11 +672,13 @@ else
     unlet s:bundle
     NeoBundle "koron/codic-vim"
 
-    NeoBundle 'Blackrush/vim-gocode'
+    NeoBundle 'Blackrush/vim-gocode', {
+      \ 'filetypes' : 'go',
+      \ }
 
     NeoBundleLazy "kchmck/vim-coffee-script" , {
-        \ "autoload": {"filetypes": ['coffee']}}
-
+      \ 'filetypes' : 'coffee',
+      \ }
 
     " インストールされていないプラグインのチェックおよびダウンロード
     NeoBundleCheck
@@ -747,7 +734,6 @@ noremap <C-l> 5<C-w>>
 " 最後に編集された位置に移動
 nnoremap Gb '[
 nnoremap Gp ']
-
 
 " タグジャンプ & バック
 nnoremap <F2> <C-W><C-]>
