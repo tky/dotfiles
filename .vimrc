@@ -474,7 +474,12 @@ else
 
     NeoBundleLazy 'KamunagiChiduru/unite-javaimport', {
       \ 'filetypes' : 'java',
-      \ 'depends': ['Shougo/unite.vim'], 
+      \ 'depends': [
+       \ 'Shougo/unite.vim',
+       \ 'KamunagiChiduru/vim-javaclasspath',
+       \ 'KamunagiChiduru/vim-javalang',
+       \ 'yuratomo/w3m.vim',
+       \ ],
       \}
 
     " for javascript
