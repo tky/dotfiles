@@ -1,13 +1,11 @@
 ####################################################
 # utilities for java
-# prefix u
-# array list
 
-snippet List
-  List<${1:class}> ${2:var} = new ArrayList<$1>();
+snippet newv
+  ${1:class} ${2:var} = new $1();
 
-snippet Map
-  Map<${1:class}, ${2:class}> ${3:var} = new HashMap<$1, $2>();
+snippet newp
+  private ${1:class} ${2:var} = new $1();
 
 snippet for
   for (${1:class} ${2:var}: ${3:collections}) {
@@ -41,6 +39,7 @@ snippet j-t.t
 snippet j-t.f
   DateTimeFormat.forPattern("${1:yyyyMMdd}").parseDateTime(${2:value})
 
+
 ###################################################
 ## spring
 
@@ -54,7 +53,7 @@ snippet @Controller
 
   @Controller
   @RequestMapping("${1:path}")
-  public class ${2:name}Controller {
+  public class `fnamemodify(expand("%:r"), ":t:r")` {
     private static Log log = LogFactory.getLog($2Controller.class);
     ${3:code}
   }
@@ -90,6 +89,27 @@ snippet @Request2
   @RequestParam(value = "${1:var}", required= ${2:true false} defaultValue = "${3:default}") final String $1
 
 
+snippet @Repository
+  import javax.inject.Inject;
+  import javax.persistence.EntityManager;
+  import javax.persistence.PersistenceContext;
+  import org.springframework.stereotype.Repository;
+
+  @Repository
+  public class `fnamemodify(expand("%:r"), ":t:r")` {
+
+    @PersistenceContext
+    private EntityManager em;
+  }
+
+snippet @Component
+  import javax.inject.Inject;
+  import org.springframework.stereotype.Component;
+
+  @Component
+  public class `fnamemodify(expand("%:r"), ":t:r")` {
+  }
+
 ###################################################
 ## import
 
@@ -117,7 +137,7 @@ snippet i.mb
 
 
 snippet Logger
-  Logger logger = Logger.getLogger(`expand("%:t")`.class); 
+  Logger logger = Logger.getLogger(`fnamemodify(expand("%:r"), ":t:r")`.class);
 
 snippet @Test
   @Test

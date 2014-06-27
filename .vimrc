@@ -368,6 +368,8 @@ else
             NeoSnippetSource ~/.vim/snippets/java1_7.snippets
           elseif (java_version =~ "1.8")
             NeoSnippetSource ~/.vim/snippets/java1_8.snippets
+          elseif (java_version =~ "1.6")
+            NeoSnippetSource ~/.vim/snippets/java1_6.snippets
           endif
         endif
       endfunction
@@ -448,7 +450,7 @@ else
     " vsplit open <c-v>
     " split open <c-x>
     NeoBundle 'kien/ctrlp.vim'
-    let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|bower_components)|(\.(swp|ico|git|svn))$'
+    let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|bower_components)|(\.(swp|ico|git|svn|class|jar))$'
     "let g:ctrlp_working_path_mode = 'ra'
     let g:ctrlp_working_path_mode = 'w'
 
@@ -481,6 +483,14 @@ else
        \ 'yuratomo/w3m.vim',
        \ ],
       \}
+
+    NeoBundleLazy 'tky/java-insert-package.vim' ,{
+      \ 'filetypes' : 'java',
+    \}
+    let s:hooks = neobundle#get_hooks('java-insert-package.vim')
+    function! s:hooks.on_source(bundle)
+      nnoremap :pkg :JavaInsertPackage<CR>
+    endfunction
 
     " for javascript
     NeoBundleLazy "JavaScript-syntax", {
