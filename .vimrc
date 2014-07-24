@@ -13,7 +13,6 @@ set nobackup
 set noswapfile
 set expandtab
 set clipboard=unnamed
-set tags=.tags
 set t_Co=256
 set fileencodings=utf-8,iso-2022-jp,euc-jp,cp932,ucs-bom,default,latin1
 syntax on
@@ -450,7 +449,7 @@ else
     " vsplit open <c-v>
     " split open <c-x>
     NeoBundle 'kien/ctrlp.vim'
-    let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|bower_components)|(\.(swp|ico|git|svn|class|jar))$'
+    let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|bower_components|bin)\/|(\.(swp|ico|git|svn|class|jar))$'
     "let g:ctrlp_working_path_mode = 'ra'
     let g:ctrlp_working_path_mode = 'w'
 
@@ -492,6 +491,16 @@ else
       nnoremap :pkg :JavaInsertPackage<CR>
     endfunction
 
+    NeoBundleLazy 'tky/java-import-assist.vim' ,{
+      \ 'filetypes' : 'java',
+    \}
+    let s:hooks = neobundle#get_hooks('java-import-assist.vim')
+    function! s:hooks.on_source(bundle)
+      nnoremap :ip :JavaImportPackage<CR>
+    endfunction
+
+    NeoBundle '5t111111/alt-gtags.vim'
+
     " for javascript
     NeoBundleLazy "JavaScript-syntax", {
       \ 'filetypes' : 'javascript',
@@ -511,7 +520,7 @@ else
     nnoremap gr :OpenRedmine<CR>
 
     NeoBundle 'Lokaltog/vim-easymotion'
-    let g:EasyMotion_leader_key="&"
+    let g:EasyMotion_leader_key="("
 
     NeoBundle 'mbbill/undotree'
     " undotree.vim
@@ -663,6 +672,11 @@ else
     " for textobj
     NeoBundle "kana/vim-textobj-user"
     NeoBundle "h1mesuke/textobj-wiw"
+    NeoBundle "osyo-manga/vim-textobj-multiblock"
+    omap af <Plug>(textobj-multiblock-a)
+    omap at <Plug>(textobj-multiblock-i)
+    vmap af <Plug>(textobj-multiblock-a)
+    vmap at <Plug>(textobj-multiblock-i)
 
     NeoBundleLazy "rhysd/vim-textobj-ruby" , {
       \ 'filetypes' : 'ruby',
@@ -694,6 +708,12 @@ else
     NeoBundleLazy "kchmck/vim-coffee-script" , {
       \ 'filetypes' : 'coffee',
       \ }
+
+    NeoBundle 't9md/vim-quickhl'
+    nmap <Space>m <Plug>(quickhl-manual-this)
+    xmap <Space>m <Plug>(quickhl-manual-this)
+    nmap <Space>M <Plug>(quickhl-manual-reset)
+    xmap <Space>M <Plug>(quickhl-manual-reset)
 
     " インストールされていないプラグインのチェックおよびダウンロード
     NeoBundleCheck
@@ -754,6 +774,9 @@ nnoremap Gp ']
 nnoremap <F2> <C-W><C-]>
 nnoremap <F3> g<C-]> 
 nnoremap <F4> <C-t>
+
+nnoremap <S-LEFT> :bf<CR>
+nnoremap <S-RIGHT> :bl<CR>
 
 "インデント設定
 source ~/.vimrc.indent
