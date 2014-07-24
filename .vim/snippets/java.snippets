@@ -148,3 +148,31 @@ snippet @Test
 ## eclipse like snippets
 snippet sysout
   System.out.println(${1});
+
+snippet Servlet
+  import java.io.IOException;
+
+  import javax.servlet.ServletException;
+  import javax.servlet.http.HttpServletRequest;
+  import javax.servlet.http.HttpServletResponse;
+
+  public class `fnamemodify(expand("%:r"), ":t:r")` {
+
+      ${1:}
+  }
+
+
+snippet doGet
+	@Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+      ${1:}
+    }
+
+snippet doPost
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+      ${1:}
+    }
+
+snippet forward
+  req.getRequestDispatcher(${1:/WEB-INF/jsp/index.jsp}).forward(req, resp);
