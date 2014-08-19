@@ -719,8 +719,6 @@ else
     nmap <Space>M <Plug>(quickhl-manual-reset)
     xmap <Space>M <Plug>(quickhl-manual-reset)
 
-    NeoBundle 'kana/vim-smartinput'
-
     NeoBundle 'jlanzarotta/bufexplorer'
 
     " インストールされていないプラグインのチェックおよびダウンロード
