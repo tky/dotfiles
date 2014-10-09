@@ -15,6 +15,8 @@ set expandtab
 set clipboard=unnamed
 set t_Co=256
 set fileencodings=utf-8,iso-2022-jp,euc-jp,cp932,ucs-bom,default,latin1
+set spell
+set spelllang=en,cjk
 syntax on
 
 let g:angular_root = 'ok'
