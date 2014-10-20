@@ -84,3 +84,13 @@ snippet ifmain
 # __magic__
 snippet _
 	__${1:init}__${2}
+
+snippet fil
+  filter(lambda ${1:x}: ${2: x > 1}, ${3:List})
+
+snippet reduce
+  reduce(lambda ${1:a,b}: ${2:a + b}, ${3:List})
+
+snippet sum
+  sum(${1:List})
+

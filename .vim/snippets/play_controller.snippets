@@ -1,12 +1,40 @@
-snippet Controller
-  import play.api._
-  import play.api.mvc._
-
-  object ${1} extends Controller {
-    ${2}
-  }
-
 snippet Act
   def ${1:index} = Action {
     ${2}
   }
+
+snippet fold
+  ${1}Form.bindFromRequest.fold(
+    formWithErrors => {
+      // error: BadRequest(views.html.contact.form(formWithErrors))
+  },
+  $1 => {
+    // ok: Redirect(routes.Application.showContact(contactId)).flashing("success" -> "Contact saved!")
+  }
+
+
+
+
+snippet Controller
+  package controllers
+
+  import play.api._
+  import play.api.mvc._
+  import play.api.data._
+  import play.api.data.Forms._
+
+  trait `fnamemodify(expand("%:r"), ":t:r")` extends Controller {
+  }
+
+  object `fnamemodify(expand("%:r"), ":t:r")` extends `fnamemodify(expand("%:r"), ":t:r")`
+
+snippet Ok
+ Ok(views.html.${1})
+
+
+snippet form
+  val ${1}Form = Form(
+    mapping(
+      "name" -> text
+    )(${2}.apply)($2.unapply)
+  )
