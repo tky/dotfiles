@@ -4,6 +4,7 @@ augroup MyAutoCmd
 augroup END
 
 au BufRead,BufNewFile,BufReadPre *.coffee   set filetype=coffee
+au BufRead,BufNewFile,BufReadPre *.rs   set filetype=rust
 
 " 前時代的スクリーンベルを無効化
 set vb t_vb= " ビープ音を鳴らさない
@@ -17,6 +18,7 @@ set t_Co=256
 set fileencodings=utf-8,iso-2022-jp,euc-jp,cp932,ucs-bom,default,latin1
 set spell
 set spelllang=en,cjk
+"mkspell! ~/.vim/spell/en.utf-8.add
 syntax on
 
 let g:angular_root = 'ok'
@@ -81,7 +83,7 @@ map <silent> [Tag]p :tabprevious<CR>
 
 if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim
-  call neobundle#rc(expand('~/.vim/bundle/'))
+  call neobundle#begin(expand('~/.vim/bundle/'))
 endif
 
 " gocode
@@ -105,7 +107,7 @@ else
     if has('vim_starting')
         execute "set runtimepath+=" . s:neobundle_root
     endif
-    call neobundle#rc(s:bundle_root)
+    call neobundle#begin(s:bundle_root)
 
     " NeoBundle自身をNeoBundleで管理させる
     NeoBundleFetch 'Shougo/neobundle.vim'
@@ -401,7 +403,6 @@ else
     let s:hooks = neobundle#get_hooks("vim-indent-guides")
     function! s:hooks.on_source(bundle)
       let g:indent_guides_guide_size = 1
-      IndentGuidesEnable
     endfunction
 
 
@@ -418,7 +419,7 @@ else
 
     NeoBundleLazy "scrooloose/syntastic", {
           \ "autoload": {
-          \   "filetypes": ["java", "javascript", "ruby"],
+          \   "filetypes": ["java", "javascript", "ruby", "rust"],
           \ },
           \ "build": {
           \   "mac": ["pip install flake8", "npm -g install coffeelint"],
@@ -723,6 +724,13 @@ else
 
     NeoBundle 'jlanzarotta/bufexplorer'
 
+    "" for rust
+
+    NeoBundleLazy "wting/rust.vim" , {
+      \ 'filetypes' : 'rust',
+      \ }
+
+    call neobundle#end()
     " インストールされていないプラグインのチェックおよびダウンロード
     NeoBundleCheck
 endif
