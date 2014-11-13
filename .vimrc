@@ -111,7 +111,10 @@ else
     let g:ctrlsf_auto_close = 0
     nnoremap :g :CtrlSF
 
+    NeoBundle 'tpope/vim-repeat'
+
     NeoBundle "rhysd/unite-codic.vim"
+    NeoBundle "tpope/vim-eunuch"
 
     NeoBundle 'git://github.com/kana/vim-fakeclip.git'
 
