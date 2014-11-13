@@ -63,23 +63,13 @@ endfunction "}}}
 let &tabline = '%!'. s:SID_PREFIX() . 'my_tabline()'
 set showtabline=2 " 常にタブラインを表示
 
-" The prefix key.
-nnoremap    [Tag]   <Nop>
-nmap    t [Tag]
 " Tab jump
 for n in range(1, 9)
-  execute 'nnoremap <silent> [Tag]'.n  ':<C-u>tabnext'.n.'<CR>'
+  execute 'nnoremap <silent> <C-t>'.n  ':<C-u>tabnext'.n.'<CR>'
 endfor
 " t1 で1番左のタブ、t2 で1番左から2番目のタブにジャンプ
 
-map <silent> [Tag]c :tablast <bar> tabnew<CR>
-" tc 新しいタブを一番右に作る
-map <silent> [Tag]x :tabclose<CR>
-" tx タブを閉じる
-map <silent> [Tag]n :tabnext<CR>
-" tn 次のタブ
-map <silent> [Tag]p :tabprevious<CR>
-" tp 前のタブ
+map <silent> <C-t>c :tablast <bar> tabnew<CR>
 
 if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim
@@ -734,6 +724,11 @@ else
     NeoBundleLazy "wting/rust.vim" , {
       \ 'filetypes' : 'rust',
       \ }
+
+    " 一身上の都合でgithubにあげられない設定を分離
+    if !empty(glob("~/.local.vimrc"))
+      source ~/.local.vimrc
+    endif
 
     call neobundle#end()
     " インストールされていないプラグインのチェックおよびダウンロード
