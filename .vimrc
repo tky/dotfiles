@@ -523,7 +523,8 @@ else
     nnoremap gr :OpenRedmine<CR>
 
     NeoBundle 'Lokaltog/vim-easymotion'
-    let g:EasyMotion_leader_key="("
+    let g:EasyMotion_do_mapping = 0
+    nmap s <Plug>(easymotion-s2)
 
     NeoBundle 'mbbill/undotree'
     " undotree.vim
