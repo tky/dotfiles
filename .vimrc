@@ -102,6 +102,15 @@ else
     " NeoBundle自身をNeoBundleで管理させる
     NeoBundleFetch 'Shougo/neobundle.vim'
 
+    NeoBundle 'dyng/ctrlsf.vim'
+    NeoBundle 'rking/ag.vim', {
+          \ "build": {
+          \ "mac" : "brew install the_silver_searcher"
+          \}}
+    " 検索結果を閉じない
+    let g:ctrlsf_auto_close = 0
+    nnoremap :g :CtrlSF
+
     NeoBundle "rhysd/unite-codic.vim"
 
     NeoBundle 'git://github.com/kana/vim-fakeclip.git'
