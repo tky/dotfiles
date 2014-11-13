@@ -526,6 +526,10 @@ else
     let g:EasyMotion_do_mapping = 0
     nmap s <Plug>(easymotion-s2)
 
+    NeoBundle 'rhysd/clever-f.vim'
+    " 大文字、小文字を無視してfする。
+    let g:clever_f_ignore_case = 1
+
     NeoBundle 'mbbill/undotree'
     " undotree.vim
     " http://vimblog.com/blog/2012/09/02/undotree-dot-vim-display-your-undo-history-in-a-graph/
