@@ -18,6 +18,7 @@ set t_Co=256
 set fileencodings=utf-8,iso-2022-jp,euc-jp,cp932,ucs-bom,default,latin1
 set spell
 set spelllang=en,cjk
+set autoread
 "mkspell! ~/.vim/spell/en.utf-8.add
 syntax on
 
@@ -151,6 +152,10 @@ else
         let g:neocomplcache_dictionary_filetype_lists = {
           \ 'java' : '~/.vim/dict/java.dict'
           \ }
+        if !exists('g:neocomplete#force_omni_input_patterns')
+          let g:neocomplete#force_omni_input_patterns = {}
+        endif
+        let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 
     endfunction
 
@@ -393,11 +398,19 @@ else
         endif
       endfunction
 
+      function! s:RailsControllerSnippet()
+        let s:current_file_path = expand("%:p:h")
+        if (&filetype == 'ruby' && s:current_file_path =~ "controllers")
+          NeoSnippetSource ~/.vim/snippets/rails_controller.snippets
+        endif
+      endfunction
+
       autocmd BufEnter * call s:AngularSnippet()
       autocmd BufEnter * call s:KnockoutSnippet()
       autocmd BufEnter * call s:JavaSnippet()
       autocmd BufEnter * call s:ScalaSpecSnippet()
       autocmd BufEnter * call s:PlayControllerSnippet()
+      autocmd BufEnter * call s:RailsControllerSnippet()
 
     endfunction
 
