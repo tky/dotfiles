@@ -5,6 +5,7 @@ augroup END
 
 au BufRead,BufNewFile,BufReadPre *.coffee   set filetype=coffee
 au BufRead,BufNewFile,BufReadPre *.rs   set filetype=rust
+au BufRead,BufNewFile,BufReadPre *.mustache   set filetype=mustache
 
 " 前時代的スクリーンベルを無効化
 set vb t_vb= " ビープ音を鳴らさない
@@ -748,6 +749,11 @@ else
 
     NeoBundleLazy "wting/rust.vim" , {
       \ 'filetypes' : 'rust',
+      \ }
+
+    "" for mustache
+    NeoBundle "mustache/vim-mustache-handlebars", {
+      \ 'filetypes' : 'mustache',
       \ }
 
     " 一身上の都合でgithubにあげられない設定を分離
