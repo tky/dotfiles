@@ -6,6 +6,7 @@ augroup END
 au BufRead,BufNewFile,BufReadPre *.coffee   set filetype=coffee
 au BufRead,BufNewFile,BufReadPre *.rs   set filetype=rust
 au BufRead,BufNewFile,BufReadPre *.mustache   set filetype=mustache
+au BufRead,BufNewFile,BufReadPre *.hs   set filetype=haskell
 
 " 前時代的スクリーンベルを無効化
 set vb t_vb= " ビープ音を鳴らさない
@@ -28,6 +29,7 @@ let g:angular_root = 'ok'
 function! s:SID_PREFIX()
   return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
 endfunction
+
 
 function! s:java_version()
   let lines = split(system("java -version"), "\n")
@@ -111,7 +113,71 @@ else
           \}}
     " 検索結果を閉じない
     let g:ctrlsf_auto_close = 0
-    nnoremap :g :CtrlSF
+    function! s:Grep_Fiels()
+      let a:word = expand("<cword>")
+      call ctrlsf#Search(a:word)
+    endfunction
+    command! -nargs=0 GrepAllFiles call s:Grep_Fiels()
+    nnoremap <C-g> :GrepAllFiles<CR>
+
+    NeoBundle 'tpope/vim-repeat'
+
+    NeoBundle "rhysd/unite-codic.vim"
+    NeoBundle "tpope/vim-eunuch"
+
+    NeoBundle 'git://github.com/kana/vim-fakeclip.git'
+
+    " 非同期通信を可能にする
+    " 'build'が指定されているのでインストール時に自動的に
+    " 指定されたコマンドが実行され vimproc がコンパイルされる
+    NeoBundle "Shougo/vimproc", {
+        \ "build": {
+        \   "windows"   : "make -f make_mingw32.mak",
+        \   "cygwin"    : "make -f make_cygwin.mak",
+        \   "mac"       : "make -f make_mac.mak",
+        \   "unix"      : "make -f make_unix.mak",
+        \ }}
+
+    NeoBundle 'Shougo/vimshell'
+
+    " Insertモードに入るまではneocompleteはロードされない
+    NeoBundleLazy 'Shougo/neocomplete.vim', {
+        \ "autoload": {"insert": 1}}
+    " neocompleteのhooksを取得
+    let s:hooks = neobundle#get_hooks("neocomplete.vim")
+    " neocomplete用の設定関数を定義。下記関数はneocompleteロード時に実行される
+    function! s:hooks.on_source(bundle)
+        let g:acp_enableAtStartup = 0
+        let g:neocomplete#enable_smart_case = 1
+
+        " 補完候補の一番先頭を選択状態にする
+        "let g:neocomplcache_enable_auto_select = 1
+        " CamelCase補完
+        let g:neocomplcache_enable_camel_case_completion = 1
+        " Underbar補完
+        let g:neocomplcache_enable_underbar_completion = 1
+
+        let g:neocomplcache_dictionary_filetype_lists = {
+          \ 'java' : '~/.vim/dict/java.dict'
+          \ }
+        if !exists('g:neocomplete#force_omni_input_patterns')
+          let g:neocomplete#force_omni_input_patterns = {}
+        endif
+        let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+
+    endfunction
+
+    " 'GundoToggle'が呼ばれるまでロードしない
+    NeoBundleLazy 'sjl/gundo.vim', {
+        \ "autoload": {"commands": ["GundoToggle"]}}
+    " '<Plug>TaskList'というマッピングが呼ばれるまでロードしない
+    NeoBundleLazy 'vim-scripts/TaskList.vim', {
+        \ "autoload": {"mappings": ['<Plug>TaskList']}}
+    " HTMLが開かれるまでロードしない
+    NeoBundleLazy 'mattn/emmet-vim', {
+        \ "autoload": {"filetypes": ['html', 'jsp', 'xml']}}
+
+    nnoremap <Leader>g :GundoToggle<CR>
 
     NeoBundle 'tpope/vim-repeat'
 
@@ -753,6 +819,12 @@ else
 
     "" for mustache
     NeoBundle "mustache/vim-mustache-handlebars", {
+      \ 'filetypes' : 'mustache',
+      \ }
+
+
+    "" for haskell
+    NeoBundle "dag/vim2hs", {
       \ 'filetypes' : 'mustache',
       \ }
 
