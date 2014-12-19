@@ -1,4 +1,7 @@
+scriptencoding utf-8
+
 " release autogroup in MyAutoCmd
+"
 augroup MyAutoCmd
   autocmd!
 augroup END
@@ -767,6 +770,7 @@ else
     NeoBundle "kana/vim-textobj-user"
     NeoBundle "h1mesuke/textobj-wiw"
     NeoBundle "osyo-manga/vim-textobj-multiblock"
+    NeoBundle "thinca/vim-textobj-between"
     omap af <Plug>(textobj-multiblock-a)
     omap at <Plug>(textobj-multiblock-i)
     vmap af <Plug>(textobj-multiblock-a)
