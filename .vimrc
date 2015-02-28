@@ -125,10 +125,21 @@ else
 
     function! s:Grep_Functions()
       let a:word = expand("<cword>")
-      call ctrlsf#Search("'def " . a:word . "'")
+      if (&filetype == "java")
+        call ctrlsf#Search("' " . a:word . "'")
+      else
+        call ctrlsf#Search("'def " . a:word . "'")
+      end
     endfunction
     command! -nargs=0 GrepFunctions call s:Grep_Functions()
     nnoremap d<C-g> :GrepFunctions<CR>
+
+    function! s:Grep_Classes()
+      let a:word = expand("<cword>")
+      call ctrlsf#Search("'class " . a:word . "'")
+    endfunction
+    command! -nargs=0 GrepClasses call s:Grep_Classes()
+    nnoremap c<C-g> :GrepClasses<CR>
 
     NeoBundle 'tpope/vim-repeat'
 
