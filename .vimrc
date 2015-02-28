@@ -141,6 +141,18 @@ else
     command! -nargs=0 GrepClasses call s:Grep_Classes()
     nnoremap c<C-g> :GrepClasses<CR>
 
+    function! s:Grep_All_Definitions()
+      let a:word = expand("<cword>")
+      let a:is_lower = match(a:word[0],'\U')!=-1
+      if a:is_lower
+        call s:Grep_Functions()
+      else
+        call s:Grep_Classes()
+      end
+    endfunction
+    command! -nargs=0 GrepAllDefinitions call s:Grep_All_Definitions()
+    nnoremap <Space><C-g> :GrepAllDefinitions<CR>
+
     NeoBundle 'tpope/vim-repeat'
 
     NeoBundle "rhysd/unite-codic.vim"
