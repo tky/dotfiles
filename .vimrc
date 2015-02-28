@@ -128,7 +128,7 @@ else
       if (&filetype == "java")
         call ctrlsf#Search("' " . a:word . "'")
       else
-        call ctrlsf#Search("'def " . a:word . "'")
+        call ctrlsf#Search("'[def|val] " . a:word . "'")
       end
     endfunction
     command! -nargs=0 GrepFunctions call s:Grep_Functions()
@@ -136,7 +136,7 @@ else
 
     function! s:Grep_Classes()
       let a:word = expand("<cword>")
-      call ctrlsf#Search("'class " . a:word . "'")
+      call ctrlsf#Search("'[class|trait|object] " . a:word . "'")
     endfunction
     command! -nargs=0 GrepClasses call s:Grep_Classes()
     nnoremap c<C-g> :GrepClasses<CR>
