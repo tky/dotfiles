@@ -123,6 +123,13 @@ else
     command! -nargs=0 GrepAllFiles call s:Grep_Fiels()
     nnoremap <C-g> :GrepAllFiles<CR>
 
+    function! s:Grep_Functions()
+      let a:word = expand("<cword>")
+      call ctrlsf#Search("'def " . a:word . "'")
+    endfunction
+    command! -nargs=0 GrepFunctions call s:Grep_Functions()
+    nnoremap d<C-g> :GrepFunctions<CR>
+
     NeoBundle 'tpope/vim-repeat'
 
     NeoBundle "rhysd/unite-codic.vim"
