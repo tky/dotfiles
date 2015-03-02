@@ -42,5 +42,6 @@ if has("autocmd")
   autocmd FileType scala      setlocal sw=2 sts=2 ts=2 et
   autocmd FileType eruby      setlocal sw=2 sts=2 ts=2 et
   autocmd FileType coffee     setlocal sw=2 sts=2 ts=2 et
+  autocmd FileType mustache   setlocal sw=4 sts=4 ts=4 et
 endif
 
