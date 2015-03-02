@@ -10,6 +10,7 @@ au BufRead,BufNewFile,BufReadPre *.coffee   set filetype=coffee
 au BufRead,BufNewFile,BufReadPre *.rs   set filetype=rust
 au BufRead,BufNewFile,BufReadPre *.mustache   set filetype=mustache
 au BufRead,BufNewFile,BufReadPre *.hs   set filetype=haskell
+autocmd BufRead,BufNewFile *.erb set filetype=eruby.html
 
 " 前時代的スクリーンベルを無効化
 set vb t_vb= " ビープ音を鳴らさない
@@ -122,6 +123,8 @@ else
     endfunction
     command! -nargs=0 GrepAllFiles call s:Grep_Fiels()
     nnoremap <C-g> :GrepAllFiles<CR>
+
+    NeoBundle 'terryma/vim-multiple-cursors'
 
     NeoBundle 'tpope/vim-repeat'
 
@@ -838,6 +841,7 @@ else
     endif
 
     call neobundle#end()
+
     " インストールされていないプラグインのチェックおよびダウンロード
     NeoBundleCheck
 endif
