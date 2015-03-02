@@ -126,6 +126,37 @@ else
 
     NeoBundle 'terryma/vim-multiple-cursors'
 
+    function! s:Grep_Functions()
+      let a:word = expand("<cword>")
+      if (&filetype == "java")
+        call ctrlsf#Search("' " . a:word . "'")
+      else
+        call ctrlsf#Search("'[def|val] " . a:word . "[ |(|=]'")
+      end
+    endfunction
+    command! -nargs=0 GrepFunctions call s:Grep_Functions()
+    nnoremap d<C-g> :GrepFunctions<CR>
+
+    function! s:Grep_Classes()
+      let a:word = expand("<cword>")
+      call ctrlsf#Search("'[class|trait|object] " . a:word . "[ |(]'")
+    endfunction
+    command! -nargs=0 GrepClasses call s:Grep_Classes()
+    nnoremap c<C-g> :GrepClasses<CR>
+
+    function! s:Grep_All_Definitions()
+      let a:word = expand("<cword>")
+      let a:is_lower = match(a:word[0],'\U')!=-1
+      if a:is_lower
+        call s:Grep_Functions()
+      else
+        call s:Grep_Classes()
+      end
+    endfunction
+    command! -nargs=0 GrepAllDefinitions call s:Grep_All_Definitions()
+    nnoremap <Space>g :GrepAllDefinitions<CR>
+>>>>>>> f48f6bcff5ab543c161288d5b75ad23d7cf70343
+
     NeoBundle 'tpope/vim-repeat'
 
     NeoBundle "rhysd/unite-codic.vim"
