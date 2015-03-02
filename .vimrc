@@ -122,7 +122,8 @@ else
       call ctrlsf#Search(a:word)
     endfunction
     command! -nargs=0 GrepAllFiles call s:Grep_Fiels()
-    nnoremap <C-g> :GrepAllFiles<CR>
+    "nnoremap <C-g> :GrepAllFiles<CR>
+    nnoremap g* :GrepAllFiles<CR>
 
     NeoBundle 'terryma/vim-multiple-cursors'
 
@@ -135,14 +136,14 @@ else
       end
     endfunction
     command! -nargs=0 GrepFunctions call s:Grep_Functions()
-    nnoremap d<C-g> :GrepFunctions<CR>
+    nnoremap f* :GrepFunctions<CR>
 
     function! s:Grep_Classes()
       let a:word = expand("<cword>")
       call ctrlsf#Search("'[class|trait|object] " . a:word . "[ |(]'")
     endfunction
     command! -nargs=0 GrepClasses call s:Grep_Classes()
-    nnoremap c<C-g> :GrepClasses<CR>
+    nnoremap c* :GrepClasses<CR>
 
     function! s:Grep_All_Definitions()
       let a:word = expand("<cword>")
@@ -154,7 +155,7 @@ else
       end
     endfunction
     command! -nargs=0 GrepAllDefinitions call s:Grep_All_Definitions()
-    nnoremap <Space>g :GrepAllDefinitions<CR>
+    nnoremap <Space>* :GrepAllDefinitions<CR>
 
     NeoBundle 'tpope/vim-repeat'
 
