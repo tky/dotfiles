@@ -59,13 +59,15 @@ snippet i.s
     import org.scalatest.FlatSpec                                                                                                                                                                                                                                                 
     import org.scalatest.matchers._
 
-snippet spec
+snippet FunSpec
   import org.scalatest.{ FunSpec, Matchers }
   import org.scalatest.matchers._
 
-  class ${1:class}Spec extends FunSpec with Matchers {
-  describe("${2:describe}") {
-    it("${3:behavior}") {
+  class `expand("%:t:r")` extends FunSpec with Matchers {
+    describe("#`expand("%:t:r")[0:-5]`") {
     }
   }
 
+snippet it
+  it("${1}") {
+  }
