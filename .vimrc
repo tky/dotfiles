@@ -136,14 +136,14 @@ else
       end
     endfunction
     command! -nargs=0 GrepFunctions call s:Grep_Functions()
-    nnoremap f* :GrepFunctions<CR>
+    "nnoremap f* :GrepFunctions<CR>
 
     function! s:Grep_Classes()
       let a:word = expand("<cword>")
       call ctrlsf#Search("'[class|trait|object] " . a:word . "[ |(]'")
     endfunction
     command! -nargs=0 GrepClasses call s:Grep_Classes()
-    nnoremap c* :GrepClasses<CR>
+    "nnoremap c* :GrepClasses<CR>
 
     function! s:Grep_All_Definitions()
       let a:word = expand("<cword>")
@@ -156,6 +156,13 @@ else
     endfunction
     command! -nargs=0 GrepAllDefinitions call s:Grep_All_Definitions()
     nnoremap <Space>* :GrepAllDefinitions<CR>
+
+    function! s:Grep_Current_File()
+      let a:file = expand("%:t:r")
+      call ctrlsf#Search(a:file)
+    endfunction
+    command! -nargs=0 GrepCurrentFile call s:Grep_Current_File()
+    nnoremap f* :GrepCurrentFile<CR>
 
     NeoBundle 'tpope/vim-repeat'
 
