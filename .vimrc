@@ -155,7 +155,6 @@ else
     endfunction
     command! -nargs=0 GrepAllDefinitions call s:Grep_All_Definitions()
     nnoremap <Space>g :GrepAllDefinitions<CR>
->>>>>>> f48f6bcff5ab543c161288d5b75ad23d7cf70343
 
     NeoBundle 'tpope/vim-repeat'
 
