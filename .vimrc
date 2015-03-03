@@ -126,6 +126,23 @@ else
     nnoremap g* :GrepAllFiles<CR>
 
     NeoBundle 'terryma/vim-multiple-cursors'
+    function! s:get_visual_selection()
+      " Why is this not a built-in Vim script function?!
+      let [lnum1, col1] = getpos("'<")[1:2]
+      let [lnum2, col2] = getpos("'>")[1:2]
+      let lines = getline(lnum1, lnum2)
+      let lines[-1] = lines[-1][: col2 - (&selection == 'inclusive' ? 1 : 2)]
+      let lines[0] = lines[0][col1 - 1:]
+      return join(lines, "\n")
+    endfunction
+
+    function! s:Grep_Visual_Selection() 
+      let a:word = s:get_visual_selection()
+      echo a:word
+      call ctrlsf#Search("' " . a:word . "'")
+    endfunction
+    command! -nargs=0 GrepSelection call s:Grep_Visual_Selection()
+    vnoremap <C-f> <ESC>:GrepSelection<CR>
 
     function! s:Grep_Functions()
       let a:word = expand("<cword>")
