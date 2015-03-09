@@ -139,7 +139,7 @@ else
     function! s:Grep_Visual_Selection() 
       let a:word = s:get_visual_selection()
       echo a:word
-      call ctrlsf#Search("' " . a:word . "'")
+      call ctrlsf#Search("'" . a:word . "'")
     endfunction
     command! -nargs=0 GrepSelection call s:Grep_Visual_Selection()
     vnoremap <C-f> <ESC>:GrepSelection<CR>
@@ -149,7 +149,8 @@ else
       if (&filetype == "java")
         call ctrlsf#Search("' " . a:word . "'")
       else
-        call ctrlsf#Search("'[def|val] " . a:word . "[ |(|=]'")
+        "call ctrlsf#Search("'[def|val] " . a:word . "[ |(|=|\[|\]|:]'")
+        call ctrlsf#Search("'[def|val] " . a:word . "[ (=[:]'")
       end
     endfunction
     command! -nargs=0 GrepFunctions call s:Grep_Functions()
