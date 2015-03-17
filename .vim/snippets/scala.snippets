@@ -71,3 +71,18 @@ snippet FunSpec
 snippet it
   it("${1}") {
   }
+
+snippet obj
+  object `expand("%:t:r")` {
+    ${1}
+  }
+
+snippet class
+  class `expand("%:t:r")` {
+    ${1}
+  }
+
+snippet case
+  case class `expand("%:t:r")` {
+    ${1}
+  }
