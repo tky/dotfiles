@@ -117,11 +117,11 @@ else
           \}}
     " 検索結果を閉じない
     let g:ctrlsf_auto_close = 0
-    function! s:Grep_Fiels()
+    function! s:grep_fiels()
       let a:word = expand("<cword>")
       call ctrlsf#Search(a:word)
     endfunction
-    command! -nargs=0 GrepAllFiles call s:Grep_Fiels()
+    command! -nargs=0 GrepAllFiles call s:grep_fiels()
     "nnoremap <C-g> :GrepAllFiles<CR>
     nnoremap g* :GrepAllFiles<CR>
 
@@ -136,15 +136,15 @@ else
       return join(lines, "\n")
     endfunction
 
-    function! s:Grep_Visual_Selection() 
+    function! s:grep_visual_selection() 
       let a:word = s:get_visual_selection()
       echo a:word
       call ctrlsf#Search("'" . a:word . "'")
     endfunction
-    command! -nargs=0 GrepSelection call s:Grep_Visual_Selection()
+    command! -nargs=0 GrepSelection call s:grep_visual_selection()
     vnoremap <C-f> <ESC>:GrepSelection<CR>
 
-    function! s:Grep_Functions()
+    function! s:grep_functions()
       let a:word = expand("<cword>")
       if (&filetype == "java")
         call ctrlsf#Search("' " . a:word . "'")
@@ -153,33 +153,33 @@ else
         call ctrlsf#Search("'[def|val] " . a:word . "[ (=[:]'")
       end
     endfunction
-    command! -nargs=0 GrepFunctions call s:Grep_Functions()
+    command! -nargs=0 GrepFunctions call s:grep_functions()
     "nnoremap f* :GrepFunctions<CR>
 
-    function! s:Grep_Classes()
+    function! s:grep_classes()
       let a:word = expand("<cword>")
       call ctrlsf#Search("'[class|trait|object] " . a:word . "[ |(]'")
     endfunction
-    command! -nargs=0 GrepClasses call s:Grep_Classes()
+    command! -nargs=0 GrepClasses call s:grep_classes()
     "nnoremap c* :GrepClasses<CR>
 
-    function! s:Grep_All_Definitions()
+    function! s:grep_all_definitions()
       let a:word = expand("<cword>")
       let a:is_lower = match(a:word[0],'\U')!=-1
       if a:is_lower
-        call s:Grep_Functions()
+        call s:grep_functions()
       else
-        call s:Grep_Classes()
+        call s:grep_classes()
       end
     endfunction
-    command! -nargs=0 GrepAllDefinitions call s:Grep_All_Definitions()
+    command! -nargs=0 GrepAllDefinitions call s:grep_all_definitions()
     nnoremap <Space>* :GrepAllDefinitions<CR>
 
-    function! s:Grep_Current_File()
+    function! s:grep_current_file()
       let a:file = expand("%:t:r")
       call ctrlsf#Search(a:file)
     endfunction
-    command! -nargs=0 GrepCurrentFile call s:Grep_Current_File()
+    command! -nargs=0 GrepCurrentFile call s:grep_current_file()
     nnoremap f* :GrepCurrentFile<CR>
 
     NeoBundle 'tpope/vim-repeat'
