@@ -6,6 +6,7 @@ augroup MyAutoCmd
   autocmd!
 augroup END
 
+au BufRead,BufNewFile,BufReadPre *.txt   set filetype=txt
 au BufRead,BufNewFile,BufReadPre *.coffee   set filetype=coffee
 au BufRead,BufNewFile,BufReadPre *.rs   set filetype=rust
 au BufRead,BufNewFile,BufReadPre *.mustache   set filetype=mustache
@@ -27,6 +28,49 @@ set spelllang=en,cjk
 set autoread
 "mkspell! ~/.vim/spell/en.utf-8.add
 syntax on
+
+function! s:vim_slide_next()
+  let a:file = expand("%:r") + 1
+  let a:extension = expand("%:e")
+  execute 'open ' . a:file . '.' . a:extension
+endfunction
+command! -nargs=0 VimSlideNext call s:vim_slide_next()
+
+function! s:vim_slide_prev()
+  let a:file = expand("%:r") - 1
+  let a:extension = expand("%:e")
+  execute 'open ' . a:file . '.' . a:extension
+endfunction
+command! -nargs=0 VimSlidePrev call s:vim_slide_prev()
+
+nnoremap <F9> :VimSlideNext<CR>
+nnoremap <F10> :VimSlidePrev<CR>
+
+function! s:vim_slide_up()
+endfunction
+
+function! s:move_left_text(string, pos)
+  call append(a:pos - 1 ,"")
+  let a:index = 0
+  let a:length = strlen(a:string)
+  while a:index <= a:length
+    call setline(a:pos ,a:string[a:length - a:index : a:length])
+    let a:index = a:index + 1
+    execute "redraw"
+    sleep 100ms
+  endwhile
+endfunction
+
+function! s:move_up_text(string, pos)
+  let a:index = line('$')
+  while a:index > a:pos
+    call setline(a:index, a:string)
+    call setline(a:index + 1, "")
+    let a:index = a:index - 1
+    execute "redraw"
+    sleep 100ms
+  endwhile
+endfunction
 
 let g:angular_root = 'ok'
 " Anywhere SID.
@@ -149,7 +193,6 @@ else
       if (&filetype == "java")
         call ctrlsf#Search("' " . a:word . "'")
       else
-        "call ctrlsf#Search("'[def|val] " . a:word . "[ |(|=|\[|\]|:]'")
         call ctrlsf#Search("'[def|val] " . a:word . "[ (=[:]'")
       end
     endfunction
