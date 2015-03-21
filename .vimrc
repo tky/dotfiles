@@ -47,21 +47,32 @@ command! -nargs=0 VimSlidePrev call s:vim_slide_prev()
 function! s:vim_slide_up()
 endfunction
 
-function! s:is_single_byte_char(a:char)
-  return match(a:char,'^[\x00-\xff]$')!= -1
+function! s:is_single_byte_char(char)
+  return match(a:char,'[a-zA-Z0-9!-/:-@¥[-`{-~]')!= -1
 endfunction
 
 function! s:move_left_text(string, pos)
   call append(a:pos - 1 ,"")
   let a:index = 0
   let a:length = strlen(a:string)
-  while a:index <= a:length
-    call setline(a:pos ,a:string[a:length - a:index : a:length])
-    let a:index = a:index + 1
+  while a:index < a:length 
+    if (s:is_single_byte_char(a:string[a:length - a:index - 2 : a:length - a:index - 1]) == 0)
+      let a:index = a:index + 3
+    else
+      let a:index = a:index + 1
+    endif
+    if (a:length - a:index >= 0)
+      call setline(a:pos ,a:string[a:length - a:index : a:length])
+    else
+      :break
+    endif
     execute "redraw"
-    sleep 100ms
+    sleep 900ms
   endwhile
+  call setline(a:pos ,a:string)
 endfunction
+command! -nargs=0 VimLeft call s:move_left_text("あa0いう1aあ(ほ-", 3)
+nnoremap <F9> :VimLeft<CR>
 
 function! s:move_up_text(string, pos)
   let a:index = line('$')
@@ -186,7 +197,6 @@ else
 
     function! s:grep_visual_selection() 
       let a:word = s:get_visual_selection()
-      echo a:word
       call ctrlsf#Search("'" . a:word . "'")
     endfunction
     command! -nargs=0 GrepSelection call s:grep_visual_selection()
