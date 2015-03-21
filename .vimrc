@@ -23,8 +23,8 @@ set expandtab
 set clipboard=unnamed
 set t_Co=256
 set fileencodings=utf-8,iso-2022-jp,euc-jp,cp932,ucs-bom,default,latin1
-set spell
-set spelllang=en,cjk
+"set spell
+"set spelllang=en,cjk
 set autoread
 "mkspell! ~/.vim/spell/en.utf-8.add
 syntax on
@@ -43,8 +43,6 @@ function! s:vim_slide_prev()
 endfunction
 command! -nargs=0 VimSlidePrev call s:vim_slide_prev()
 
-nnoremap <F9> :VimSlideNext<CR>
-nnoremap <F10> :VimSlidePrev<CR>
 
 function! s:vim_slide_up()
 endfunction
@@ -64,13 +62,15 @@ endfunction
 function! s:move_up_text(string, pos)
   let a:index = line('$')
   while a:index > a:pos
+    let a:prev_line = getline(a:index)
     call setline(a:index, a:string)
-    call setline(a:index + 1, "")
+    call setline(a:index + 1, a:prev_line)
     let a:index = a:index - 1
     execute "redraw"
     sleep 100ms
   endwhile
 endfunction
+command! -nargs=0 VimUp call s:move_up_text("aaaaa", 3)
 
 let g:angular_root = 'ok'
 " Anywhere SID.
