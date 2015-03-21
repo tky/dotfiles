@@ -47,6 +47,10 @@ command! -nargs=0 VimSlidePrev call s:vim_slide_prev()
 function! s:vim_slide_up()
 endfunction
 
+function! s:is_single_byte_char(a:char)
+  return match(a:char,'^[\x00-\xff]$')!= -1
+endfunction
+
 function! s:move_left_text(string, pos)
   call append(a:pos - 1 ,"")
   let a:index = 0
