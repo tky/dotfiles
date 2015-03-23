@@ -603,6 +603,7 @@ else
     NeoBundle "nathanaelkane/vim-indent-guides"
     let s:hooks = neobundle#get_hooks("vim-indent-guides")
     function! s:hooks.on_source(bundle)
+      let g:indent_guides_enable_on_vim_startup = 1
       let g:indent_guides_guide_size = 1
     endfunction
 
@@ -633,12 +634,12 @@ else
       let g:watchdogs_check_BufWritePost_enable = 1
       let g:watchdogs_check_CursorHold_enable = 1
       " quickfixを閉じる。
-      let g:quickrun_config = {
-        \   "watchdogs_checker/_" : {
-        \       "hook/close_quickfix/enable_exit" : 1,
-        \   },
-        \}
-      call watchdogs#setup(g:quickrun_config)
+      "let g:quickrun_config = {
+        "\   "watchdogs_checker/_" : {
+        "\       "hook/close_quickfix/enable_exit" : 1,
+        "\   },
+        "\}
+      "call watchdogs#setup(g:quickrun_config)
     endfunction
     NeoBundleLazy "dannyob/quickfixstatus", {
       \ 'filetypes' : ['ruby'],
