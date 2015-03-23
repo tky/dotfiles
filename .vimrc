@@ -618,9 +618,36 @@ else
           \ }}
     nmap <Leader>t :TagbarToggle<CR>
 
+    " watchdogs
+    NeoBundleLazy "jceb/vim-hier", {
+      \ 'filetypes' : ['ruby'],
+      \ }
+    NeoBundleLazy "osyo-manga/shabadou.vim" , {
+      \ 'filetypes' : ['ruby'],
+      \ }
+    NeoBundleLazy "osyo-manga/vim-watchdogs", {
+      \ 'filetypes' : ['ruby'],
+      \ }
+    let s:hooks = neobundle#get_hooks("vim-watchdogs")
+    function! s:hooks.on_source(bundle)
+      let g:watchdogs_check_BufWritePost_enable = 1
+      let g:watchdogs_check_CursorHold_enable = 1
+      " quickfixを閉じる。
+      let g:quickrun_config = {
+        \   "watchdogs_checker/_" : {
+        \       "hook/close_quickfix/enable_exit" : 1,
+        \   },
+        \}
+      call watchdogs#setup(g:quickrun_config)
+    endfunction
+    NeoBundleLazy "dannyob/quickfixstatus", {
+      \ 'filetypes' : ['ruby'],
+      \ }
+    " watchdogs
+
     NeoBundleLazy "scrooloose/syntastic", {
           \ "autoload": {
-          \   "filetypes": ["java", "javascript", "ruby", "rust"],
+          \   "filetypes": ["java", "javascript", "rust"],
           \ },
           \ "build": {
           \   "mac": ["pip install flake8", "npm -g install coffeelint"],
