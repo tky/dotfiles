@@ -239,13 +239,6 @@ else
     command! -nargs=0 GrepCurrentFile call s:grep_current_file()
     nnoremap f* :GrepCurrentFile<CR>
 
-    NeoBundle 'tpope/vim-repeat'
-
-    NeoBundle "rhysd/unite-codic.vim"
-    NeoBundle "tpope/vim-eunuch"
-
-    NeoBundle 'git://github.com/kana/vim-fakeclip.git'
-
     " 非同期通信を可能にする
     " 'build'が指定されているのでインストール時に自動的に
     " 指定されたコマンドが実行され vimproc がコンパイルされる
@@ -257,64 +250,12 @@ else
         \   "unix"      : "make -f make_unix.mak",
         \ }}
 
-    NeoBundle 'Shougo/vimshell'
-
-    " Insertモードに入るまではneocompleteはロードされない
-    NeoBundleLazy 'Shougo/neocomplete.vim', {
-        \ "autoload": {"insert": 1}}
-    " neocompleteのhooksを取得
-    let s:hooks = neobundle#get_hooks("neocomplete.vim")
-    " neocomplete用の設定関数を定義。下記関数はneocompleteロード時に実行される
-    function! s:hooks.on_source(bundle)
-        let g:acp_enableAtStartup = 0
-        let g:neocomplete#enable_smart_case = 1
-
-        " 補完候補の一番先頭を選択状態にする
-        "let g:neocomplcache_enable_auto_select = 1
-        " CamelCase補完
-        let g:neocomplcache_enable_camel_case_completion = 1
-        " Underbar補完
-        let g:neocomplcache_enable_underbar_completion = 1
-
-        let g:neocomplcache_dictionary_filetype_lists = {
-          \ 'java' : '~/.vim/dict/java.dict'
-          \ }
-        if !exists('g:neocomplete#force_omni_input_patterns')
-          let g:neocomplete#force_omni_input_patterns = {}
-        endif
-        let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-
-    endfunction
-
-    " 'GundoToggle'が呼ばれるまでロードしない
-    NeoBundleLazy 'sjl/gundo.vim', {
-        \ "autoload": {"commands": ["GundoToggle"]}}
-    " '<Plug>TaskList'というマッピングが呼ばれるまでロードしない
-    NeoBundleLazy 'vim-scripts/TaskList.vim', {
-        \ "autoload": {"mappings": ['<Plug>TaskList']}}
-    " HTMLが開かれるまでロードしない
-    NeoBundleLazy 'mattn/emmet-vim', {
-        \ "autoload": {"filetypes": ['html', 'jsp', 'xml']}}
-
-    nnoremap <Leader>g :GundoToggle<CR>
-
     NeoBundle 'tpope/vim-repeat'
 
     NeoBundle "rhysd/unite-codic.vim"
     NeoBundle "tpope/vim-eunuch"
 
     NeoBundle 'git://github.com/kana/vim-fakeclip.git'
-
-    " 非同期通信を可能にする
-    " 'build'が指定されているのでインストール時に自動的に
-    " 指定されたコマンドが実行され vimproc がコンパイルされる
-    NeoBundle "Shougo/vimproc", {
-        \ "build": {
-        \   "windows"   : "make -f make_mingw32.mak",
-        \   "cygwin"    : "make -f make_cygwin.mak",
-        \   "mac"       : "make -f make_mac.mak",
-        \   "unix"      : "make -f make_unix.mak",
-        \ }}
 
     NeoBundle 'Shougo/vimshell'
 
