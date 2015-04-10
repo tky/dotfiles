@@ -874,6 +874,16 @@ else
     endfunction
     unlet s:bundle
 
+    NeoBundleLazy 'xmisao/rubyjump.vim', {
+      \ 'filetypes' : 'ruby',
+      \ }
+    let s:bundle = neobundle#get("rubyjump.vim")
+    function! s:bundle.hooks.on_source(bundle)
+      " Disable debug mode
+      g:rubyjump#debug = 0
+    endfunction
+    unlet s:bundle
+
     " for rails
     NeoBundleLazy 'tpope/vim-bundler', {
       \ 'filetypes' : 'ruby',
@@ -955,6 +965,11 @@ else
     NeoBundle "dag/vim2hs", {
       \ 'filetypes' : 'mustache',
       \ }
+
+    NeoBundle 'thinca/vim-ref'
+    let g:ref_open = 'vsplit'
+    let g:ref_refe_cmd = "rurema"
+    let g:ref_refe_version = 2
 
     " 一身上の都合でgithubにあげられない設定を分離
     if !empty(glob("~/.local.vimrc"))
