@@ -1,0 +1,5 @@
+simple_form_for
+content_for
+link_to
+:controller
+:action

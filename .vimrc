@@ -11,6 +11,7 @@ au BufRead,BufNewFile,BufReadPre *.coffee   set filetype=coffee
 au BufRead,BufNewFile,BufReadPre *.rs   set filetype=rust
 au BufRead,BufNewFile,BufReadPre *.mustache   set filetype=mustache
 au BufRead,BufNewFile,BufReadPre *.hs   set filetype=haskell
+au BufRead,BufNewFile,BufReadPre *.erb   set filetype=erb
 autocmd BufRead,BufNewFile *.erb set filetype=eruby.html
 
 " 前時代的スクリーンベルを無効化
@@ -278,7 +279,8 @@ else
 
         let g:neocomplcache_dictionary_filetype_lists = {
           \ 'java' : '~/.vim/dict/java.dict',
-          \ 'ruby' : '~/.vim/dict/ruby.dict'
+          \ 'ruby' : '~/.vim/dict/ruby.dict',
+          \ 'eruby' : '~/.vim/dict/erb.dict'
           \ }
         if !exists('g:neocomplete#force_omni_input_patterns')
           let g:neocomplete#force_omni_input_patterns = {}
