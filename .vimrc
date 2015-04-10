@@ -277,7 +277,8 @@ else
         let g:neocomplcache_enable_underbar_completion = 1
 
         let g:neocomplcache_dictionary_filetype_lists = {
-          \ 'java' : '~/.vim/dict/java.dict'
+          \ 'java' : '~/.vim/dict/java.dict',
+          \ 'ruby' : '~/.vim/dict/ruby.dict'
           \ }
         if !exists('g:neocomplete#force_omni_input_patterns')
           let g:neocomplete#force_omni_input_patterns = {}
