@@ -207,7 +207,7 @@ else
       if (&filetype == "java")
         call ctrlsf#Search("' " . a:word . "'")
       else
-        call ctrlsf#Search("'[def|val] " . a:word . "[ (=[:]'")
+        call ctrlsf#Search("'[def|val| |,] " . a:word . "[ (=[:]'")
       end
     endfunction
     command! -nargs=0 GrepFunctions call s:grep_functions()
@@ -591,12 +591,21 @@ else
         endif
       endfunction
 
+      function! s:RailsSpecSnippet()
+        let s:current_file_path = expand("%:p:h")
+        if (&filetype == 'ruby' && s:current_file_path =~ "spec")
+          NeoSnippetSource ~/.vim/snippets/rails_spec.snippets
+          set dictionary=~/.vim/dict/rails_spec.dict
+        endif
+      endfunction
+
       autocmd BufEnter * call s:AngularSnippet()
       autocmd BufEnter * call s:KnockoutSnippet()
       autocmd BufEnter * call s:JavaSnippet()
       autocmd BufEnter * call s:ScalaSpecSnippet()
       autocmd BufEnter * call s:PlayControllerSnippet()
       autocmd BufEnter * call s:RailsControllerSnippet()
+      autocmd BufEnter * call s:RailsSpecSnippet()
 
     endfunction
 
@@ -606,7 +615,9 @@ else
       let g:indent_guides_enable_on_vim_startup = 1
       let g:indent_guides_guide_size = 1
     endfunction
-
+    NeoBundleLazy "bronson/vim-trailing-whitespace", {
+      \ 'filetypes' : ['scala', 'ruby'],
+      \ }
 
     NeoBundle "thinca/vim-quickrun"
 
@@ -902,6 +913,31 @@ else
     NeoBundleLazy 'tpope/vim-endwise', {
       \ 'filetypes' : 'ruby',
       \ }
+
+    NeoBundleLazy 'tpope/vim-dispatch', {
+      \ 'filetypes' : 'ruby',
+      \ }
+
+    NeoBundleLazy 'thoughtbot/vim-rspec', {
+      \ 'filetypes' : 'ruby',
+      \ }
+    let s:bundle = neobundle#get("vim-rspec")
+    function! s:bundle.hooks.on_source(bundle)
+       nnoremap :Tf :call RunCurrentSpecFile()<CR>
+       nnoremap :Tn :call RunNearestSpec()<CR>
+       nnoremap :Tl :call RunLastSpec()<CR>
+       nnoremap :Ta :call RunAllSpecs()<CR>
+    endfunction
+    unlet s:bundle
+
+    " for rails
+    NeoBundleLazy 'tpope/vim-bundler', {
+      \ 'filetypes' : 'ruby',
+      \ }
+    NeoBundleLazy 'tpope/vim-rails', {
+      \ 'filetypes' : 'ruby',
+      \ }
+
 
     " for tag
     NeoBundle  "tsukkee/unite-tag"
