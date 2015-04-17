@@ -697,6 +697,12 @@ else
       \ 'filetypes' : 'javascript',
       \ }
 
+    NeoBundle 'marijnh/tern_for_vim', {
+      \ 'filetypes' : 'javascript',
+      \ 'build': {
+      \   'others': 'npm install'
+      \}}
+
     "gxでブラウザ起動。なぜもっと早く気がつかなかった。。
     NeoBundle 'open-browser.vim'
     let g:netrw_nogx = 1 " disable netrw's gx mapping.
