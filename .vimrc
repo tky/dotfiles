@@ -11,7 +11,6 @@ au BufRead,BufNewFile,BufReadPre *.coffee   set filetype=coffee
 au BufRead,BufNewFile,BufReadPre *.rs   set filetype=rust
 au BufRead,BufNewFile,BufReadPre *.mustache   set filetype=mustache
 au BufRead,BufNewFile,BufReadPre *.hs   set filetype=haskell
-au BufRead,BufNewFile,BufReadPre *.erb   set filetype=erb
 autocmd BufRead,BufNewFile *.erb set filetype=eruby.html
 
 " 前時代的スクリーンベルを無効化
@@ -885,8 +884,7 @@ else
       \ }
     let s:bundle = neobundle#get("rubyjump.vim")
     function! s:bundle.hooks.on_source(bundle)
-      " Disable debug mode
-      g:rubyjump#debug = 0
+      nnoremap <C-o> :RubyJump<CR>
     endfunction
     unlet s:bundle
 
@@ -976,6 +974,14 @@ else
     let g:ref_open = 'vsplit'
     let g:ref_refe_cmd = "rurema"
     let g:ref_refe_version = 2
+    nnoremap ,rr :<C-U>Ref refe<Space>
+
+    NeoBundle "taka84u9/vim-ref-ri"
+
+    NeoBundleLazy 'othree/html5.vim', {
+      \ 'filetypes' : ['html', 'eruby'],
+      \ }
+
 
     " 一身上の都合でgithubにあげられない設定を分離
     if !empty(glob("~/.local.vimrc"))
