@@ -1,0 +1,17 @@
+snippet     200
+  expect(response.status).to eq(200)
+
+snippet describe
+  describe '${1:describe}' do
+    ${2}
+  end
+
+snippet it
+  it '${1:description}' do
+    ${2}
+  end
+
+snippet before
+  before(:each) do
+    ${1}
+  end
