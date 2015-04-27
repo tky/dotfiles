@@ -26,3 +26,16 @@ snippet case
 		${2:pattern})
 			${3};;
 	esac
+
+snippet LOOP_DATE
+  START_DATE=${1:startYYYY-MM-DD}
+  END_DATE=${2:endYYYY-MM-DD}
+
+  current_date=$START_DATE
+  while [ 1 ] ; do
+    echo $current_date
+    if [ $current_date = $END_DATE ] ; then
+      break
+    fi
+    current_date=\`date -d "$current_date 1day" "+%Y-%m-%d"\`
+  done
