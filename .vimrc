@@ -141,6 +141,7 @@ map <silent> <C-t>c :tablast <bar> tabnew<CR>
 if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim
   call neobundle#begin(expand('~/.vim/bundle/'))
+  set runtimepath+=~/.vim/plugins/auto-increment.vim
 endif
 
 " gocode
@@ -715,7 +716,6 @@ else
     let g:EasyMotion_do_mapping = 0
     nmap s <Plug>(easymotion-s2)
 
-    NeoBundle 'rhysd/clever-f.vim'
     " 大文字、小文字を無視してfする。
     let g:clever_f_ignore_case = 1
 
@@ -982,6 +982,10 @@ else
       \ 'filetypes' : ['html', 'eruby'],
       \ }
 
+    NeoBundle 'haya14busa/incsearch.vim'
+    map /  <Plug>(incsearch-forward)
+    map ?  <Plug>(incsearch-backward)
+    map g/ <Plug>(incsearch-stay)
 
     " 一身上の都合でgithubにあげられない設定を分離
     if !empty(glob("~/.local.vimrc"))
