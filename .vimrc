@@ -139,10 +139,15 @@ endfor
 map <silent> <C-t>c :tablast <bar> tabnew<CR>
 
 if has('vim_starting')
+  if &compatible
+    set nocompatible               " Be iMproved
+  endif
   set runtimepath+=~/.vim/bundle/neobundle.vim
-  call neobundle#begin(expand('~/.vim/bundle/'))
   set runtimepath+=~/.vim/plugins/auto-increment.vim
 endif
+
+call neobundle#begin(expand('~/.vim/bundle/'))
+NeoBundleFetch 'Shougo/neobundle.vim'
 
 " gocode
 set rtp+=$GOROOT/misc/vim
@@ -152,23 +157,6 @@ if $GOROOT != ''
   set rtp+=$GOROOT/misc/vim
 endif
 exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
-
-let s:noplugin = 0
-let s:bundle_root = expand('~/.vim/bundle')
-let s:neobundle_root = s:bundle_root . '/neobundle.vim'
-if !isdirectory(s:neobundle_root) || v:version < 702
-    " NeoBundleが存在しない、もしくはVimのバージョンが古い場合はプラグインを一切
-    " 読み込まない
-    let s:noplugin = 1
-else
-    " NeoBundleを'runtimepath'に追加し初期化を行う
-    if has('vim_starting')
-        execute "set runtimepath+=" . s:neobundle_root
-    endif
-    call neobundle#begin(s:bundle_root)
-
-    " NeoBundle自身をNeoBundleで管理させる
-    NeoBundleFetch 'Shougo/neobundle.vim'
 
     NeoBundle 'dyng/ctrlsf.vim'
     NeoBundle 'rking/ag.vim', {
@@ -465,7 +453,6 @@ else
         endfunction
     endif
 
-
     NeoBundle "Shougo/neosnippet-snippets"
     NeoBundle "Shougo/neosnippet.vim"
     let s:hooks = neobundle#get_hooks("neosnippet.vim")
@@ -487,8 +474,6 @@ else
       endif
       " Enable snipMate compatibility feature.
       let g:neosnippet#enable_snipmate_compatibility = 1
-      " Tell Neosnippet about the other snippets
-      let g:neosnippet#snippets_directory=s:bundle_root . '~./vim/snippets'
 
       function! s:AngularSnippet()
         if exists("g:angular_root") && (&filetype == "javascript")
@@ -995,13 +980,11 @@ else
 
     call neobundle#end()
 
+    filetype plugin indent on
+
     " インストールされていないプラグインのチェックおよびダウンロード
     NeoBundleCheck
-endif
 
-" ファイルタイププラグインおよびインデントを有効化
-" これはNeoBundleによる処理が終了したあとに呼ばなければならない
-filetype plugin indent on
 
 " %コマンドのジャンプを拡張
 :source $VIMRUNTIME/macros/matchit.vim
