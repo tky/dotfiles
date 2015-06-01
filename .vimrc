@@ -29,6 +29,22 @@ set autoread
 "mkspell! ~/.vim/spell/en.utf-8.add
 syntax on
 
+function! s:vim_open_finder()
+  let a:current_line = getline('.')
+  if isdirectory(a:current_line)
+    execute "!open " .a:current_line
+    return
+  endif
+  let a:yank = getreg('@0')
+  if isdirectory(a:yank)
+    execute "!open " .a:yank
+    return
+  endif
+  execute ":! open `pbpaste`"
+endfunction
+command! -nargs=0 OpenFinder call s:vim_open_finder()
+nnoremap <F7> :OpenFinder<CR>
+
 function! s:vim_slide_next()
   let a:file = expand("%:r") + 1
   let a:extension = expand("%:e")
