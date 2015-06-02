@@ -427,6 +427,12 @@ NeoBundleLazy "gregsexton/gitv", {
       \   "commands": ["Gitv"],
       \ }}
 
+NeoBundle 'idanarye/vim-merginal'
+
+NeoBundleLazy "cohama/agit.vim", {
+      \ "autoload": {
+      \   "commands": ["Agit", "AgitFile"],
+      \ }}
 
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'vim-scripts/Align'
