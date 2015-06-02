@@ -705,11 +705,12 @@ NeoBundleLazy "pangloss/vim-javascript", {
       \ 'filetypes' : 'javascript',
       \ }
 
-NeoBundle 'marijnh/tern_for_vim', {
-      \ 'filetypes' : 'javascript',
-      \ 'build': {
-      \   'others': 'npm install'
-      \}}
+NeoBundleLazy 'marijnh/tern_for_vim', {
+      \ 'build' : 'npm install',
+      \ 'autoload' : {
+      \   'functions': ['tern#Complete', 'tern#Enable'],
+      \   'filetypes' : 'javascript'
+      \ }}
 
 "gxでブラウザ起動。なぜもっと早く気がつかなかった。。
 NeoBundle 'open-browser.vim'
