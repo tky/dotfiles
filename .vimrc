@@ -12,6 +12,7 @@ au BufRead,BufNewFile,BufReadPre *.rs   set filetype=rust
 au BufRead,BufNewFile,BufReadPre *.mustache   set filetype=mustache
 au BufRead,BufNewFile,BufReadPre *.hs   set filetype=haskell
 autocmd BufRead,BufNewFile *.erb set filetype=eruby.html
+au BufRead,BufNewFile,BufReadPre *.ts   set filetype=typescript
 
 " 前時代的スクリーンベルを無効化
 set vb t_vb= " ビープ音を鳴らさない
@@ -58,6 +59,8 @@ function! s:vim_slide_prev()
   execute 'open ' . a:file . '.' . a:extension
 endfunction
 command! -nargs=0 VimSlidePrev call s:vim_slide_prev()
+nnoremap <F9> :VimSlideNext<CR>
+nnoremap <F8> :VimSlidePrev<CR>
 
 
 function! s:vim_slide_up()
@@ -88,7 +91,6 @@ function! s:move_left_text(string, pos)
   call setline(a:pos ,a:string)
 endfunction
 command! -nargs=0 VimLeft call s:move_left_text("あa0いう1aあ(ほ-", 3)
-nnoremap <F9> :VimLeft<CR>
 
 function! s:move_up_text(string, pos)
   let a:index = line('$')
@@ -333,7 +335,6 @@ nnoremap [unite] <Nop>
 nmap U [unite]
 nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
-nnoremap <silent> [unite]r :<C-u>Unite register<CR>
 nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
 nnoremap <silent> [unite]b :<C-u>Unite bookmark<CR>
 nnoremap <silent> [unite]o :<C-u>Unite outline<CR>
@@ -941,7 +942,6 @@ NeoBundleLazy "wesleyche/Trinity", {
       \ "autoload": {"mappings": [' :SrcExplToggle']}
       \ }
 
-nmap <F8> :SrcExplToggle<CR>
 let s:bundle = neobundle#get("SrcExpl")
 function! s:bundle.hooks.on_source(bundle)
   let g:SrcExpl_winHeight = 8
@@ -1002,6 +1002,14 @@ NeoBundle 'haya14busa/incsearch.vim'
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
+
+"" for typescript
+NeoBundleLazy 'leafgarland/typescript-vim', {
+      \ 'filetypes' : 'typescript'
+      \ }
+NeoBundleLazy 'Quramy/tsuquyomi', {
+      \ 'filetypes' : 'typescript'
+      \ }
 
 " 一身上の都合でgithubにあげられない設定を分離
 if !empty(glob("~/.local.vimrc"))
