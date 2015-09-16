@@ -180,3 +180,11 @@ alias gls="gls --color"
 zstyle ':completion:*' list-colors 'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
 
 source ~/.bash_profile
+# enhancd
+if [ -f "/Users/ta-murata/.enhancd/zsh/enhancd.zsh" ]; then
+    source "/Users/ta-murata/.enhancd/zsh/enhancd.zsh"
+fi
+# enhancd
+if [ -f "/Users/ta-murata/.enhancd/zsh/enhancd.zsh" ]; then
+    source "/Users/ta-murata/.enhancd/zsh/enhancd.zsh"
+fi
