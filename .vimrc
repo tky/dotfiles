@@ -12,6 +12,10 @@ au BufRead,BufNewFile,BufReadPre *.rs   set filetype=rust
 au BufRead,BufNewFile,BufReadPre *.mustache   set filetype=mustache
 au BufRead,BufNewFile,BufReadPre *.hs   set filetype=haskell
 autocmd BufRead,BufNewFile *.erb set filetype=eruby.html
+au BufRead,BufNewFile,BufReadPre *.ts   set filetype=typescript
+autocmd FileType ruby setl iskeyword+=?
+"autocmd FileType java set omnifunc=javacomplete#Complete
+autocmd FileType ruby set omnifunc=rubycomplete#Complete
 
 " 前時代的スクリーンベルを無効化
 set vb t_vb= " ビープ音を鳴らさない
@@ -58,6 +62,8 @@ function! s:vim_slide_prev()
   execute 'open ' . a:file . '.' . a:extension
 endfunction
 command! -nargs=0 VimSlidePrev call s:vim_slide_prev()
+nnoremap <F9> :VimSlideNext<CR>
+nnoremap <F8> :VimSlidePrev<CR>
 
 
 function! s:vim_slide_up()
@@ -88,7 +94,6 @@ function! s:move_left_text(string, pos)
   call setline(a:pos ,a:string)
 endfunction
 command! -nargs=0 VimLeft call s:move_left_text("あa0いう1aあ(ほ-", 3)
-nnoremap <F9> :VimLeft<CR>
 
 function! s:move_up_text(string, pos)
   let a:index = line('$')
@@ -159,7 +164,7 @@ if has('vim_starting')
     set nocompatible               " Be iMproved
   endif
   set runtimepath+=~/.vim/bundle/neobundle.vim
-  set runtimepath+=~/.vim/plugins/auto-increment.vim
+  "set runtimepath+=~/.vim/plugins/auto-increment.vim
 endif
 
 call neobundle#begin(expand('~/.vim/bundle/'))
@@ -212,7 +217,8 @@ function! s:grep_functions()
   if (&filetype == "java")
     call ctrlsf#Search("' " . a:word . "'")
   else
-    call ctrlsf#Search("'[def|val| |,] " . a:word . "[ (=[:]'")
+    "call ctrlsf#Search("'[def|val| |,] " . a:word . "[ (=[:]'")
+    call ctrlsf#Search("'def " . a:word . "'")
   end
 endfunction
 command! -nargs=0 GrepFunctions call s:grep_functions()
@@ -267,6 +273,7 @@ NeoBundle 'Shougo/vimshell'
 " Insertモードに入るまではneocompleteはロードされない
 NeoBundleLazy 'Shougo/neocomplete.vim', {
       \ "autoload": {"insert": 1}}
+let g:neocomplete#enable_at_startup = 1
 " neocompleteのhooksを取得
 let s:hooks = neobundle#get_hooks("neocomplete.vim")
 " neocomplete用の設定関数を定義。下記関数はneocompleteロード時に実行される
@@ -281,16 +288,42 @@ function! s:hooks.on_source(bundle)
   " Underbar補完
   let g:neocomplcache_enable_underbar_completion = 1
 
-  let g:neocomplcache_dictionary_filetype_lists = {
+  let g:neocomplete#sources#dictionary#dictionaries = {
         \ 'java' : '~/.vim/dict/java.dict',
         \ 'ruby' : '~/.vim/dict/ruby.dict',
         \ 'eruby' : '~/.vim/dict/erb.dict'
         \ }
+
+  if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+  endif
+  let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+  " Plugin key-mappings.
+  inoremap <expr><C-g>     neocomplete#undo_completion()
+  inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+  " Recommended key-mappings.
+  " <CR>: close popup and save indent.
+  inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+  function! s:my_cr_function()
+    return neocomplete#close_popup() . "\<CR>"
+    " For no inserting <CR> key.
+    "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+  endfunction
+  " <TAB>: completion.
+  inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+  " <C-h>, <BS>: close popup and delete backword char.
+  inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+  inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+  inoremap <expr><C-y>  neocomplete#close_popup()
+  inoremap <expr><C-e>  neocomplete#cancel_popup()
+  " Close popup by <Space>.
+
   if !exists('g:neocomplete#force_omni_input_patterns')
     let g:neocomplete#force_omni_input_patterns = {}
   endif
   let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-
+  let g:neocomplcache#sources#rsense#home_directory = neobundle#get_neobundle_dir() . '/rsense-0.3'
 endfunction
 
 " 'GundoToggle'が呼ばれるまでロードしない
@@ -330,10 +363,9 @@ NeoBundleLazy 'h1mesuke/unite-outline', {
       \ }}
 
 nnoremap [unite] <Nop>
-nmap U [unite]
+nmap :u [unite]
 nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
-nnoremap <silent> [unite]r :<C-u>Unite register<CR>
 nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
 nnoremap <silent> [unite]b :<C-u>Unite bookmark<CR>
 nnoremap <silent> [unite]o :<C-u>Unite outline<CR>
@@ -402,7 +434,7 @@ function! s:hooks.on_source(bundle)
   endfunction
 endfunction
 
-
+NeoBundle 'mattn/webapi-vim'
 
 NeoBundleLazy "mattn/gist-vim", {
       \ "depends": ["mattn/webapi-vim"],
@@ -456,36 +488,12 @@ nmap <C-n> <Plug>(yankround-next)
 nnoremap <silent>y<C-p> :<C-u>CtrlPYankRound<CR>
 " "}}}
 
-if has('lua') && v:version >= 703 && has('patch885')
-  NeoBundleLazy "Shougo/neocomplete.vim", {
-        \ "autoload": {
-        \   "insert": 1,
-        \ }}
-  let g:neocomplete#enable_at_startup = 1
-  let s:hooks = neobundle#get_hooks("neocomplete.vim")
-  function! s:hooks.on_source(bundle)
-    let g:acp_enableAtStartup = 0
-    let g:neocomplet#enable_smart_case = 1
-  endfunction
-else
-  NeoBundleLazy "Shougo/neocomplcache.vim", {
-        \ "autoload": {
-        \   "insert": 1,
-        \ }}
-  let g:neocomplcache_enable_at_startup = 1
-  let s:hooks = neobundle#get_hooks("neocomplcache.vim")
-  function! s:hooks.on_source(bundle)
-    let g:acp_enableAtStartup = 0
-    let g:neocomplcache_enable_smart_case = 1
-    " NeoComplCacheを有効化
-    " NeoComplCacheEnable 
-  endfunction
-endif
-
 NeoBundle "Shougo/neosnippet-snippets"
-NeoBundle "Shougo/neosnippet.vim"
+NeoBundleLazy "Shougo/neosnippet.vim", {
+\ "autoload": {"insert": 1}}
 let s:hooks = neobundle#get_hooks("neosnippet.vim")
 function! s:hooks.on_source(bundle)
+  let g:neosnippet#snippets_directory='~/.vim/snippets'
   " Plugin key-mappings.
   imap <C-k>     <Plug>(neosnippet_expand_or_jump)
   smap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -501,8 +509,6 @@ function! s:hooks.on_source(bundle)
   if has('conceal')
     set conceallevel=2 concealcursor=i
   endif
-  " Enable snipMate compatibility feature.
-  let g:neosnippet#enable_snipmate_compatibility = 1
 
   function! s:AngularSnippet()
     if exists("g:angular_root") && (&filetype == "javascript")
@@ -578,7 +584,9 @@ NeoBundleLazy "tky/vim-trailing-whitespace", {
       \ }
 let g:extra_whitespace_ignored_filetypes = ['vimfiler']
 
-NeoBundle "thinca/vim-quickrun"
+NeoBundle "thinca/vim-quickrun", {
+      \ 'filetypes' : ['sh'],
+      \ }
 
 NeoBundleLazy 'majutsushi/tagbar', {
       \ "autload": {
@@ -662,14 +670,9 @@ NeoBundle 'tpope/vim-abolish'
 NeoBundle 'fuenor/qfixgrep.git'
 
 "for java
-NeoBundleLazy 'Shougo/javacomplete', {
-      \ 'build': {
-      \ 'cygwin': 'javac autoload/Reflection.java',
-      \ 'mac': 'javac autoload/Reflection.java',
-      \ 'unix': 'javac autoload/Reflection.java',
-      \ },
-      \ 'filetypes' : 'java',
-      \}
+"NeoBundleLazy 'artur-shaik/vim-javacomplete2' , {
+      "\ 'filetypes' : 'java',
+      "\}
 
 NeoBundleLazy "java_getset.vim", {
       \ 'filetypes' : 'java',
@@ -688,6 +691,7 @@ NeoBundleLazy 'KamunagiChiduru/unite-javaimport', {
 NeoBundleLazy 'tky/java-insert-package.vim' ,{
       \ 'filetypes' : 'java',
       \}
+
 let s:hooks = neobundle#get_hooks('java-insert-package.vim')
 function! s:hooks.on_source(bundle)
   nnoremap :pkg :JavaInsertPackage<CR>
@@ -858,22 +862,12 @@ NeoBundleLazy 'rhysd/unite-ruby-require.vim', {
 NeoBundleLazy 'rhysd/neco-ruby-keyword-args' , {
       \ 'filetypes' : 'ruby',
       \ }
+let g:rsenseUseOmniFunc = 1
 
-NeoBundleLazy 'Shougo/neocomplcache-rsense', {
-      \ 'filetypes' : 'ruby',
+NeoBundle 'supermomonga/neocomplete-rsense.vim', {
+      \ 'depends': ['Shougo/neocomplete.vim', 'marcus/rsense'],
       \ }
 
-let s:bundle = neobundle#get("neocomplcache-rsense")
-function! s:bundle.hooks.on_source(bundle)
-  let g:neocomplcache_enable_at_startup = 1
-  let g:neocomplcache#sources#rsense#home_directory = '/usr/local/Cellar/rsense/0.3'
-
-  if !exists('g:neocomplcache_omni_patterns')
-    let g:neocomplcache_omni_patterns = {}
-  endif
-  let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-endfunction
-unlet s:bundle
 
 NeoBundleLazy 'tpope/vim-endwise', {
       \ 'filetypes' : 'ruby',
@@ -901,6 +895,15 @@ NeoBundleLazy 'xmisao/rubyjump.vim', {
 let s:bundle = neobundle#get("rubyjump.vim")
 function! s:bundle.hooks.on_source(bundle)
   nnoremap <C-o> :RubyJump<CR>
+endfunction
+unlet s:bundle
+
+NeoBundleLazy 'todesking/ruby_hl_lvar.vim', {
+      \ 'filetypes' : 'ruby',
+      \ }
+let s:bundle = neobundle#get('ruby_hl_lvar.vim')
+function! s:bundle.hooks.on_post_source(bundle)
+  silent! execute 'doautocmd FileType' &filetype
 endfunction
 unlet s:bundle
 
@@ -941,7 +944,6 @@ NeoBundleLazy "wesleyche/Trinity", {
       \ "autoload": {"mappings": [' :SrcExplToggle']}
       \ }
 
-nmap <F8> :SrcExplToggle<CR>
 let s:bundle = neobundle#get("SrcExpl")
 function! s:bundle.hooks.on_source(bundle)
   let g:SrcExpl_winHeight = 8
@@ -987,12 +989,6 @@ NeoBundle "dag/vim2hs", {
       \ }
 
 NeoBundle 'thinca/vim-ref'
-let g:ref_open = 'vsplit'
-let g:ref_refe_cmd = "rurema"
-let g:ref_refe_version = 2
-nnoremap ,rr :<C-U>Ref refe<Space>
-
-NeoBundle "taka84u9/vim-ref-ri"
 
 NeoBundleLazy 'othree/html5.vim', {
       \ 'filetypes' : ['html', 'eruby'],
@@ -1002,12 +998,28 @@ NeoBundle 'haya14busa/incsearch.vim'
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
+map z/ <Plug>(incsearch-fuzzy-/)
+map z? <Plug>(incsearch-fuzzy-?)
+map zg/ <Plug>(incsearch-fuzzy-stay)
+
+"" for typescript
+NeoBundleLazy 'leafgarland/typescript-vim', {
+      \ 'filetypes' : 'typescript'
+      \ }
+NeoBundleLazy 'Quramy/tsuquyomi', {
+      \ 'filetypes' : 'typescript'
+      \ }
 
 " 一身上の都合でgithubにあげられない設定を分離
 if !empty(glob("~/.local.vimrc"))
   source ~/.local.vimrc
 endif
 
+
+"NeoBundle 'm18dev/shudenkun.vim'
+let g:last_train_work_place = "溜池山王"
+let g:last_train_user_id = 1
+let g:last_train_host = "http://localhost:3000"
 call neobundle#end()
 
 filetype plugin indent on
