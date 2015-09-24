@@ -39,3 +39,9 @@ snippet LOOP_DATE
     fi
     current_date=\`date -d "$current_date 1day" "+%Y-%m-%d"\`
   done
+
+snippet LOOP_FILE
+  cat ${1:filename} | while read line
+  do
+   ${2:do something with $line here}
+  done
