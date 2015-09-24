@@ -1,7 +1,5 @@
 scriptencoding utf-8
 
-" release autogroup in MyAutoCmd
-"
 augroup MyAutoCmd
   autocmd!
 augroup END
@@ -326,17 +324,8 @@ function! s:hooks.on_source(bundle)
   let g:neocomplcache#sources#rsense#home_directory = neobundle#get_neobundle_dir() . '/rsense-0.3'
 endfunction
 
-" 'GundoToggle'が呼ばれるまでロードしない
-NeoBundleLazy 'sjl/gundo.vim', {
-      \ "autoload": {"commands": ["GundoToggle"]}}
-" '<Plug>TaskList'というマッピングが呼ばれるまでロードしない
-NeoBundleLazy 'vim-scripts/TaskList.vim', {
-      \ "autoload": {"mappings": ['<Plug>TaskList']}}
-" HTMLが開かれるまでロードしない
 NeoBundleLazy 'mattn/emmet-vim', {
       \ "autoload": {"filetypes": ['html', 'jsp', 'xml']}}
-
-nnoremap <Leader>g :GundoToggle<CR>
 
 NeoBundle "thinca/vim-template"
 " テンプレート中に含まれる特定文字列を置き換える
@@ -371,7 +360,7 @@ nnoremap <silent> [unite]b :<C-u>Unite bookmark<CR>
 nnoremap <silent> [unite]o :<C-u>Unite outline<CR>
 nnoremap <silent> [unite]t :<C-u>Unite tag<CR>
 nnoremap <silent> [unite]w :<C-u>Unite window<CR>
-nnoremap <silent> [unite]s :<C-u>Unite snippet<CR>
+nnoremap <silent> [unite]s :<C-u>Unite neosnippet<CR>
 nnoremap <silent> [unite]r :<C-u>Unite ruby/require<CR>
 nnoremap <silent> [unite]c :<C-u>Unite codic<CR>
 let s:hooks = neobundle#get_hooks("unite.vim")
@@ -919,10 +908,6 @@ NeoBundleLazy 'tpope/vim-rails', {
 " for tag
 NeoBundle  "tsukkee/unite-tag"
 
-NeoBundle "vim-scripts/taglist.vim"
-let Tlist_Exit_OnlyWindow = 1                      " taglistのウインドウだけならVimを閉じる
-map <silent> <leader>l :TlistToggle<CR>      " \lでtaglistウインドウを開いたり閉じたり出来るショートカット
-
 " for textobj
 NeoBundle "kana/vim-textobj-user"
 NeoBundle "h1mesuke/textobj-wiw"
@@ -937,25 +922,9 @@ NeoBundleLazy "rhysd/vim-textobj-ruby" , {
       \ 'filetypes' : 'ruby',
       \ }
 
-NeoBundleLazy "wesleyche/SrcExpl", {
-      \ "autoload": {"mappings": [' :SrcExplToggle']}
-      \ }
-NeoBundleLazy "wesleyche/Trinity", {
-      \ "autoload": {"mappings": [' :SrcExplToggle']}
-      \ }
-
-let s:bundle = neobundle#get("SrcExpl")
-function! s:bundle.hooks.on_source(bundle)
-  let g:SrcExpl_winHeight = 8
-  let g:SrcExpl_refreshTime = 100
-  let g:SrcExpl_pluginList = [ 
-        \ "__Tag_List__"
-        \ ] 
-endfunction
-unlet s:bundle
 NeoBundle "koron/codic-vim"
 
-NeoBundle 'Blackrush/vim-gocode', {
+NeoBundleLazy 'Blackrush/vim-gocode', {
       \ 'filetypes' : 'go',
       \ }
 
@@ -1015,11 +984,6 @@ if !empty(glob("~/.local.vimrc"))
   source ~/.local.vimrc
 endif
 
-
-"NeoBundle 'm18dev/shudenkun.vim'
-let g:last_train_work_place = "溜池山王"
-let g:last_train_user_id = 1
-let g:last_train_host = "http://localhost:3000"
 call neobundle#end()
 
 filetype plugin indent on
@@ -1059,7 +1023,6 @@ nnoremap <F5> <Esc>q:
 nnoremap <F6> <Esc>q/
 
 " ステータスラインにファイル名を常に表示
-":set statusline=%F%m%r%h%w\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
 :set laststatus=2 
 
 "現バッファの差分表示。
