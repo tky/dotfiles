@@ -321,7 +321,6 @@ function! s:hooks.on_source(bundle)
     let g:neocomplete#force_omni_input_patterns = {}
   endif
   let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-  let g:neocomplcache#sources#rsense#home_directory = neobundle#get_neobundle_dir() . '/rsense-0.3'
 endfunction
 
 NeoBundleLazy 'mattn/emmet-vim', {
@@ -851,7 +850,6 @@ NeoBundleLazy 'rhysd/unite-ruby-require.vim', {
 NeoBundleLazy 'rhysd/neco-ruby-keyword-args' , {
       \ 'filetypes' : 'ruby',
       \ }
-let g:rsenseUseOmniFunc = 1
 
 NeoBundle 'supermomonga/neocomplete-rsense.vim', {
       \ 'depends': ['Shougo/neocomplete.vim', 'marcus/rsense'],
