@@ -649,7 +649,7 @@ endfunction
 NeoBundle 'kien/ctrlp.vim'
 let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|bower_components|bin)\/|(\.(swp|ico|git|svn|class|jar))$'
 "let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_working_path_mode = 'w'
+let g:ctrlp_working_path_mode = 'c'
 
 " </ を入力したときに自動的に補完してくれる。
 NeoBundle 'docunext/closetag.vim'
