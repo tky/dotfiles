@@ -31,6 +31,15 @@ set autoread
 "mkspell! ~/.vim/spell/en.utf-8.add
 syntax on
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:pow = [
+\   [ 1, 0, 0, 0  ],
+\   [ 1, 1, 1, 1  ],
+\   [ 1, 2, 4, 8  ],
+\   [ 1, 3, 9, 27 ],
+\]
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 function! s:vim_open_finder()
   let a:current_line = getline('.')
   if isdirectory(a:current_line)
@@ -647,9 +656,13 @@ endfunction
 " vsplit open <c-v>
 " split open <c-x>
 NeoBundle 'kien/ctrlp.vim'
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|bower_components|bin)\/|(\.(swp|ico|git|svn|class|jar))$'
+let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/](doc|tmp|node_modules|target|dist|bower_components|bin)',
+  \ 'file': '\v\.(exe|so|dll|swp|ico|git|svn|class|jar)$',
+  \ }
 "let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_working_path_mode = 'c'
+let g:ctrlp_working_path_mode = 'w'
 
 " </ を入力したときに自動的に補完してくれる。
 NeoBundle 'docunext/closetag.vim'
