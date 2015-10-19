@@ -915,6 +915,10 @@ NeoBundleLazy 'tpope/vim-rails', {
       \ 'filetypes' : 'ruby',
       \ }
 
+NeoBundleLazy 'basyura/unite-rails', {
+      \ 'filetypes' : 'ruby',
+      \ }
+
 
 " for tag
 NeoBundle  "tsukkee/unite-tag"
