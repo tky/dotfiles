@@ -76,6 +76,26 @@ function! s:graw_grid()
   endfor
 endfunction
 
+function! s:draw_line(x0, y0, x1, y1)
+  let a:dx = (a:x1 - a:x0) / (a:y1 - a:y0)
+  for x in range(a:x0, a:x1)
+    call s:show_screen()
+    call s:plot_to_screen("x", x, a:y0 + a:dx * (x - a:x0))
+    execute "redraw"
+    sleep 20ms
+  endfor
+
+endfunction
+function! s:draw_smile()
+  call s:init_screen()
+  call s:draw_line(0, 0, 5, 5)
+  call s:draw_line(5, 5, 11, -1)
+
+  call s:draw_line(20, 0, 25, 5)
+  call s:draw_line(25, 5, 31, -1)
+endfunction
+command! -nargs=0 Smile call s:draw_smile()
+
 function! s:besier(p0_x, p0_y, p1_x, p1_y, p2_x, p2_y)
   for x in range(0, 10)
     let a:t = x * 0.1
@@ -704,7 +724,8 @@ function! s:hooks.on_source(bundle)
 
 endfunction
 
-NeoBundle "nathanaelkane/vim-indent-guides"
+" 一旦止める
+"NeoBundle "nathanaelkane/vim-indent-guides"
 let s:hooks = neobundle#get_hooks("vim-indent-guides")
 function! s:hooks.on_source(bundle)
   let g:indent_guides_enable_on_vim_startup = 1
