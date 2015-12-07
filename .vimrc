@@ -32,12 +32,155 @@ set autoread
 syntax on
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:pow = [
-\   [ 1, 0, 0, 0  ],
-\   [ 1, 1, 1, 1  ],
-\   [ 1, 2, 4, 8  ],
-\   [ 1, 3, 9, 27 ],
-\]
+let s:screen_height=40
+let s:screen_center=20
+let s:screen_width=100
+let s:screen_width_origin=50
+
+let s:screen = []
+function! s:plot_to_screen(v, x, y)
+  let a:py = s:screen_center - a:y
+  " 1セルが正方形ではないので横を長めにする
+  let a:px = float2nr(s:screen_width_origin + a:x * 2)
+  let a:row = s:screen[a:py]
+  let a:row[a:px] = a:v
+endfunction
+
+function! s:show_screen()
+  for i in range(0, s:screen_height)
+    call setline(i, join(s:screen[i], ""))
+  endfor
+endfunction
+
+function! s:clear_screen()
+  for i in range(0, s:screen_height)
+    call setline(i, "")
+  endfor
+endfunction
+
+function! s:init_screen()
+  let s:screen = []
+  for i in range(0, s:screen_height + 10)
+    let cols = []
+    for j in range(0, s:screen_width * 2 + 10)
+      call add(cols, " ")
+    endfor
+    call add(s:screen, cols)
+  endfor
+endfunction
+
+function! s:graw_grid()
+  let row = s:screen[s:screen_center]
+  for x in range(0, len(row) - 1)
+    let row[x] = "-"
+  endfor
+endfunction
+
+function! s:besier(p0_x, p0_y, p1_x, p1_y, p2_x, p2_y)
+  for x in range(0, 10)
+    let a:t = x * 0.1
+    let a:p_x = (1.0 - a:t) * (1.0 - a:t) * a:p0_x + 2.0 * (1 - a:t) * a:t * a:p1_x + a:t * a:t * a:p2_x
+    let a:p_y = (1.0 - a:t) * (1.0 - a:t) * a:p0_y + 2.0 * (1 - a:t) * a:t * a:p1_y + a:t * a:t * a:p2_y
+    call s:plot_to_screen("x", float2nr(a:p_x), float2nr((a:p_y)))
+    call s:show_screen()
+    sleep 100ms
+    execute "redraw"
+  endfor
+endfunction
+"call s:init_screen()
+"call s:besier(0, 0, 10, 5, 20, 0)
+
+function! s:sin_graph()
+  call s:init_screen()
+  for t in  range(0, 100)
+    for x in range(-s:screen_width / 2, s:screen_width / 2)
+      call s:plot_to_screen("*", x, float2nr(sin(x * 0.1 + t) * s:screen_height / 2))
+    endfor
+    call s:graw_grid()
+    call s:show_screen()
+    execute "redraw"
+    sleep 300ms
+    call s:init_screen()
+    call s:show_screen()
+    sleep 300ms
+    execute "redraw"
+    echo "draw"
+  endfor
+endfunction
+"call s:sin_graph()
+
+function! s:cos_graph()
+  call s:init_screen()
+  for t in  range(0, 100)
+    for x in range(-s:screen_width / 2, s:screen_width / 2)
+      call s:plot_to_screen("*", x, float2nr(cos(x * 0.1 + t) * s:screen_height / 2))
+    endfor
+    call s:graw_grid()
+    call s:show_screen()
+    execute "redraw"
+    sleep 300ms
+    call s:init_screen()
+    call s:show_screen()
+    sleep 300ms
+    execute "redraw"
+    echo "draw"
+  endfor
+endfunction
+"call s:cos_graph()
+
+function! s:sin_cos_graph()
+  call s:init_screen()
+  for t in  range(0, 100)
+    for x in range(-s:screen_width / 2, s:screen_width / 2)
+      call s:plot_to_screen("*", x, float2nr(cos(x * 0.1 + t) * s:screen_height / 2))
+      call s:plot_to_screen("*", x, float2nr(sin(x * 0.1 + t) * s:screen_height / 2))
+    endfor
+    call s:graw_grid()
+    call s:show_screen()
+    execute "redraw"
+    sleep 300ms
+    call s:init_screen()
+    call s:show_screen()
+    sleep 300ms
+    execute "redraw"
+    echo "draw"
+  endfor
+endfunction
+
+"call s:sin_cos_graph()
+"
+function! s:circle_graph()
+  call s:init_screen()
+  for t in  range(0, 100)
+    call s:plot_to_screen("x", float2nr(cos(t * 0.5) * 10), float2nr(sin(t * 0.5) * 10))
+    call s:show_screen()
+    sleep 100ms
+    execute "redraw"
+  endfor
+endfunction
+"call s:circle_graph()
+function! s:circle_graph2()
+  call s:init_screen()
+  for t in  range(0, 300)
+    let a:r = 1 + t * 0.05
+    call s:plot_to_screen("x", float2nr(cos(t * 0.1) * a:r), float2nr(sin(t * 0.1) * a:r))
+    call s:show_screen()
+    sleep 100ms
+    execute "redraw"
+  endfor
+endfunction
+"call s:circle_graph2()
+
+function! s:circle_graph()
+  call s:init_screen()
+  for t in  range(0, 100)
+    call s:plot_to_screen("x", float2nr(cos(t * 0.3) * 5), float2nr(sin(t * 0.3) * 5))
+    call s:show_screen()
+    sleep 100ms
+    execute "redraw"
+  endfor
+endfunction
+"call s:circle_graph()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 function! s:vim_open_finder()
@@ -71,10 +214,6 @@ endfunction
 command! -nargs=0 VimSlidePrev call s:vim_slide_prev()
 nnoremap <F9> :VimSlideNext<CR>
 nnoremap <F8> :VimSlidePrev<CR>
-
-
-function! s:vim_slide_up()
-endfunction
 
 function! s:is_single_byte_char(char)
   return match(a:char,'[a-zA-Z0-9!-/:-@¥[-`{-~]')!= -1
@@ -191,15 +330,14 @@ NeoBundle 'rking/ag.vim', {
       \ "build": {
       \ "mac" : "brew install the_silver_searcher"
       \}}
-" 検索結果を閉じない
-let g:ctrlsf_auto_close = 0
-function! s:grep_fiels()
-  let a:word = expand("<cword>")
-  call ctrlsf#Search(a:word)
-endfunction
-command! -nargs=0 GrepAllFiles call s:grep_fiels()
-"nnoremap <C-g> :GrepAllFiles<CR>
-nnoremap g* :GrepAllFiles<CR>
+
+let g:ctrlsf_mapping = {
+    \ "split": "S",
+    \ "tab": "T",
+    \ }
+
+" 引数なしでCtrlSFを呼ぶとcursolしたのwordを検索する。
+nmap g* :CtrlSF<CR>
 
 NeoBundle 'terryma/vim-multiple-cursors'
 function! s:get_visual_selection()
@@ -223,20 +361,20 @@ function! s:grep_functions()
   let a:word = expand("<cword>")
   if (&filetype == "java")
     call ctrlsf#Search("' " . a:word . "'")
+  elseif (&filetype == "ruby" )
+    execute "CtrlSF -R " . "'" . "(def |def self.)". a:word . "'"
   else
-    "call ctrlsf#Search("'[def|val| |,] " . a:word . "[ (=[:]'")
-    call ctrlsf#Search("'def " . a:word . "'")
+    execute "CtrlSF -R " . "'" . "(def |val )". a:word . "'"
   end
 endfunction
 command! -nargs=0 GrepFunctions call s:grep_functions()
-"nnoremap f* :GrepFunctions<CR>
+nnoremap k* :GrepFunctions<CR>
 
 function! s:grep_classes()
   let a:word = expand("<cword>")
-  call ctrlsf#Search("'[class|trait|object] " . a:word . "[ |(]'")
+  execute "CtrlSF -R " . "'(class|module) " . a:word . "'"
 endfunction
 command! -nargs=0 GrepClasses call s:grep_classes()
-"nnoremap c* :GrepClasses<CR>
 
 function! s:grep_all_definitions()
   let a:word = expand("<cword>")
@@ -272,8 +410,6 @@ NeoBundle 'tpope/vim-repeat'
 
 NeoBundle "rhysd/unite-codic.vim"
 NeoBundle "tpope/vim-eunuch"
-
-NeoBundle 'git://github.com/kana/vim-fakeclip.git'
 
 NeoBundle 'Shougo/vimshell'
 
@@ -491,20 +627,18 @@ NeoBundleLazy "Shougo/neosnippet.vim", {
 let s:hooks = neobundle#get_hooks("neosnippet.vim")
 function! s:hooks.on_source(bundle)
   let g:neosnippet#snippets_directory='~/.vim/snippets'
-  " Plugin key-mappings.
   imap <C-k>     <Plug>(neosnippet_expand_or_jump)
   smap <C-k>     <Plug>(neosnippet_expand_or_jump)
   xmap <C-k>     <Plug>(neosnippet_expand_target)
-  " SuperTab like snippets behavior.
-  imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-        \ "\<Plug>(neosnippet_expand_or_jump)"
-        \: pumvisible() ? "\<C-n>" : "\<TAB>"
-  smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-        \ "\<Plug>(neosnippet_expand_or_jump)"
-        \: "\<TAB>"
-  " For snippet_complete marker.
+
+  "imap <expr><TAB>
+   \ pumvisible() ? "\<C-n>" :
+   \ neosnippet#expandable_or_jumpable() ?
+   \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+  
+  " For conceal markers.
   if has('conceal')
-    set conceallevel=2 concealcursor=i
+    set conceallevel=2 concealcursor=niv
   endif
 
   function! s:AngularSnippet()
