@@ -31,15 +31,6 @@ set autoread
 "mkspell! ~/.vim/spell/en.utf-8.add
 syntax on
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:pow = [
-\   [ 1, 0, 0, 0  ],
-\   [ 1, 1, 1, 1  ],
-\   [ 1, 2, 4, 8  ],
-\   [ 1, 3, 9, 27 ],
-\]
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 function! s:vim_open_finder()
   let a:current_line = getline('.')
   if isdirectory(a:current_line)
@@ -71,10 +62,6 @@ endfunction
 command! -nargs=0 VimSlidePrev call s:vim_slide_prev()
 nnoremap <F9> :VimSlideNext<CR>
 nnoremap <F8> :VimSlidePrev<CR>
-
-
-function! s:vim_slide_up()
-endfunction
 
 function! s:is_single_byte_char(char)
   return match(a:char,'[a-zA-Z0-9!-/:-@¥[-`{-~]')!= -1
@@ -191,15 +178,14 @@ NeoBundle 'rking/ag.vim', {
       \ "build": {
       \ "mac" : "brew install the_silver_searcher"
       \}}
-" 検索結果を閉じない
-let g:ctrlsf_auto_close = 0
-function! s:grep_fiels()
-  let a:word = expand("<cword>")
-  call ctrlsf#Search(a:word)
-endfunction
-command! -nargs=0 GrepAllFiles call s:grep_fiels()
-"nnoremap <C-g> :GrepAllFiles<CR>
-nnoremap g* :GrepAllFiles<CR>
+
+let g:ctrlsf_mapping = {
+    \ "split": "S",
+    \ "tab": "T",
+    \ }
+
+" 引数なしでCtrlSFを呼ぶとcursolしたのwordを検索する。
+nmap g* :CtrlSF<CR>
 
 NeoBundle 'terryma/vim-multiple-cursors'
 function! s:get_visual_selection()
@@ -223,20 +209,20 @@ function! s:grep_functions()
   let a:word = expand("<cword>")
   if (&filetype == "java")
     call ctrlsf#Search("' " . a:word . "'")
+  elseif (&filetype == "ruby" )
+    execute "CtrlSF -R " . "'" . "(def |def self.)". a:word . "'"
   else
-    "call ctrlsf#Search("'[def|val| |,] " . a:word . "[ (=[:]'")
-    call ctrlsf#Search("'def " . a:word . "'")
+    execute "CtrlSF -R " . "'" . "(def |val )". a:word . "'"
   end
 endfunction
 command! -nargs=0 GrepFunctions call s:grep_functions()
-"nnoremap f* :GrepFunctions<CR>
+nnoremap k* :GrepFunctions<CR>
 
 function! s:grep_classes()
   let a:word = expand("<cword>")
-  call ctrlsf#Search("'[class|trait|object] " . a:word . "[ |(]'")
+  execute "CtrlSF -R " . "'(class|module) " . a:word . "'"
 endfunction
 command! -nargs=0 GrepClasses call s:grep_classes()
-"nnoremap c* :GrepClasses<CR>
 
 function! s:grep_all_definitions()
   let a:word = expand("<cword>")
@@ -272,8 +258,6 @@ NeoBundle 'tpope/vim-repeat'
 
 NeoBundle "rhysd/unite-codic.vim"
 NeoBundle "tpope/vim-eunuch"
-
-NeoBundle 'git://github.com/kana/vim-fakeclip.git'
 
 NeoBundle 'Shougo/vimshell'
 
