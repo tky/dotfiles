@@ -600,9 +600,9 @@ function! s:hooks.on_source(bundle)
   "\}
   "call watchdogs#setup(g:quickrun_config)
 endfunction
-NeoBundleLazy "dannyob/quickfixstatus", {
-      \ 'filetypes' : ['ruby'],
-      \ }
+"NeoBundleLazy "dannyob/quickfixstatus", {
+      "\ 'filetypes' : ['ruby'],
+      "\ }
 " watchdogs
 
 NeoBundleLazy "scrooloose/syntastic", {
