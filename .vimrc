@@ -4,6 +4,7 @@ augroup MyAutoCmd
   autocmd!
 augroup END
 
+au BufRead,BufNewFile,BufReadPre *.exs   set filetype=exs
 au BufRead,BufNewFile,BufReadPre *.txt   set filetype=txt
 au BufRead,BufNewFile,BufReadPre *.coffee   set filetype=coffee
 au BufRead,BufNewFile,BufReadPre *.rs   set filetype=rust
@@ -580,30 +581,29 @@ nmap <Leader>t :TagbarToggle<CR>
 
 " watchdogs
 NeoBundleLazy "jceb/vim-hier", {
-      \ 'filetypes' : ['ruby'],
+      \ 'filetypes' : ['ruby', 'exs'],
       \ }
 NeoBundleLazy "osyo-manga/shabadou.vim" , {
-      \ 'filetypes' : ['ruby'],
+      \ 'filetypes' : ['ruby', 'exs'],
       \ }
 NeoBundleLazy "osyo-manga/vim-watchdogs", {
-      \ 'filetypes' : ['ruby'],
+      \ 'filetypes' : ['ruby', 'exs'],
       \ }
 let s:hooks = neobundle#get_hooks("vim-watchdogs")
 function! s:hooks.on_source(bundle)
   let g:watchdogs_check_BufWritePost_enable = 1
   let g:watchdogs_check_CursorHold_enable = 1
-  " quickfixを閉じる。
-  "let g:quickrun_config = {
-  "\   "watchdogs_checker/_" : {
-  "\       "hook/close_quickfix/enable_exit" : 1,
-  "\   },
-  "\}
-  "call watchdogs#setup(g:quickrun_config)
+  let g:quickrun_config = {
+    \   'watchdogs_checker/elixir': {
+    \     'command'     : 'elixir',
+    \     'exec'        : '%c %s',
+    \     'errorformat' : '**\ (%.%#Error)\ %f:%l:\ %m,%-G%.%#',
+    \   },
+    \   'elixir/watchdogs_checker': {
+    \     'type' : 'watchdogs_checker/elixir',
+    \   }
+    \ }
 endfunction
-"NeoBundleLazy "dannyob/quickfixstatus", {
-      "\ 'filetypes' : ['ruby'],
-      "\ }
-" watchdogs
 
 NeoBundleLazy "scrooloose/syntastic", {
       \ "autoload": {
@@ -984,6 +984,11 @@ NeoBundleLazy 'leafgarland/typescript-vim', {
       \ }
 NeoBundleLazy 'Quramy/tsuquyomi', {
       \ 'filetypes' : 'typescript'
+      \ }
+
+"" for elixir
+NeoBundleLazy 'elixir-lang/vim-elixir', {
+      \ 'filetypes' : 'exs'
       \ }
 
 " 一身上の都合でgithubにあげられない設定を分離
