@@ -13,10 +13,8 @@ au BufRead,BufNewFile,BufReadPre *.hs   set filetype=haskell
 autocmd BufRead,BufNewFile *.erb set filetype=eruby.html
 au BufRead,BufNewFile,BufReadPre *.ts   set filetype=typescript
 autocmd FileType ruby setl iskeyword+=?
-"autocmd FileType java set omnifunc=javacomplete#Complete
 autocmd FileType ruby set omnifunc=rubycomplete#Complete
 
-" 前時代的スクリーンベルを無効化
 set vb t_vb= " ビープ音を鳴らさない
 set number
 set nowrap
@@ -26,89 +24,14 @@ set expandtab
 set clipboard=unnamed
 set t_Co=256
 set fileencodings=utf-8,iso-2022-jp,euc-jp,cp932,ucs-bom,default,latin1
-"set spell
-"set spelllang=en,cjk
 set autoread
-"mkspell! ~/.vim/spell/en.utf-8.add
 syntax on
-
-function! s:vim_open_finder()
-  let a:current_line = getline('.')
-  if isdirectory(a:current_line)
-    execute "!open " .a:current_line
-    return
-  endif
-  let a:yank = getreg('@0')
-  if isdirectory(a:yank)
-    execute "!open " .a:yank
-    return
-  endif
-  execute ":! open `pbpaste`"
-endfunction
-command! -nargs=0 OpenFinder call s:vim_open_finder()
-nnoremap <F7> :OpenFinder<CR>
-
-function! s:vim_slide_next()
-  let a:file = expand("%:r") + 1
-  let a:extension = expand("%:e")
-  execute 'open ' . a:file . '.' . a:extension
-endfunction
-command! -nargs=0 VimSlideNext call s:vim_slide_next()
-
-function! s:vim_slide_prev()
-  let a:file = expand("%:r") - 1
-  let a:extension = expand("%:e")
-  execute 'open ' . a:file . '.' . a:extension
-endfunction
-command! -nargs=0 VimSlidePrev call s:vim_slide_prev()
-nnoremap <F9> :VimSlideNext<CR>
-nnoremap <F8> :VimSlidePrev<CR>
-
-function! s:is_single_byte_char(char)
-  return match(a:char,'[a-zA-Z0-9!-/:-@¥[-`{-~]')!= -1
-endfunction
-
-function! s:move_left_text(string, pos)
-  call append(a:pos - 1 ,"")
-  let a:index = 0
-  let a:length = strlen(a:string)
-  while a:index < a:length 
-    if (s:is_single_byte_char(a:string[a:length - a:index - 2 : a:length - a:index - 1]) == 0)
-      let a:index = a:index + 3
-    else
-      let a:index = a:index + 1
-    endif
-    if (a:length - a:index >= 0)
-      call setline(a:pos ,a:string[a:length - a:index : a:length])
-    else
-      :break
-    endif
-    execute "redraw"
-    sleep 900ms
-  endwhile
-  call setline(a:pos ,a:string)
-endfunction
-command! -nargs=0 VimLeft call s:move_left_text("あa0いう1aあ(ほ-", 3)
-
-function! s:move_up_text(string, pos)
-  let a:index = line('$')
-  while a:index > a:pos
-    let a:prev_line = getline(a:index)
-    call setline(a:index, a:string)
-    call setline(a:index + 1, a:prev_line)
-    let a:index = a:index - 1
-    execute "redraw"
-    sleep 100ms
-  endwhile
-endfunction
-command! -nargs=0 VimUp call s:move_up_text("aaaaa", 3)
 
 let g:angular_root = 'ok'
 " Anywhere SID.
 function! s:SID_PREFIX()
   return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
 endfunction
-
 
 function! s:java_version()
   let lines = split(system("java -version"), "\n")
@@ -159,7 +82,6 @@ if has('vim_starting')
     set nocompatible               " Be iMproved
   endif
   set runtimepath+=~/.vim/bundle/neobundle.vim
-  "set runtimepath+=~/.vim/plugins/auto-increment.vim
 endif
 
 call neobundle#begin(expand('~/.vim/bundle/'))
@@ -244,9 +166,6 @@ endfunction
 command! -nargs=0 GrepCurrentFile call s:grep_current_file()
 nnoremap f* :GrepCurrentFile<CR>
 
-" 非同期通信を可能にする
-" 'build'が指定されているのでインストール時に自動的に
-" 指定されたコマンドが実行され vimproc がコンパイルされる
 NeoBundle "Shougo/vimproc", {
       \ "build": {
       \   "windows"   : "make -f make_mingw32.mak",
@@ -266,15 +185,10 @@ NeoBundle 'Shougo/vimshell'
 NeoBundleLazy 'Shougo/neocomplete.vim', {
       \ "autoload": {"insert": 1}}
 let g:neocomplete#enable_at_startup = 1
-" neocompleteのhooksを取得
 let s:hooks = neobundle#get_hooks("neocomplete.vim")
-" neocomplete用の設定関数を定義。下記関数はneocompleteロード時に実行される
 function! s:hooks.on_source(bundle)
   let g:acp_enableAtStartup = 0
   let g:neocomplete#enable_smart_case = 1
-
-  " 補完候補の一番先頭を選択状態にする
-  "let g:neocomplcache_enable_auto_select = 1
   " CamelCase補完
   let g:neocomplcache_enable_camel_case_completion = 1
   " Underbar補完
@@ -290,26 +204,18 @@ function! s:hooks.on_source(bundle)
     let g:neocomplete#keyword_patterns = {}
   endif
   let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-  " Plugin key-mappings.
   inoremap <expr><C-g>     neocomplete#undo_completion()
   inoremap <expr><C-l>     neocomplete#complete_common_string()
 
-  " Recommended key-mappings.
-  " <CR>: close popup and save indent.
   inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
   function! s:my_cr_function()
     return neocomplete#close_popup() . "\<CR>"
-    " For no inserting <CR> key.
-    "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
   endfunction
-  " <TAB>: completion.
   inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-  " <C-h>, <BS>: close popup and delete backword char.
   inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
   inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
   inoremap <expr><C-y>  neocomplete#close_popup()
   inoremap <expr><C-e>  neocomplete#cancel_popup()
-  " Close popup by <Space>.
 
   if !exists('g:neocomplete#force_omni_input_patterns')
     let g:neocomplete#force_omni_input_patterns = {}
@@ -333,7 +239,10 @@ autocmd MyAutoCmd User plugin-template-loaded
       \ |   silent! execute 'normal! "_da>'
       \ | endif
 
-NeoBundle 'yuratomo/w3m.vim'
+NeoBundleLazy 'yuratomo/w3m.vim', {
+      \ "autoload": {
+      \   "commands": ["W3mSplit", "W3mVSplit"]
+      \ }}
 
 NeoBundleLazy "Shougo/unite.vim", {
       \ "autoload": {
@@ -358,11 +267,9 @@ nnoremap <silent> [unite]r :<C-u>Unite ruby/require<CR>
 nnoremap <silent> [unite]c :<C-u>Unite codic<CR>
 let s:hooks = neobundle#get_hooks("unite.vim")
 function! s:hooks.on_source(bundle)
-  " start unite in insert mode
   let g:unite_enable_start_insert = 1
   let g:unite_source_file_ignore_pattern='target/.*'
   let g:unite_source_grep_default_opts = '-iRHn'
-  " use vimfiler to open directory
   call unite#custom_default_action("source/bookmark/directory", "vimfiler")
   call unite#custom_default_action("directory", "vimfiler")
   call unite#custom_default_action("directory_mru", "vimfiler")
@@ -393,18 +300,14 @@ NeoBundleLazy "Shougo/vimfiler", {
       \   "explorer": 1,
       \ }}
 nnoremap <Leader>e :VimFilerExplorer<CR>
-" close vimfiler automatically when there are only vimfiler open
 autocmd MyAutoCmd BufEnter * if (winnr('$') == 1 && &filetype ==# 'vimfiler') | q | endif
 let s:hooks = neobundle#get_hooks("vimfiler")
 function! s:hooks.on_source(bundle)
-  "セーフモードを無効にした状態で起動する
   let g:vimfiler_safe_mode_by_default = 0
   let g:vimfiler_enable_auto_cd = 1
-
   " .から始まるファイルおよび.pycで終わるファイルを不可視パターンに
   let g:vimfiler_ignore_pattern = "\%(^\..*\|\.pyc$\)"
   let g:vimfiler_as_default_explorer = 1
-  " vimfiler specific key mappings
   autocmd MyAutoCmd FileType vimfiler call s:vimfiler_settings()
   function! s:vimfiler_settings()
     " ^^ to go up
@@ -458,18 +361,6 @@ nnoremap <silent> <Space>gh :<C-u>GitGutterLineHighlightsToggle<CR>
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'vim-scripts/Align'
 
-NeoBundle 'LeafCage/yankround.vim'
-"http://leafcage.hateblo.jp/entry/2013/10/31/yankroundvim
-" for yankround {{{
-nmap p <Plug>(yankround-p)
-nmap P <Plug>(yankround-P)
-nmap gp <Plug>(yankround-gp)
-nmap gP <Plug>(yankround-gP)
-nmap <C-m> <Plug>(yankround-prev)
-nmap <C-n> <Plug>(yankround-next)
-nnoremap <silent>y<C-p> :<C-u>CtrlPYankRound<CR>
-" "}}}
-
 NeoBundle "Shougo/neosnippet-snippets"
 NeoBundleLazy "Shougo/neosnippet.vim", {
 \ "autoload": {"insert": 1}}
@@ -480,14 +371,14 @@ function! s:hooks.on_source(bundle)
   imap <C-k>     <Plug>(neosnippet_expand_or_jump)
   smap <C-k>     <Plug>(neosnippet_expand_or_jump)
   xmap <C-k>     <Plug>(neosnippet_expand_target)
-  " SuperTab like snippets behavior.
-  imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-        \ "\<Plug>(neosnippet_expand_or_jump)"
-        \: pumvisible() ? "\<C-n>" : "\<TAB>"
+" SuperTab like snippets behavior.
+  imap <expr><TAB>
+   \ pumvisible() ? "\<C-n>" :
+   \ neosnippet#expandable_or_jumpable() ?
+   \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
   smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-        \ "\<Plug>(neosnippet_expand_or_jump)"
-        \: "\<TAB>"
-  " For snippet_complete marker.
+  \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
   if has('conceal')
     set conceallevel=2 concealcursor=i
   endif
@@ -566,18 +457,9 @@ NeoBundleLazy "tky/vim-trailing-whitespace", {
       \ }
 let g:extra_whitespace_ignored_filetypes = ['vimfiler']
 
-NeoBundle "thinca/vim-quickrun", {
+NeoBundleLazy "thinca/vim-quickrun", {
       \ 'filetypes' : ['sh'],
       \ }
-
-NeoBundleLazy 'majutsushi/tagbar', {
-      \ "autload": {
-      \   "commands": ["TagbarToggle"],
-      \ },
-      \ "build": {
-      \   "mac": "brew install ctags",
-      \ }}
-nmap <Leader>t :TagbarToggle<CR>
 
 " watchdogs
 NeoBundleLazy "jceb/vim-hier", {
@@ -630,10 +512,7 @@ function! s:hooks.on_source(bundle)
   " 補完の最初の項目が選択された状態だと使いにくいためオフにする
   let g:jedi#popup_select_first=0
   let g:jedi#popup_on_dot=0
-  " quickrunと被るため大文字に変更
   let g:jedi#rename_command = '<Leader>R'
-  " gundoと被るため大文字に変更
-  "let g:jedi#goto_command = '<Leader>P'
 endfunction
 
 " 起動<c-p>
@@ -645,20 +524,14 @@ let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/](doc|tmp|node_modules|target|dist|bower_components|bin)',
   \ 'file': '\v\.(exe|so|dll|swp|ico|git|svn|class|jar)$',
   \ }
-"let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_working_path_mode = 'w'
 
 " </ を入力したときに自動的に補完してくれる。
 NeoBundle 'docunext/closetag.vim'
 " スネークケース、キャメルケースの変換など crc crs
 NeoBundle 'tpope/vim-abolish'
-NeoBundle 'fuenor/qfixgrep.git'
 
 "for java
-"NeoBundleLazy 'artur-shaik/vim-javacomplete2' , {
-      "\ 'filetypes' : 'java',
-      "\}
-
 NeoBundleLazy "java_getset.vim", {
       \ 'filetypes' : 'java',
       \ }
@@ -720,25 +593,7 @@ nnoremap gr :OpenRedmine<CR>
 NeoBundle 'Lokaltog/vim-easymotion'
 let g:EasyMotion_do_mapping = 0
 nmap s <Plug>(easymotion-s2)
-
-" 大文字、小文字を無視してfする。
 let g:clever_f_ignore_case = 1
-
-NeoBundle 'mbbill/undotree'
-" undotree.vim
-" http://vimblog.com/blog/2012/09/02/undotree-dot-vim-display-your-undo-history-in-a-graph/
-" https://github.com/r1chelt/dotfiles/blob/master/.vimrc
-nmap <Leader>u :UndotreeToggle<CR>
-let g:undotree_SetFocusWhenToggle = 1
-let g:undotree_WindowLayout = 'topleft'
-let g:undotree_SplitWidth = 35
-let g:undotree_diffAutoOpen = 1
-let g:undotree_diffpanelHeight = 25
-let g:undotree_RelativeTimestamp = 1
-let g:undotree_TreeNodeShape = '*'
-let g:undotree_HighlightChangedText = 1
-let g:undotree_HighlightSyntax = "UnderLined"
-
 
 NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'nanotech/jellybeans.vim'
@@ -807,14 +662,6 @@ function! MyFileencoding()
   return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
 endfunction
 
-NeoBundleLazy "skammer/vim-css-color", {
-      \ 'filetypes' : 'css',
-      \ }
-let s:bundle = neobundle#get('vim-css-color')
-function! s:bundle.hooks.on_source(bundle)
-  let g:cssColorVimDoNotMessMyUpdatetime = 1
-endfunction
-
 NeoBundleLazy "derekwyatt/vim-scala", {
       \ 'filetypes' : 'scala',
       \ }
@@ -851,7 +698,6 @@ NeoBundleLazy 'rhysd/neco-ruby-keyword-args' , {
 NeoBundle 'supermomonga/neocomplete-rsense.vim', {
       \ 'depends': ['Shougo/neocomplete.vim', 'marcus/rsense'],
       \ }
-
 
 NeoBundleLazy 'tpope/vim-endwise', {
       \ 'filetypes' : 'ruby',
@@ -898,11 +744,9 @@ NeoBundleLazy 'tpope/vim-bundler', {
 NeoBundleLazy 'tpope/vim-rails', {
       \ 'filetypes' : 'ruby',
       \ }
-
 NeoBundleLazy 'basyura/unite-rails', {
       \ 'filetypes' : 'ruby',
       \ }
-
 
 " for tag
 NeoBundle  "tsukkee/unite-tag"
@@ -937,10 +781,13 @@ xmap <Space>m <Plug>(quickhl-manual-this)
 nmap <Space>M <Plug>(quickhl-manual-reset)
 xmap <Space>M <Plug>(quickhl-manual-reset)
 
-NeoBundle 'jlanzarotta/bufexplorer'
+NeoBundleLazy 'jlanzarotta/bufexplorer', {
+      \ "autoload": {
+      \   "commands": ["BufExplorer"]
+      \ }}
+nmap <Space>b :BufExplorer<CR>
 
 "" for rust
-
 NeoBundleLazy "wting/rust.vim" , {
       \ 'filetypes' : 'rust',
       \ }
@@ -949,7 +796,6 @@ NeoBundleLazy "wting/rust.vim" , {
 NeoBundle "mustache/vim-mustache-handlebars", {
       \ 'filetypes' : 'mustache',
       \ }
-
 
 "" for haskell
 NeoBundle "dag/vim2hs", {
