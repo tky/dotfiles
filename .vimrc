@@ -13,7 +13,7 @@ au BufRead,BufNewFile,BufReadPre *.hs   set filetype=haskell
 autocmd BufRead,BufNewFile *.erb set filetype=eruby.html
 au BufRead,BufNewFile,BufReadPre *.ts   set filetype=typescript
 autocmd FileType ruby setl iskeyword+=?
-autocmd FileType ruby set omnifunc=rubycomplete#Complete
+"autocmd FileType ruby set omnifunc=rubycomplete#Complete
 
 set vb t_vb= " ビープ音を鳴らさない
 set number
@@ -26,6 +26,33 @@ set t_Co=256
 set fileencodings=utf-8,iso-2022-jp,euc-jp,cp932,ucs-bom,default,latin1
 set autoread
 syntax on
+
+function! s:exists_file(file_name)
+   if filereadable(a:file_name)
+     return 1
+   endif
+   return 0
+endfunction
+
+function! s:is_rails_app()
+  return s:exists_file('Gemfile')
+endfunction
+
+function! s:rails_callback()
+  nnoremap <silent> [unite]c :<C-u>Unite rails/controller<CR>
+  nnoremap <silent> [unite]v :<C-u>Unite rails/view<CR>
+  nnoremap <silent> [unite]m :<C-u>Unite rails/model<CR>
+  nnoremap <silent> [unite]r :<C-u>Unite ruby/require<CR>
+  nnoremap <silent> [unite]i :<C-u>Unite ruby/require<CR>
+endfunction
+
+function! s:init_command()
+  if s:is_rails_app()
+    call s:rails_callback()
+  end
+endfunction
+
+call s:init_command()
 
 let g:angular_root = 'ok'
 " Anywhere SID.
@@ -101,6 +128,7 @@ NeoBundle 'rking/ag.vim', {
       \ "build": {
       \ "mac" : "brew install the_silver_searcher"
       \}}
+let g:ctrlsf_auto_close = 1
 
 let g:ctrlsf_mapping = {
     \ "split": "S",
@@ -220,7 +248,7 @@ function! s:hooks.on_source(bundle)
   if !exists('g:neocomplete#force_omni_input_patterns')
     let g:neocomplete#force_omni_input_patterns = {}
   endif
-  let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+  "let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 endfunction
 
 NeoBundleLazy 'mattn/emmet-vim', {
@@ -257,14 +285,12 @@ nnoremap [unite] <Nop>
 nmap :u [unite]
 nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
-nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
 nnoremap <silent> [unite]b :<C-u>Unite bookmark<CR>
 nnoremap <silent> [unite]o :<C-u>Unite outline<CR>
 nnoremap <silent> [unite]t :<C-u>Unite tag<CR>
 nnoremap <silent> [unite]w :<C-u>Unite window<CR>
 nnoremap <silent> [unite]s :<C-u>Unite neosnippet<CR>
-nnoremap <silent> [unite]r :<C-u>Unite ruby/require<CR>
-nnoremap <silent> [unite]c :<C-u>Unite codic<CR>
+nnoremap <silent> [unite]d :<C-u>Unite codic<CR>
 let s:hooks = neobundle#get_hooks("unite.vim")
 function! s:hooks.on_source(bundle)
   let g:unite_enable_start_insert = 1
@@ -536,6 +562,10 @@ NeoBundleLazy "java_getset.vim", {
       \ 'filetypes' : 'java',
       \ }
 
+NeoBundleLazy 'kamichidu/vim-javaclasspath', {
+      \ 'filetypes' : 'java'
+      \}
+
 NeoBundleLazy 'KamunagiChiduru/unite-javaimport', {
       \ 'filetypes' : 'java',
       \ 'depends': [
@@ -695,9 +725,9 @@ NeoBundleLazy 'rhysd/neco-ruby-keyword-args' , {
       \ 'filetypes' : 'ruby',
       \ }
 
-NeoBundle 'supermomonga/neocomplete-rsense.vim', {
-      \ 'depends': ['Shougo/neocomplete.vim', 'marcus/rsense'],
-      \ }
+"NeoBundle 'supermomonga/neocomplete-rsense.vim', {
+      "\ 'depends': ['Shougo/neocomplete.vim', 'marcus/rsense'],
+      "\ }
 
 NeoBundleLazy 'tpope/vim-endwise', {
       \ 'filetypes' : 'ruby',
