@@ -48,7 +48,8 @@ endfunction
 
 function! s:init_command()
   if s:is_rails_app()
-    call s:rails_callback()
+    let F = function('s:rails_callback')
+    call F()
   end
 endfunction
 
@@ -111,6 +112,8 @@ if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim
 endif
 
+set runtimepath+=~/.vim/plugins/project-initializer.vim
+
 call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
@@ -161,9 +164,9 @@ function! s:grep_functions()
   if (&filetype == "java")
     call ctrlsf#Search("' " . a:word . "'")
   elseif (&filetype == "ruby" )
-    execute "CtrlSF -R " . "'" . "(def |def self.)". a:word . "'"
+     call ctrlsf#Search("'" . "(def |def self.)". a:word . "'")
   else
-    execute "CtrlSF -R " . "'" . "(def |val )". a:word . "'"
+     call ctrlsf#Search("'" . "(def |val )". a:word . "'")
   end
 endfunction
 command! -nargs=0 GrepFunctions call s:grep_functions()
