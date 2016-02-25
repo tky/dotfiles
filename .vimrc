@@ -412,68 +412,69 @@ function! s:hooks.on_source(bundle)
     set conceallevel=2 concealcursor=i
   endif
 
-  function! s:AngularSnippet()
-    if exists("g:angular_root") && (&filetype == "javascript")
-      NeoSnippetSource ~/.vim/snippets/angular.snippets
-    endif
-  endfunction
-  function! s:KnockoutSnippet()
-    if exists("g:knockout_root") && (&filetype == "javascript")
-      NeoSnippetSource ~/.vim/snippets/knockout.snippets
-    endif
-  endfunction
-
-  function! s:JavaSnippet()
-    if (&filetype == 'java')
-      let java_version = s:java_version()
-      if (java_version =~ "1.7")
-        NeoSnippetSource ~/.vim/snippets/java1_7.snippets
-      elseif (java_version =~ "1.8")
-        NeoSnippetSource ~/.vim/snippets/java1_8.snippets
-      elseif (java_version =~ "1.6")
-        NeoSnippetSource ~/.vim/snippets/java1_6.snippets
-      endif
-    endif
-  endfunction
-
-  function! s:ScalaSpecSnippet()
-    let s:current_file_path = expand("%:p:h")
-    if (&filetype == 'scala' && s:current_file_path =~ "test")
-      NeoSnippetSource ~/.vim/snippets/specs2_scala.snippets
-    endif
-  endfunction
-
-  function! s:PlayControllerSnippet()
-    let s:current_file_path = expand("%:p:h")
-    if (&filetype == 'scala' && s:current_file_path =~ "app/controllers")
-      NeoSnippetSource ~/.vim/snippets/play_controller.snippets
-    endif
-  endfunction
-
-  function! s:RailsControllerSnippet()
-    let s:current_file_path = expand("%:p:h")
-    if (&filetype == 'ruby' && s:current_file_path =~ "controllers")
-      NeoSnippetSource ~/.vim/snippets/rails_controller.snippets
-    endif
-  endfunction
-
-  function! s:RailsSpecSnippet()
-    let s:current_file_path = expand("%:p:h")
-    if (&filetype == 'ruby' && s:current_file_path =~ "spec")
-      NeoSnippetSource ~/.vim/snippets/rails_spec.snippets
-      set dictionary=~/.vim/dict/rails_spec.dict
-    endif
-  endfunction
-
-  autocmd BufEnter * call s:AngularSnippet()
-  autocmd BufEnter * call s:KnockoutSnippet()
-  autocmd BufEnter * call s:JavaSnippet()
-  autocmd BufEnter * call s:ScalaSpecSnippet()
-  autocmd BufEnter * call s:PlayControllerSnippet()
-  autocmd BufEnter * call s:RailsControllerSnippet()
-  autocmd BufEnter * call s:RailsSpecSnippet()
-
 endfunction
+
+function! s:AngularSnippet()
+  if exists("g:angular_root") && (&filetype == "javascript")
+    NeoSnippetSource ~/.vim/snippets/angular.snippets
+  endif
+endfunction
+function! s:KnockoutSnippet()
+  if exists("g:knockout_root") && (&filetype == "javascript")
+    NeoSnippetSource ~/.vim/snippets/knockout.snippets
+  endif
+endfunction
+
+function! s:JavaSnippet()
+  if (&filetype == 'java')
+    let java_version = s:java_version()
+    if (java_version =~ "1.7")
+      NeoSnippetSource ~/.vim/snippets/java1_7.snippets
+    elseif (java_version =~ "1.8")
+      NeoSnippetSource ~/.vim/snippets/java1_8.snippets
+    elseif (java_version =~ "1.6")
+      NeoSnippetSource ~/.vim/snippets/java1_6.snippets
+    endif
+  endif
+endfunction
+
+function! s:ScalaSpecSnippet()
+  let s:current_file_path = expand("%:p:h")
+  if (&filetype == 'scala' && s:current_file_path =~ "test")
+    NeoSnippetSource ~/.vim/snippets/specs2_scala.snippets
+  endif
+endfunction
+
+function! s:PlayControllerSnippet()
+  let s:current_file_path = expand("%:p:h")
+  if (&filetype == 'scala' && s:current_file_path =~ "app/controllers")
+    NeoSnippetSource ~/.vim/snippets/play_controller.snippets
+  endif
+endfunction
+
+function! s:RailsControllerSnippet()
+  let s:current_file_path = expand("%:p:h")
+  if (&filetype == 'ruby' && s:current_file_path =~ "controllers")
+    NeoSnippetSource ~/.vim/snippets/rails_controller.snippets
+  endif
+endfunction
+
+function! s:RailsSpecSnippet()
+  let s:current_file_path = expand("%:t")
+  if (&filetype == 'ruby' && s:current_file_path =~ "spec")
+    NeoSnippetSource ~/.vim/snippets/rails_spec.snippets
+    set dictionary=~/.vim/dict/rails_spec.dict
+  endif
+endfunction
+
+autocmd BufEnter * call s:AngularSnippet()
+autocmd BufEnter * call s:KnockoutSnippet()
+autocmd BufEnter * call s:JavaSnippet()
+autocmd BufEnter * call s:ScalaSpecSnippet()
+autocmd BufEnter * call s:PlayControllerSnippet()
+autocmd BufEnter * call s:RailsControllerSnippet()
+autocmd BufEnter * call s:RailsSpecSnippet()
+
 
 NeoBundle "nathanaelkane/vim-indent-guides"
 let s:hooks = neobundle#get_hooks("vim-indent-guides")
