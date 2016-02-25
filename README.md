@@ -1,6 +1,6 @@
 ## install macvim with lua, python. set for system vim.
 ```
-brew install macvim --with-override-system-vim --with-lua --with-python --with-python3
+brew install macvim --with-override-system-vim --with-luajit --with-lua --with-python --with-python3
 ```
 
 ## Quick Start
