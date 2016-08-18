@@ -12,6 +12,7 @@ au BufRead,BufNewFile,BufReadPre *.mustache   set filetype=mustache
 au BufRead,BufNewFile,BufReadPre *.hs   set filetype=haskell
 autocmd BufRead,BufNewFile *.erb set filetype=eruby.html
 au BufRead,BufNewFile,BufReadPre *.ts   set filetype=typescript
+au BufRead,BufNewFile,BufReadPre *.es6   set filetype=javascript
 autocmd FileType ruby setl iskeyword+=?
 "autocmd FileType ruby set omnifunc=rubycomplete#Complete
 
@@ -131,7 +132,7 @@ NeoBundle 'rking/ag.vim', {
       \ "build": {
       \ "mac" : "brew install the_silver_searcher"
       \}}
-let g:ctrlsf_auto_close = 1
+let g:ctrlsf_auto_close = 0
 
 let g:ctrlsf_mapping = {
     \ "split": "S",
@@ -154,7 +155,7 @@ endfunction
 
 function! s:grep_visual_selection() 
   let a:word = s:get_visual_selection()
-  call ctrlsf#Search("'" . a:word . "'")
+  execute "CtrlSF" . "'" . a:word . "'"
 endfunction
 command! -nargs=0 GrepSelection call s:grep_visual_selection()
 vnoremap <C-f> <ESC>:GrepSelection<CR>
@@ -162,11 +163,11 @@ vnoremap <C-f> <ESC>:GrepSelection<CR>
 function! s:grep_functions()
   let a:word = expand("<cword>")
   if (&filetype == "java")
-    call ctrlsf#Search("' " . a:word . "'")
+    execute "CtrlSF" . "'" . a:word . "'"
   elseif (&filetype == "ruby" )
-     call ctrlsf#Search("'" . "(def |def self.)". a:word . "'")
+     execute "CtrlSF -R " . "'(def |def self.) " . a:word . "'"
   else
-     call ctrlsf#Search("'" . "(def |val )". a:word . "'")
+     execute "CtrlSF -R " . "'(def |val ) " . a:word . "'"
   end
 endfunction
 command! -nargs=0 GrepFunctions call s:grep_functions()
