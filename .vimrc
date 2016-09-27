@@ -22,6 +22,7 @@ set nowrap
 set nobackup
 set noswapfile
 set expandtab
+autocmd FileType go set noexpandtab
 set clipboard=unnamed
 set t_Co=256
 set fileencodings=utf-8,iso-2022-jp,euc-jp,cp932,ucs-bom,default,latin1
@@ -117,15 +118,6 @@ set runtimepath+=~/.vim/plugins/project-initializer.vim
 
 call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
-
-" gocode
-set rtp+=$GOROOT/misc/vim
-exe "set rtp+=" . globpath($GOPATH, "src/github.com/golang/lint/misc/vim")
-
-if $GOROOT != ''
-  set rtp+=$GOROOT/misc/vim
-endif
-exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
 
 NeoBundle 'dyng/ctrlsf.vim'
 NeoBundle 'rking/ag.vim', {
@@ -520,12 +512,20 @@ endfunction
 
 NeoBundleLazy "scrooloose/syntastic", {
       \ "autoload": {
-      \   "filetypes": ["java", "javascript", "rust"],
+      \   "filetypes": ["java", "javascript", "rust", "go"],
       \ },
       \ "build": {
       \   "mac": ["pip install flake8", "npm -g install coffeelint"],
       \   "unix": ["pip install flake8", "npm -g install coffeelint"],
       \ }}
+
+let s:hooks = neobundle#get_hooks('scrooloose/syntastic')
+function! s:hooks.on_source(bundle)
+  let g:syntastic_mode_map = { 'mode': 'passive',
+    \ 'active_filetypes': ['go'] }
+  let g:syntastic_go_checkers = ['go', 'golint']
+endfunction
+
 
 NeoBundleLazy "davidhalter/jedi-vim", {
       \ "autoload": {
@@ -802,7 +802,7 @@ NeoBundleLazy "rhysd/vim-textobj-ruby" , {
 
 NeoBundle "koron/codic-vim"
 
-NeoBundleLazy 'Blackrush/vim-gocode', {
+NeoBundleLazy 'fatih/vim-go', {
       \ 'filetypes' : 'go',
       \ }
 
