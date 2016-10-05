@@ -8,3 +8,17 @@ snippet main
 
 snippet println
   fmt.Println(${code})
+
+snippet ierr
+  ${1}, err := ${2}
+  if err != nil {
+  }
+
+
+snippet ierrf
+  if ${1}, err := ${2}; err == nil {
+  }
+
+snippet iokf
+  if ${1}, ok := ${2}; ok {
+  }
