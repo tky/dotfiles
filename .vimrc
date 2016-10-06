@@ -822,6 +822,17 @@ function! s:hooks.on_source(bundle)
   au FileType go nmap <Leader>s <Plug>(go-implements)
 endfunction
 
+NeoBundleLazy 'rhysd/unite-go-import.vim', {
+        \ 'autoload' : {
+        \     'depends' : 'Shougo/unite.vim',
+        \     'filetypes' : 'go',
+        \   }
+        \ }
+let s:hooks = neobundle#get_hooks("unite-go-import.vim")
+function! s:hooks.on_source(bundle)
+  au FileType go nmap :ip :Unite go/import:!<CR>
+endfunction
+
 
 NeoBundleLazy "kchmck/vim-coffee-script" , {
       \ 'filetypes' : 'coffee',
