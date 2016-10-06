@@ -805,8 +805,10 @@ NeoBundle "koron/codic-vim"
 NeoBundleLazy 'fatih/vim-go', {
       \ 'filetypes' : 'go',
       \ }
+
 let s:hooks = neobundle#get_hooks("vim-go")
 function! s:hooks.on_source(bundle)
+  let g:go_fmt_command = "goimports"
   au FileType go nmap <leader>r <Plug>(go-run)
   au FileType go nmap <leader>b <Plug>(go-build)
   au FileType go nmap <leader>t <Plug>(go-test)
