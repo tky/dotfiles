@@ -550,9 +550,8 @@ endfunction
 " vsplit open <c-v>
 " split open <c-x>
 NeoBundle 'kien/ctrlp.vim'
-let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](doc|tmp|node_modules|target|dist|bower_components|bin)',
+  \ 'dir':  '\v[\/](doc|tmp|node_modules|target|dist|bower_components|bin|typings)',
   \ 'file': '\v\.(exe|so|dll|swp|ico|git|svn|class|jar)$',
   \ }
 let g:ctrlp_working_path_mode = 'w'
