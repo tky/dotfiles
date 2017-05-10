@@ -248,7 +248,13 @@ function! s:hooks.on_source(bundle)
 endfunction
 
 NeoBundleLazy 'mattn/emmet-vim', {
-      \ "autoload": {"filetypes": ['html', 'jsp', 'xml']}}
+      \ "autoload": {"filetypes": ['html', 'jsp', 'xml', 'css', 'scss']}}
+ 
+function! s:hooks.on_source(bundle)
+  imap <buffer><expr><tab>
+    \ emmet#isExpandable() ? "\<plug>(emmet-expand-abbr)" :
+    \ "\<tab>"
+endfunction
 
 NeoBundle "thinca/vim-template"
 " テンプレート中に含まれる特定文字列を置き換える
