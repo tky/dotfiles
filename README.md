@@ -3,6 +3,11 @@
 brew install macvim --with-override-system-vim --with-luajit --with-lua --with-python --with-python3
 ```
 
+## install other libraries
+```
+brew install peco
+```
+
 ## Quick Start
 1. git Setup:
 
