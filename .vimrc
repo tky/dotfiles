@@ -156,8 +156,10 @@ function! s:grep_functions()
   let a:word = expand("<cword>")
   if (&filetype == "java")
     execute "CtrlSF" . "'" . a:word . "'"
-  elseif (&filetype == "ruby" )
+  elseif (&filetype == "ruby")
      execute "CtrlSF -R " . "'(def |def self.) " . a:word . "'"
+  elseif (&filetype =="php")
+     execute "CtrlSF -R " . "'(function) " . a:word . "'"
   else
      execute "CtrlSF -R " . "'(def |val ) " . a:word . "'"
   end
@@ -871,6 +873,7 @@ NeoBundle "dag/vim2hs", {
       \ }
 
 NeoBundle 'thinca/vim-ref'
+let g:ref_phpmanual_path = $HOME . '/.man/php-chunked-xhtml'
 
 NeoBundleLazy 'othree/html5.vim', {
       \ 'filetypes' : ['html', 'eruby'],
