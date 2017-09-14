@@ -124,7 +124,7 @@ NeoBundle 'rking/ag.vim', {
       \ "build": {
       \ "mac" : "brew install the_silver_searcher"
       \}}
-let g:ctrlsf_auto_close = 0
+let g:ctrlsf_auto_close = 1
 
 let g:ctrlsf_mapping = {
     \ "split": "S",
@@ -617,7 +617,7 @@ NeoBundleLazy "pangloss/vim-javascript", {
       \ }
 
 NeoBundleLazy 'marijnh/tern_for_vim', {
-      \ 'build' : 'npm install',
+      \ 'build' : 'npm install -g tern',
       \ 'autoload' : {
       \   'functions': ['tern#Complete', 'tern#Enable'],
       \   'filetypes' : 'javascript'
