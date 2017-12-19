@@ -16,3 +16,5 @@
 !/.iterm
 !/.inputrc
 !/.ctags
+/.vimconf/repos
+!/.vimconf

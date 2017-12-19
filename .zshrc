@@ -1,6 +1,8 @@
 # 少し凝った zshrc
  
 ########################################
+#
+export XDG_CONFIG_HOME="$HOME/.vimconf"
 # 環境変数
 export LANG=ja_JP.UTF-8
  
