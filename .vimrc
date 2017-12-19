@@ -16,6 +16,7 @@ au BufRead,BufNewFile,BufReadPre *.es6   set filetype=javascript
 autocmd FileType ruby setl iskeyword+=?
 "autocmd FileType ruby set omnifunc=rubycomplete#Complete
 
+inoremap jk <esc>
 set vb t_vb= " ビープ音を鳴らさない
 set number
 set nowrap
@@ -118,7 +119,6 @@ set runtimepath+=~/.vim/plugins/project-initializer.vim
 
 call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
-
 NeoBundle 'dyng/ctrlsf.vim'
 NeoBundle 'rking/ag.vim', {
       \ "build": {
@@ -559,7 +559,7 @@ endfunction
 " split open <c-x>
 NeoBundle 'kien/ctrlp.vim'
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](doc|tmp|node_modules|target|dist|bower_components|bin|typings)',
+  \ 'dir':  '\v[\/](doc|tmp|node_modules|target|dist|bower_components|bin|typings|vendor)',
   \ 'file': '\v\.(exe|so|dll|swp|ico|git|svn|class|jar)$',
   \ }
 let g:ctrlp_working_path_mode = 'w'
