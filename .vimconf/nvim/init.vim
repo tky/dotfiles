@@ -31,10 +31,8 @@ if dein#load_state(s:dein_dir)
 
     call dein#load_toml(s:toml_dir . '/plugins.toml', {'lazy': 0})
     call dein#load_toml(s:toml_dir . '/lightline.toml', {'lazy': 0})
-    "call dein#load_toml(s:toml_dir . '/lazy.toml', {'lazy': 1})
-    "if has('python3')
-        "call dein#load_toml(s:toml_dir . '/python.toml', {'lazy': 1})
-    "endif
+    call dein#load_toml(s:toml_dir . '/watchdog.toml', {'lazy': 0})
+    call dein#load_toml(s:toml_dir . '/lazy.toml', {'lazy': 0})
 
     call dein#end()
     call dein#save_state()
@@ -130,4 +128,78 @@ endfor
 " t1 で1番左のタブ、t2 で1番左から2番目のタブにジャンプ
 
 map <silent> <C-t>c :tablast <bar> tabnew<CR>
+inoremap jk <esc>
+set number
+set nowrap
+set nobackup
+set noswapfile
+set expandtab
+autocmd FileType go set noexpandtab
+set clipboard=unnamed
+set t_Co=256
+set fileencodings=utf-8,iso-2022-jp,euc-jp,cp932,ucs-bom,default,latin1
+set autoread
 
+function! s:get_visual_selection()
+  " Why is this not a built-in Vim script function?!
+  let [lnum1, col1] = getpos("'<")[1:2]
+  let [lnum2, col2] = getpos("'>")[1:2]
+  let lines = getline(lnum1, lnum2)
+  let lines[-1] = lines[-1][: col2 - (&selection == 'inclusive' ? 1 : 2)]
+  let lines[0] = lines[0][col1 - 1:]
+  return join(lines, "\n")
+endfunction
+
+function! s:grep_visual_selection() 
+  let a:word = s:get_visual_selection()
+  execute "CtrlSF" . "'" . a:word . "'"
+endfunction
+command! -nargs=0 GrepSelection call s:grep_visual_selection()
+vnoremap <C-f> <ESC>:GrepSelection<CR>
+
+function! s:grep_functions()
+  let a:word = expand("<cword>")
+  if (&filetype == "java")
+    execute "CtrlSF" . "'" . a:word . "'"
+  elseif (&filetype == "ruby")
+     execute "CtrlSF -R " . "'(def |def self.) " . a:word . "'"
+  elseif (&filetype =="php")
+     execute "CtrlSF -R " . "'(function) " . a:word . "'"
+  else
+     execute "CtrlSF -R " . "'(def |val ) " . a:word . "'"
+  end
+endfunction
+command! -nargs=0 GrepFunctions call s:grep_functions()
+nnoremap k* :GrepFunctions<CR>
+
+function! s:grep_classes()
+  let a:word = expand("<cword>")
+  execute "CtrlSF -R " . "'(class|module) " . a:word . "'"
+endfunction
+command! -nargs=0 GrepClasses call s:grep_classes()
+
+function! s:grep_all_definitions()
+  let a:word = expand("<cword>")
+  let a:is_lower = match(a:word[0],'\U')!=-1
+  if a:is_lower
+    call s:grep_functions()
+  else
+    call s:grep_classes()
+  end
+endfunction
+command! -nargs=0 GrepAllDefinitions call s:grep_all_definitions()
+nnoremap <Space>* :GrepAllDefinitions<CR>
+
+function! s:grep_current_file()
+  let a:file = expand("%:t:r")
+  call ctrlsf#Search(a:file)
+endfunction
+command! -nargs=0 GrepCurrentFile call s:grep_current_file()
+nnoremap f* :GrepCurrentFile<CR>
+
+nmap g* :CtrlSF<CR>
+
+" for termainal
+set sh=zsh
+tnoremap <silent> <ESC> <C-\><C-n>
+tnoremap <silent> jk <C-\><C-n>

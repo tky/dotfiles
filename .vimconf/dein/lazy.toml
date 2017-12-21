@@ -1,0 +1,82 @@
+[[plugins]]
+repo  = 'scrooloose/syntastic'
+on_ft = ['java', 'javascript', 'rust', 'go']
+build = 'pip install flake8; npm -g install coffeelint'
+
+[[plugins]]
+repo        = 'Shougo/neosnippet'
+on_i        = 1
+on_ft       = ['snippet']
+depends     = ['neosnippet-snippets']
+hook_source = '''
+  imap <C-k> <Plug>(neosnippet_expand_or_jump)
+  smap <C-k> <Plug>(neosnippet_expand_or_jump)
+  xmap <C-k> <Plug>(neosnippet_expand_target)
+  if has('conceal')
+    set conceallevel=2 concealcursor=niv
+  endif
+'''
+
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+
+[[plugins]]
+repo        = 'Shougo/deoplete.nvim'
+on_i        = 1
+hook_source = '''
+  let g:deoplete#enable_at_startup = 1
+  inoremap <expr><tab> pumvisible() ? "\<C-n>" :
+        \ neosnippet#expandable_or_jumpable() ?
+        \    "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
+
+'''
+
+[[plugins]]
+repo  = 'derekwyatt/vim-scala'
+on_ft = ['scala']
+
+[[plugins]]
+repo = 'docunext/closetag.vim'
+on_i = 1
+
+[[plugins]]
+repo = 'Shougo/vimfiler'
+depents = ['Shougo/unite.vim']
+on_cmd = ['VimFilerTab', 'VimFiler', 'VimFilerExplorer']
+
+hook_add = '''
+nnoremap <Leader>e :VimFilerExplorer<CR>
+autocmd MyAutoCmd BufEnter * if (winnr('$') == 1 && &filetype ==# 'vimfiler') | q | endif
+  let g:vimfiler_safe_mode_by_default = 0
+  let g:vimfiler_enable_auto_cd = 1
+  " .から始まるファイルおよび.pycで終わるファイルを不可視パターンに
+  let g:vimfiler_ignore_pattern = "\%(^\..*\|\.pyc$\)"
+  let g:vimfiler_as_default_explorer = 1
+  autocmd MyAutoCmd FileType vimfiler call s:vimfiler_settings()
+  function! s:vimfiler_settings()
+    " ^^ to go up
+    nmap <buffer> ^^ <Plug>(vimfiler_switch_to_parent_directory)
+    " use R to refresh
+    nmap <buffer> R <Plug>(vimfiler_redraw_screen)
+    " overwrite C-l
+    nmap <buffer> <C-l> <C-w>l
+  endfunction
+'''
+
+
+[[plugins]]
+repo  = 'mattn/emmet-vim'
+on_ft =  ['html', 'jsp', 'xml', 'css', 'scss']
+hook_add = '''
+  imap <buffer><expr><tab>
+    \ emmet#isExpandable() ? '\<plug>(emmet-expand-abbr)' :
+    \ '\<tab>'
+'''
+
+[[plugins]]
+repo     = 'tky/vim-trailing-whitespace'
+on_ft    = ['scala', 'ruby']
+hook_add = '''
+let g:extra_whitespace_ignored_filetypes = ['vimfiler']
+'''
+
