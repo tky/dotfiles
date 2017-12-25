@@ -40,31 +40,6 @@ repo = 'docunext/closetag.vim'
 on_i = 1
 
 [[plugins]]
-repo = 'Shougo/vimfiler'
-depents = ['Shougo/unite.vim']
-on_cmd = ['VimFilerTab', 'VimFiler', 'VimFilerExplorer']
-
-hook_add = '''
-nnoremap <Leader>e :VimFilerExplorer<CR>
-autocmd MyAutoCmd BufEnter * if (winnr('$') == 1 && &filetype ==# 'vimfiler') | q | endif
-  let g:vimfiler_safe_mode_by_default = 0
-  let g:vimfiler_enable_auto_cd = 1
-  " .から始まるファイルおよび.pycで終わるファイルを不可視パターンに
-  let g:vimfiler_ignore_pattern = "\%(^\..*\|\.pyc$\)"
-  let g:vimfiler_as_default_explorer = 1
-  autocmd MyAutoCmd FileType vimfiler call s:vimfiler_settings()
-  function! s:vimfiler_settings()
-    " ^^ to go up
-    nmap <buffer> ^^ <Plug>(vimfiler_switch_to_parent_directory)
-    " use R to refresh
-    nmap <buffer> R <Plug>(vimfiler_redraw_screen)
-    " overwrite C-l
-    nmap <buffer> <C-l> <C-w>l
-  endfunction
-'''
-
-
-[[plugins]]
 repo  = 'mattn/emmet-vim'
 on_ft =  ['html', 'jsp', 'xml', 'css', 'scss']
 hook_add = '''

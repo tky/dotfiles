@@ -30,9 +30,9 @@ if dein#load_state(s:dein_dir)
     let s:toml_dir = expand('$CONFIG/dein')
 
     call dein#load_toml(s:toml_dir . '/plugins.toml', {'lazy': 0})
-    call dein#load_toml(s:toml_dir . '/lightline.toml', {'lazy': 0})
-    call dein#load_toml(s:toml_dir . '/watchdog.toml', {'lazy': 0})
-    call dein#load_toml(s:toml_dir . '/lazy.toml', {'lazy': 0})
+    call dein#load_toml(s:toml_dir . '/lightline.toml', {'lazy': 1})
+    call dein#load_toml(s:toml_dir . '/watchdog.toml', {'lazy': 1})
+    call dein#load_toml(s:toml_dir . '/lazy.toml', {'lazy': 1})
 
     call dein#end()
     call dein#save_state()
