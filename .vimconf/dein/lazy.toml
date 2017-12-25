@@ -55,3 +55,6 @@ hook_add = '''
 let g:extra_whitespace_ignored_filetypes = ['vimfiler']
 '''
 
+[[plugins]]
+repo = 'brooth/far.vim'
+on_cmd = ['Far', 'Fardo']
