@@ -4,8 +4,15 @@ brew install macvim --with-override-system-vim --with-luajit --with-lua --with-p
 ```
 
 ## install other libraries
+### peco
 ```
 brew install peco
+```
+
+## zplug
+```
+$ export ZPLUG_HOME=~/.zplug
+$ git clone https://github.com/zplug/zplug $ZPLUG_HOME
 ```
 
 ## Quick Start
