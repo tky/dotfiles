@@ -146,22 +146,21 @@ function! s:get_visual_selection()
 endfunction
 
 function! s:grep_visual_selection() 
-  let a:word = s:get_visual_selection()
-  execute "CtrlSF" . "'" . a:word . "'"
+  execute "CtrlSF" . "'" . s:get_visual_selection() . "'"
 endfunction
 command! -nargs=0 GrepSelection call s:grep_visual_selection()
 vnoremap <C-f> <ESC>:GrepSelection<CR>
 
 function! s:grep_functions()
-  let a:word = expand("<cword>")
+  let word = expand("<cword>")
   if (&filetype == "java")
-    execute "CtrlSF" . "'" . a:word . "'"
+    execute "CtrlSF" . "'" . word . "'"
   elseif (&filetype == "ruby")
-     execute "CtrlSF -R " . "'(def |def self.) " . a:word . "'"
+     execute "CtrlSF -R " . "'[def |def self.] " . word . "'"
   elseif (&filetype =="php")
-     execute "CtrlSF -R " . "'(function) " . a:word . "'"
+     execute "CtrlSF -R " . "'(function) " . word . "'"
   else
-     execute "CtrlSF -R " . "'(def |val ) " . a:word . "'"
+     execute "CtrlSF -R " . "'(def |val ) " . word . "'"
   end
 endfunction
 command! -nargs=0 GrepFunctions call s:grep_functions()
@@ -174,9 +173,10 @@ endfunction
 command! -nargs=0 GrepClasses call s:grep_classes()
 
 function! s:grep_all_definitions()
-  let a:word = expand("<cword>")
-  let a:is_lower = match(a:word[0],'\U')!=-1
-  if a:is_lower
+  let word = expand("<cword>")
+  echo word
+  let is_lower = match(word[0],'\U')!=-1
+  if is_lower
     call s:grep_functions()
   else
     call s:grep_classes()
