@@ -895,14 +895,6 @@ NeoBundleLazy 'Quramy/tsuquyomi', {
       \ 'filetypes' : 'typescript'
       \ }
 
-"" for typescript
-NeoBundleLazy 'leafgarland/typescript-vim', {
-      \ 'filetypes' : 'typescript'
-      \ }
-NeoBundleLazy 'Quramy/tsuquyomi', {
-      \ 'filetypes' : 'typescript'
-      \ }
-
 "" for elixir
 NeoBundleLazy 'elixir-lang/vim-elixir', {
       \ 'filetypes' : 'exs'
