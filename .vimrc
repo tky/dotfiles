@@ -125,6 +125,7 @@ NeoBundle 'rking/ag.vim', {
       \ "mac" : "brew install the_silver_searcher"
       \}}
 let g:ctrlsf_auto_close = 1
+let g:ctrlsf_ignore_dir = ["node_modules"]
 
 let g:ctrlsf_mapping = {
     \ "split": "S",
