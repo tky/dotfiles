@@ -639,8 +639,11 @@ let g:clever_f_ignore_case = 1
 
 NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'nanotech/jellybeans.vim'
+
+NeoBundle 'altercation/vim-colors-solarized'
+set background=dark
+
 NeoBundle 'Wombat'
-colorscheme desert
 NeoBundle 'itchyny/lightline.vim'
 let g:lightline = {
       \ 'colorscheme': 'wombat',
@@ -886,14 +889,6 @@ map g/ <Plug>(incsearch-stay)
 map z/ <Plug>(incsearch-fuzzy-/)
 map z? <Plug>(incsearch-fuzzy-?)
 map zg/ <Plug>(incsearch-fuzzy-stay)
-
-"" for typescript
-NeoBundleLazy 'leafgarland/typescript-vim', {
-      \ 'filetypes' : 'typescript'
-      \ }
-NeoBundleLazy 'Quramy/tsuquyomi', {
-      \ 'filetypes' : 'typescript'
-      \ }
 
 "" for elixir
 NeoBundleLazy 'elixir-lang/vim-elixir', {
