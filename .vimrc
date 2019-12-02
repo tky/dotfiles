@@ -521,7 +521,7 @@ endfunction
 
 NeoBundleLazy "scrooloose/syntastic", {
       \ "autoload": {
-      \   "filetypes": ["java", "javascript", "rust", "go"],
+      \   "filetypes": ["java", "javascript", "rust", "go", "python", "python3"],
       \ },
       \ "build": {
       \   "mac": ["pip install flake8", "npm -g install coffeelint"],
@@ -535,6 +535,20 @@ function! s:hooks.on_source(bundle)
   let g:syntastic_go_checkers = ['go', 'golint']
 endfunction
 
+NeoBundleLazy "nvie/vim-flake8", {
+      \ "autoload": {
+      \   "filetypes": [ "python", "python3"],
+      \ },
+      \ "build": {
+      \   "mac": ["pip3 install flake8"],
+      \   "unix": ["pip3 install flake8"],
+      \ }}
+
+let s:hooks = neobundle#get_hooks("vim-flake8")
+function! s:hooks.on_source(bundle)
+    let g:flake8_show_in_gutter=1
+    let g:flake8_show_in_file=1
+endfunction
 
 NeoBundleLazy "davidhalter/jedi-vim", {
       \ "autoload": {
