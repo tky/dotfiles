@@ -553,6 +553,7 @@ function! s:hooks.on_source(bundle)
   let g:jedi#popup_select_first=0
   let g:jedi#popup_on_dot=0
   let g:jedi#rename_command = '<Leader>R'
+  let g:jedi#use_splits_not_buffers = "left"
 endfunction
 
 " 起動<c-p>
