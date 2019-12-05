@@ -533,6 +533,23 @@ function! s:hooks.on_source(bundle)
   let g:syntastic_mode_map = { 'mode': 'passive',
     \ 'active_filetypes': ['go'] }
   let g:syntastic_go_checkers = ['go', 'golint']
+  let g:syntastic_check_on_open = 1
+  let g:syntastic_python_checkers = ['flake8', 'pep257', 'mypy']
+endfunction
+
+NeoBundleLazy "neomake/neomake", {
+      \ "autoload": {
+      \   "filetypes": [ "python", "python3"],
+      \ },
+      \ "build": {
+      \   "mac": ["pip install flake8"],
+      \   "unix": ["pip install flake8"],
+      \ }}
+
+let s:hooks = neobundle#get_hooks("neomake")
+function! s:hooks.on_source(bundle)
+  autocmd! BufEnter,BufWritePost * Neomake
+  let g:neomake_python_enabled_makers = ['python', 'flake8', 'mypy']
 endfunction
 
 NeoBundleLazy "nvie/vim-flake8", {
@@ -568,6 +585,7 @@ function! s:hooks.on_source(bundle)
   let g:jedi#popup_on_dot=0
   let g:jedi#rename_command = '<Leader>R'
   let g:jedi#use_splits_not_buffers = "left"
+  let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
 endfunction
 
 " 起動<c-p>
