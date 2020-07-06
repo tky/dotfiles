@@ -7,6 +7,7 @@
 !/.bash_aliases
 !/.vimrc
 !/.vim
+/.vim/plugged
 !/.gitignore
 !/.gitmodules
 !/.vimrc.indent
@@ -18,3 +19,4 @@
 !/.ctags
 /.vimconf/repos
 !/.vimconf
+.vimconf/pgcli
