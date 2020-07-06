@@ -12,6 +12,7 @@ au BufRead,BufNewFile,BufReadPre *.mustache   set filetype=mustache
 au BufRead,BufNewFile,BufReadPre *.hs   set filetype=haskell
 autocmd BufRead,BufNewFile *.erb set filetype=eruby.html
 au BufRead,BufNewFile,BufReadPre *.ts   set filetype=typescript
+au BufRead,BufNewFile,BufReadPre *.tsx   set filetype=typescript
 au BufRead,BufNewFile,BufReadPre *.es6   set filetype=javascript
 autocmd FileType ruby setl iskeyword+=?
 "autocmd FileType ruby set omnifunc=rubycomplete#Complete
@@ -585,7 +586,6 @@ function! s:hooks.on_source(bundle)
   let g:jedi#popup_on_dot=0
   let g:jedi#rename_command = '<Leader>R'
   let g:jedi#use_splits_not_buffers = "left"
-  let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
 endfunction
 
 " 起動<c-p>
