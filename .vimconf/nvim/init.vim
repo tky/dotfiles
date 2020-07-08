@@ -23,6 +23,15 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } | Plug 'junegunn/fzf.vim'
 
 Plug '5t111111/denite-rails', { 'for': 'ruby' }
 
+Plug 'dyng/ctrlsf.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'idanarye/vim-merginal'
+Plug 'tpope/vim-surround'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'thinca/vim-quickrun', { 'for': 'sh' }
+Plug 'tyru/open-browser.vim'
+Plug 'Lokaltog/vim-easymotion'
+
 call plug#end()
 
 call deoplete#custom#option({
@@ -103,6 +112,58 @@ call defx#custom#option('_', {
       \ })
 
 nnoremap <silent> <Leader>d :<C-u> Defx <CR>
+
+nmap g* :CtrlSF<CR>
+function! s:get_visual_selection()
+  " Why is this not a built-in Vim script function?!
+  let [lnum1, col1] = getpos("'<")[1:2]
+  let [lnum2, col2] = getpos("'>")[1:2]
+  let lines = getline(lnum1, lnum2)
+  let lines[-1] = lines[-1][: col2 - (&selection == 'inclusive' ? 1 : 2)]
+  let lines[0] = lines[0][col1 - 1:]
+  return join(lines, "\n")
+endfunction
+
+function! s:grep_visual_selection() 
+  execute "CtrlSF" . "'" . s:get_visual_selection() . "'"
+endfunction
+command! -nargs=0 GrepSelection call s:grep_visual_selection()
+vnoremap <C-f> <ESC>:GrepSelection<CR>
+let g:ctrlsf_auto_close = 1
+let g:ctrlsf_ignore_dir = ["node_modules"]
+
+let g:ctrlsf_mapping = {
+    \ "split": "S",
+    \ "tab": "T",
+    \ }
+
+" for Fugitive {{{
+nnoremap <Space>gd :<C-u>Gdiff<Enter>
+nnoremap <Space>gs :<C-u>Gstatus<Enter>
+nnoremap <Space>gl :<C-u>Glog<Enter>
+nnoremap <Space>ga :<C-u>Gwrite<Enter>
+nnoremap <Space>gc :<C-u>Gcommit<Enter>
+nnoremap <Space>gC :<C-u>Git commit --amend<Enter>
+nnoremap <Space>gb :<C-u>Gblame<Enter>
+" }}}
+
+" for vim-indent-guides {{{
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_guide_size = 1
+" }}}
+
+
+" for open-browser.vim {{{
+let g:netrw_nogx = 1 " disable netrw's gx mapping.
+nmap gx <Plug>(openbrowser-smart-search)
+vmap gx <Plug>(openbrowser-smart-search)
+" }}}
+
+" for Lokaltog/vim-easymotion {{{
+let g:EasyMotion_do_mapping = 0
+nmap s <Plug>(easymotion-s2)
+let g:clever_f_ignore_case = 1
+" }}}
 
 let g:python_host_prog = expand('~/.pyenv/versions/3.7.3/bin/python3.7')
 let g:python3_host_prog = expand('~/.pyenv/versions/3.7.3/bin/python3.7')
