@@ -30,3 +30,15 @@ function! s:init_command()
 endfunction
 
 call s:init_command()
+
+" $ gem install solargraph
+" $ yard gems
+" $ yard config --gem-install-yri 
+if executable('solargraph')
+  au User lsp_setup call lsp#register_server({
+    \ 'name': 'solargraph',
+    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
+    \ 'initialization_options': {"diagnostics": "true"},
+    \ 'whitelist': ['ruby'],
+  \ })
+endif

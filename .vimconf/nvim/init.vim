@@ -14,10 +14,15 @@ else
   Plug 'Shougo/defx.nvim'
 endif
 
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp', { 'do': 'pip install python-language-server'}
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 
-Plug 'lighttiger2505/deoplete-vim-lsp'
+Plug 'prabirshrestha/async.vim'
+" Plug 'prabirshrestha/vim-lsp', { 'do': 'pip install python-language-server'}
+
+" Plug 'lighttiger2505/deoplete-vim-lsp'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } | Plug 'junegunn/fzf.vim'
 
@@ -34,6 +39,20 @@ Plug 'Lokaltog/vim-easymotion'
 
 call plug#end()
 
+
+" for LanguageClient-neovim {{{
+let g:LanguageClient_serverCommands = {
+    \ 'python': ['pyls'],
+    \ 'ruby': ['solargraph', 'stdio']
+    \}
+" note that if you are using Plug mapping you should not use `noremap` mappings.
+nmap <F5> <Plug>(lcn-menu)
+" Or map each action separately
+nmap <silent>K <Plug>(lcn-hover)
+nmap <silent> gd <Plug>(lcn-definition)
+nmap <silent> <F2> <Plug>(lcn-rename)
+" }}}
+
 call deoplete#custom#option({
     \ 'auto_complete': v:true,
     \ 'min_pattern_length': 2,
@@ -43,21 +62,21 @@ call deoplete#custom#option({
     \ 'smart_case': v:true,
     \ 'camel_case': v:true,
     \ })
-let s:use_lsp_sources = ['lsp', 'dictionary', 'file']
-call deoplete#custom#option('sources', {
-    \ 'go': s:use_lsp_sources,
-    \ 'python': s:use_lsp_sources,
-    \ 'vim': ['vim', 'buffer', 'dictionary', 'file'],
-    \})
+
+call deoplete#custom#var('omni', 'input_patterns', {
+    \ 'ruby': ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::'],
+\})
 
 autocmd FileType denite call s:denite_my_settings()
 function! s:denite_my_settings() abort
-  nnoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> <CR> denite#do_map('denite:do_action')
   nnoremap <silent><buffer><expr> d denite#do_map('do_action', 'delete')
   nnoremap <silent><buffer><expr> p denite#do_map('do_action', 'preview')
   nnoremap <silent><buffer><expr> q denite#do_map('quit')
   nnoremap <silent><buffer><expr> i denite#do_map('open_filter_buffer')
   nnoremap <silent><buffer><expr> <Space> denite#do_map('toggle_select').'j'
+  nnoremap <silent><buffer><expr> <C-v> denite#do_map('do_action', 'vsplit')
+  nnoremap <silent><buffer><expr> <c-t> denite#do_map('do_action', 'tabopen')
 endfunction
 
 
