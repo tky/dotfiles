@@ -20,13 +20,12 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ }
 
 Plug 'prabirshrestha/async.vim'
-" Plug 'prabirshrestha/vim-lsp', { 'do': 'pip install python-language-server'}
-
-" Plug 'lighttiger2505/deoplete-vim-lsp'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } | Plug 'junegunn/fzf.vim'
 
 Plug '5t111111/denite-rails', { 'for': 'ruby' }
+Plug 'tpope/vim-rails', { 'for': 'ruby' }
+Plug 'tpope/vim-endwise', { 'for': 'ruby' }
 
 Plug 'dyng/ctrlsf.vim'
 Plug 'tpope/vim-fugitive'
