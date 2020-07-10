@@ -36,6 +36,8 @@ Plug 'thinca/vim-quickrun', { 'for': 'sh' }
 Plug 'tyru/open-browser.vim'
 Plug 'Lokaltog/vim-easymotion'
 
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }
+
 call plug#end()
 
 
@@ -188,3 +190,4 @@ let g:python3_host_prog = expand('~/.pyenv/versions/3.7.3/bin/python3.7')
 
 source $XDG_CONFIG_HOME/nvim/python.vim
 source $XDG_CONFIG_HOME/nvim/ruby.vim
+autocmd FileType go source $XDG_CONFIG_HOME/nvim/go.vim
