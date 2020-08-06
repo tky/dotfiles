@@ -1,4 +1,5 @@
 source $XDG_CONFIG_HOME/nvim/basic.vim
+source $XDG_CONFIG_HOME/nvim/indent.vim
 
 call plug#begin('~/.vim/plugged')
 
