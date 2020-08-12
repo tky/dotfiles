@@ -45,3 +45,13 @@ snippet LOOP_FILE
   do
    ${2:do something with $line here}
   done
+
+snippet EXIST_FILE
+    if [ -f ${1:file} ]
+    then
+    fi
+
+snippet EXIST_DIR
+    if [ -d ${1:file} ]
+    then
+    fi

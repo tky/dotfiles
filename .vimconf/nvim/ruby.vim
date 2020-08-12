@@ -31,12 +31,4 @@ endfunction
 
 call s:init_command()
 
-" $ gem install solargraph
-if executable('solargraph')
-  au User lsp_setup call lsp#register_server({
-    \ 'name': 'solargraph',
-    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
-    \ 'initialization_options': {"diagnostics": "true"},
-    \ 'whitelist': ['ruby'],
-  \ })
-endif
+let g:coc_global_extensions = ['coc-solargraph']

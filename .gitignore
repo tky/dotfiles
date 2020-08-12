@@ -20,3 +20,6 @@
 /.vimconf/repos
 !/.vimconf
 .vimconf/pgcli
+.vimconf/composer
+.vim/autoload
+.vimconf/coc
