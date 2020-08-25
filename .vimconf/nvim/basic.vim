@@ -27,3 +27,5 @@ endfor
 " t1 で1番左のタブ、t2 で1番左から2番目のタブにジャンプ
 
 map <silent> <C-t>c :tablast <bar> tabnew<CR>
+
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=javascript

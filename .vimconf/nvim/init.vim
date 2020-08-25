@@ -21,7 +21,7 @@ Plug '5t111111/denite-rails', { 'for': 'ruby' }
 Plug 'tpope/vim-rails', { 'for': 'ruby' }
 Plug 'tpope/vim-endwise', { 'for': 'ruby' }
 
-Plug 'dyng/ctrlsf.vim'
+Plug 'dyng/ctrlsf.vim', { 'do': 'brew install the_silver_searcher' }
 Plug 'tpope/vim-fugitive'
 Plug 'idanarye/vim-merginal'
 Plug 'tpope/vim-surround'
@@ -35,16 +35,16 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }
 Plug 'tyru/caw.vim'
 Plug 'previm/previm'
 
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'neoclide/coc.nvim', { 'branch': 'release', 'do': { -> coc#util#install()}}
 
 call plug#end()
 
+
+" for ctrlsf {{{
+let g:ctrlsf_ackprg = 'ag'
+" }}}
+
 " for coc.nvim {{{
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 " Used in the tab autocompletion for coc
 function! s:check_back_space() abort
@@ -57,7 +57,6 @@ inoremap <silent><expr> <c-space> coc#refresh()
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -137,8 +136,6 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 " Notify coc.nvim that <enter> has been pressed.
 " Currently used for the formatOnType feature.
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-      \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Toggle panel with Tree Views
 nnoremap <silent> <space>t :<C-u>CocCommand metals.tvp<CR>
