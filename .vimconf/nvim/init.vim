@@ -37,6 +37,8 @@ Plug 'previm/previm'
 
 Plug 'neoclide/coc.nvim', { 'branch': 'release', 'do': { -> coc#util#install()}}
 
+Plug 'tpope/vim-abolish'
+
 call plug#end()
 
 
