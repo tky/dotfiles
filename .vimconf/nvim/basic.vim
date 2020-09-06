@@ -28,4 +28,4 @@ endfor
 
 map <silent> <C-t>c :tablast <bar> tabnew<CR>
 
-autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=javascript
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript
