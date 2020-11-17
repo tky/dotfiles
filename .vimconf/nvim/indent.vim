@@ -13,6 +13,7 @@ if has("autocmd")
   autocmd FileType html       setlocal sw=2 sts=2 ts=2 et
   autocmd FileType typescriptreact setlocal sw=2 sts=2 ts=2 et
   autocmd FileType typescript setlocal sw=2 sts=2 ts=2 et
+  autocmd FileType typescript.tsx setlocal sw=2 sts=2 ts=2 et
   autocmd FileType json setlocal sw=2 sts=2 ts=2 et
   autocmd FileType java       setlocal sw=4 sts=4 ts=4 et
   autocmd FileType javascript setlocal sw=2 sts=2 ts=2 et

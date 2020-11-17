@@ -26,7 +26,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'idanarye/vim-merginal'
 Plug 'tpope/vim-surround'
 Plug 'nathanaelkane/vim-indent-guides'
-Plug 'thinca/vim-quickrun', { 'for': 'sh' }
+Plug 'thinca/vim-quickrun'
+
 Plug 'tyru/open-browser.vim'
 Plug 'Lokaltog/vim-easymotion'
 
@@ -38,9 +39,9 @@ Plug 'previm/previm'
 Plug 'neoclide/coc.nvim', { 'branch': 'release', 'do': { -> coc#util#install()}}
 
 Plug 'tpope/vim-abolish'
+Plug 'mattn/emmet-vim', {'for': ['html']}
 
 call plug#end()
-
 
 " for ctrlsf {{{
 let g:ctrlsf_ackprg = 'ag'
@@ -268,3 +269,11 @@ let g:python3_host_prog = expand('~/.pyenv/versions/3.7.3/bin/python3.7')
 source $XDG_CONFIG_HOME/nvim/python.vim
 source $XDG_CONFIG_HOME/nvim/ruby.vim
 autocmd FileType go source $XDG_CONFIG_HOME/nvim/go.vim
+
+if has('mac')
+  let g:imeoff = 'osascript -e "tell application \"System Events\" to key code 102"'
+  augroup MyIMEGroup
+    autocmd!
+    autocmd InsertLeave * :call system(g:imeoff)
+  augroup END
+endif
