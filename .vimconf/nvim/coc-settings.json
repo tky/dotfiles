@@ -6,5 +6,6 @@
       "filetypes": ["scala", "sbt"]
     }
   },
+  "coc.preferences.jumpCommand": "tab drop",
   "coc.preferences.formatOnSaveFiletypes": ["scala"]
 }

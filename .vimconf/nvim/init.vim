@@ -65,6 +65,7 @@ inoremap <silent><expr> <c-space> coc#refresh()
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
+
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -269,11 +270,3 @@ let g:python3_host_prog = expand('~/.pyenv/versions/3.7.3/bin/python3.7')
 source $XDG_CONFIG_HOME/nvim/python.vim
 source $XDG_CONFIG_HOME/nvim/ruby.vim
 autocmd FileType go source $XDG_CONFIG_HOME/nvim/go.vim
-
-if has('mac')
-  let g:imeoff = 'osascript -e "tell application \"System Events\" to key code 102"'
-  augroup MyIMEGroup
-    autocmd!
-    autocmd InsertLeave * :call system(g:imeoff)
-  augroup END
-endif
