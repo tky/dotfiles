@@ -40,6 +40,7 @@ Plug 'neoclide/coc.nvim', { 'branch': 'release', 'do': { -> coc#util#install()}}
 
 Plug 'tpope/vim-abolish'
 Plug 'mattn/emmet-vim', {'for': ['html']}
+Plug 'tpope/vim-repeat'
 
 call plug#end()
 
