@@ -37,6 +37,7 @@ Plug 'tyru/caw.vim'
 Plug 'previm/previm'
 
 Plug 'neoclide/coc.nvim', { 'branch': 'release', 'do': { -> coc#util#install()}}
+Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
 
 Plug 'tpope/vim-abolish'
 Plug 'mattn/emmet-vim', {'for': ['html']}
@@ -44,7 +45,7 @@ Plug 'tpope/vim-repeat'
 
 Plug 'osyo-manga/vim-over'
 
-Plug 'nvie/vim-flake8'
+Plug 'nvie/vim-flake8', { 'do': 'pip install flake8' }
 
 call plug#end()
 
@@ -53,6 +54,7 @@ let g:ctrlsf_ackprg = 'ag'
 " }}}
 
 " for coc.nvim {{{
+"
 
 " Used in the tab autocompletion for coc
 function! s:check_back_space() abort
@@ -79,6 +81,24 @@ nmap <silent> gr <Plug>(coc-references)
 
 " Used to expand decorations in worksheets
 nmap <Leader>ws <Plug>(coc-metals-expand-decoration)
+
+" Use <C-l> for trigger snippet expand.
+imap <C-l> <Plug>(coc-snippets-expand)
+
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+
+" Use <leader>x for convert visual selected code to snippet
+xmap <leader>x  <Plug>(coc-convert-snippet)
 
 " Use K to either doHover or show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
