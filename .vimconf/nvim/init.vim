@@ -42,6 +42,10 @@ Plug 'tpope/vim-abolish'
 Plug 'mattn/emmet-vim', {'for': ['html']}
 Plug 'tpope/vim-repeat'
 
+Plug 'osyo-manga/vim-over'
+
+Plug 'nvie/vim-flake8'
+
 call plug#end()
 
 " for ctrlsf {{{
