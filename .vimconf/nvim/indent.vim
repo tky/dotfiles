@@ -8,6 +8,7 @@ if has("autocmd")
   autocmd FileType cpp        setlocal sw=4 sts=4 ts=4 et
   autocmd FileType cs         setlocal sw=4 sts=4 ts=4 et
   autocmd FileType css        setlocal sw=2 sts=2 ts=2 et
+  autocmd FileType scss        setlocal sw=2 sts=2 ts=2 et
   autocmd FileType diff       setlocal sw=4 sts=4 ts=4 et
   autocmd FileType eruby      setlocal sw=4 sts=4 ts=4 et
   autocmd FileType html       setlocal sw=2 sts=2 ts=2 et

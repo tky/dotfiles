@@ -7,5 +7,8 @@
     }
   },
   "coc.preferences.jumpCommand": "tab drop",
-  "coc.preferences.formatOnSaveFiletypes": ["scala"]
+  "coc.preferences.formatOnSaveFiletypes": ["scala"],
+  "python.jediEnabled": false ,
+  "python.pythonPath": "/usr/local/bin/python3"
+
 }

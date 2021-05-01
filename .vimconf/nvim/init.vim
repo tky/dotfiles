@@ -289,8 +289,8 @@ nmap s <Plug>(easymotion-s2)
 let g:clever_f_ignore_case = 1
 " }}}
 
-let g:python_host_prog = expand('~/.pyenv/versions/3.7.3/bin/python3.7')
-let g:python3_host_prog = expand('~/.pyenv/versions/3.7.3/bin/python3.7')
+let g:python_host_prog = expand('/usr/local/bin/python3')
+let g:python3_host_prog = expand('/usr/local/bin/python3')
 
 source $XDG_CONFIG_HOME/nvim/python.vim
 source $XDG_CONFIG_HOME/nvim/ruby.vim
