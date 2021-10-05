@@ -25,3 +25,4 @@
 .vimconf/coc
 .vimconf/irb
 .vimconf/nvim/.netrwhist
+.vimconf/configstore/update-notifier-npm.json
