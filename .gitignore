@@ -23,3 +23,5 @@
 .vimconf/composer
 .vim/autoload
 .vimconf/coc
+.vimconf/irb
+.vimconf/nvim/.netrwhist
