@@ -49,6 +49,8 @@ Plug 'osyo-manga/vim-over'
 
 Plug 'nvie/vim-flake8', { 'do': 'pip install flake8' }
 
+Plug 'jiangmiao/auto-pairs'
+
 call plug#end()
 
 " for ctrlsf {{{
