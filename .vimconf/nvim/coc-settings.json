@@ -13,5 +13,6 @@
   "solargraph.commandPath": "~/.rbenv/shims/solargraph",
   "solargraph.useBundler": true,
   "solargraph.bundlerPath": "~/.rbenv/shims/bundle",
-  "solargraph.diagnostics": true
+  "solargraph.diagnostics": true,
+  "javascript.suggestionActions.enabled": false
 }

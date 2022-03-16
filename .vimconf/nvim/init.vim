@@ -49,8 +49,6 @@ Plug 'osyo-manga/vim-over'
 
 Plug 'nvie/vim-flake8', { 'do': 'pip install flake8' }
 
-Plug 'jiangmiao/auto-pairs'
-
 call plug#end()
 
 " for ctrlsf {{{
@@ -267,12 +265,8 @@ let g:ctrlsf_mapping = {
 
 " for Fugitive {{{
 nnoremap <Space>gd :<C-u>Gdiff<Enter>
-nnoremap <Space>gs :<C-u>Gstatus<Enter>
-nnoremap <Space>gl :<C-u>Glog<Enter>
-nnoremap <Space>ga :<C-u>Gwrite<Enter>
-nnoremap <Space>gc :<C-u>Gcommit<Enter>
-nnoremap <Space>gC :<C-u>Git commit --amend<Enter>
-nnoremap <Space>gb :<C-u>Gblame<Enter>
+nnoremap <Space>gs :<C-u>Git status<Enter>
+nnoremap <Space>gb :<C-u>Git blame<Enter>
 " }}}
 
 " for vim-indent-guides {{{
