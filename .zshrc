@@ -2,9 +2,14 @@
  
 ########################################
 #
+# これいらない？
 export XDG_CONFIG_HOME="$HOME/.vimconf"
 # 環境変数
 export LANG=ja_JP.UTF-8
+
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
  
  
 # 色を使用出来るようにする
@@ -231,3 +236,9 @@ fi
 
 # Then, source plugins and add commands to $PATH
 zplug load --verbose
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/usr/local/bin/google-cloud-sdk/path.zsh.inc' ]; then . '/usr/local/bin/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/usr/local/bin/google-cloud-sdk/completion.zsh.inc' ]; then . '/usr/local/bin/google-cloud-sdk/completion.zsh.inc'; fi

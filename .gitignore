@@ -26,3 +26,4 @@
 .vimconf/irb
 .vimconf/nvim/.netrwhist
 .vimconf/configstore
+.vimconf/ngrok

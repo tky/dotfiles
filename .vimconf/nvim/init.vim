@@ -42,7 +42,7 @@ Plug 'neoclide/coc.nvim', { 'branch': 'release', 'do': { -> coc#util#install()}}
 Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
 
 Plug 'tpope/vim-abolish'
-Plug 'mattn/emmet-vim', {'for': ['html']}
+Plug 'mattn/emmet-vim', {'for': ['html', 'eruby']}
 Plug 'tpope/vim-repeat'
 
 Plug 'osyo-manga/vim-over'
@@ -287,8 +287,8 @@ nmap s <Plug>(easymotion-s2)
 let g:clever_f_ignore_case = 1
 " }}}
 
-let g:python_host_prog = expand('/usr/local/bin/python3')
-let g:python3_host_prog = expand('/usr/local/bin/python3')
+let g:python_host_prog = $PYENV_ROOT.'/shims/python3'
+let g:python3_host_prog = $PYENV_ROOT.'/shims/python3'
 
 source $XDG_CONFIG_HOME/nvim/python.vim
 source $XDG_CONFIG_HOME/nvim/ruby.vim
