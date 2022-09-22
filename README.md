@@ -1,3 +1,14 @@
+# Dotfiles
+
+## Clone the repository
+
+```
+$ git init
+$ git remote add origin https://github.com/taka-/dotfiles
+$ git pull origin main
+$ git remote set-url origin git@github.com:tky/dotfiles.git
+```
+
 ## install other libraries
 
 ```
@@ -10,7 +21,6 @@ $ brew install node
 $ npm install --global yarn
 ```
 
-
 Install python 
 
 ```
@@ -19,8 +29,10 @@ $ pyenv global {INSTALLED VERSION}
 ```
 
 
+```
 $ pip install pynvim
 $ npm install -g neovim
+```
 
 ## zplug
 ```
