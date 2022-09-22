@@ -1,5 +1,5 @@
-source $XDG_CONFIG_HOME/nvim/basic.vim
-source $XDG_CONFIG_HOME/nvim/indent.vim
+source ~/.config/nvim/basic.vim
+source ~/.config/nvim/indent.vim
 
 call plug#begin('~/.vim/plugged')
 
@@ -290,9 +290,9 @@ let g:clever_f_ignore_case = 1
 let g:python_host_prog = $PYENV_ROOT.'/shims/python3'
 let g:python3_host_prog = $PYENV_ROOT.'/shims/python3'
 
-source $XDG_CONFIG_HOME/nvim/python.vim
-source $XDG_CONFIG_HOME/nvim/ruby.vim
-autocmd FileType go source $XDG_CONFIG_HOME/nvim/go.vim
+source ~/.config/nvim/python.vim
+source ~/.config/nvim/ruby.vim
+autocmd FileType go source ~/.config/nvim/go.vim
 
 nmap <Leader>f [fzf-p]
 xmap <Leader>f [fzf-p]
