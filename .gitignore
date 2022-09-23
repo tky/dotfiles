@@ -28,3 +28,4 @@
 .vimconf/configstore
 .vimconf/ngrok
 !.config
+.config/coc

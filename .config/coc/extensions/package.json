@@ -1,5 +1,7 @@
 {
   "dependencies": {
-    "coc-solargraph": ">=1.2.4"
+    "coc-solargraph": ">=1.2.4",
+    "coc-tsserver": ">=1.11.11",
+    "coc-metals": ">=1.0.14"
   }
 }
