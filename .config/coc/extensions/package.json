@@ -2,6 +2,8 @@
   "dependencies": {
     "coc-solargraph": ">=1.2.4",
     "coc-tsserver": ">=1.11.11",
-    "coc-metals": ">=1.0.14"
+    "coc-metals": ">=1.0.14",
+    "coc-fzf-preview": ">=2.14.0",
+    "coc-pyright": ">=1.1.272"
   }
 }

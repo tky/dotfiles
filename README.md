@@ -145,3 +145,14 @@ After completing installation, `:checkhealth` is a better way to check your vim 
 ```
 :CocInstall coc-metals
 ```
+
+```
+:CocInstall coc-fzf-preview
+```
+
+https://github.com/fannheyward/coc-pyright
+
+```
+:CocInstall coc-pyright
+```
+
