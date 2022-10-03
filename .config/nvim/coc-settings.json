@@ -9,7 +9,7 @@
   "coc.preferences.jumpCommand": "tab drop",
   "coc.preferences.formatOnSaveFiletypes": ["scala"],
   "python.jediEnabled": false ,
-  "python.pythonPath": "/usr/local/bin/python3",
+  "python.pythonPath": "~/.pyenv/shims/python",
   "solargraph.commandPath": "~/.rbenv/shims/solargraph",
   "solargraph.useBundler": true,
   "solargraph.bundlerPath": "~/.rbenv/shims/bundle",

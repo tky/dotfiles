@@ -47,6 +47,8 @@ Plug 'tpope/vim-repeat'
 
 Plug 'osyo-manga/vim-over'
 
+Plug 'brglng/vim-im-select', {'do': 'brew tap daipeihust/tap && brew install im-select'}
+
 Plug 'nvie/vim-flake8', { 'do': 'pip install flake8' }
 
 call plug#end()
