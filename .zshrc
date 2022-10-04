@@ -1,5 +1,6 @@
-# 少し凝った zshrc
- 
+### WARNING!!! #######################
+### This file is under git control
+### YOU SHOUD NOT ADD ANY CREDENTIAL ###
 ########################################
 #
 # 環境変数

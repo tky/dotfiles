@@ -1,6 +1,10 @@
 source ~/.config/nvim/basic.vim
 source ~/.config/nvim/indent.vim
 
+if !empty(glob("~/.local.vimrc"))
+  source ~/.local.vimrc
+endif
+
 call plug#begin('~/.vim/plugged')
 
 if has('nvim')
@@ -13,6 +17,8 @@ else
   Plug 'Shougo/defx.nvim'
 endif
 
+Plug 'tpope/vim-dadbod'
+Plug 'kristijanhusak/vim-dadbod-ui'
 Plug 'prabirshrestha/async.vim'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } | Plug 'junegunn/fzf.vim'
