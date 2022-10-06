@@ -17,6 +17,9 @@ else
   Plug 'Shougo/defx.nvim'
 endif
 
+Plug 'vim-denops/denops.vim', { 'do': 'brew install deno' }
+Plug 'skanehira/denops-docker.vim'
+
 Plug 'tpope/vim-dadbod'
 Plug 'kristijanhusak/vim-dadbod-ui'
 Plug 'prabirshrestha/async.vim'
