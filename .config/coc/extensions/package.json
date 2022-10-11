@@ -4,6 +4,7 @@
     "coc-tsserver": ">=1.11.11",
     "coc-metals": ">=1.0.14",
     "coc-fzf-preview": ">=2.14.0",
-    "coc-pyright": ">=1.1.272"
+    "coc-pyright": ">=1.1.272",
+    "coc-snippets": ">=3.1.2"
   }
 }
