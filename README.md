@@ -87,7 +87,7 @@ coursier bootstrap \
   --java-opt -Xss4m \
   --java-opt -Xms100m \
   --java-opt -Dmetals.client=vim-lsc \
-  org.scalameta:metals_2.13:0.11.8 \
+  org.scalameta:metals_{YOUR VERSION} \
   -r bintray:scalacenter/releases \
   -r sonatype:snapshots \
   -o /usr/local/bin/metals-vim -f
