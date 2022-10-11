@@ -28,4 +28,7 @@
 .vimconf/configstore
 .vimconf/ngrok
 !.config
-.config/coc
+.config/coc/extensions
+.config/coc/commands
+.config/coc/.DS_Store
+.config/coc/*history.json
