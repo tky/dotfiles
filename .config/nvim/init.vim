@@ -17,7 +17,7 @@ else
   Plug 'Shougo/defx.nvim'
 endif
 
-
+Plug 'tpope/vim-commentary'
 Plug 'machakann/vim-sandwich'
 
 Plug 'vim-denops/denops.vim', { 'do': 'brew install deno' }
