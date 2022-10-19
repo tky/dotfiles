@@ -17,6 +17,13 @@ else
   Plug 'Shougo/defx.nvim'
 endif
 
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install --frozen-lockfile --production',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
+
+let g:prettier#autoformat = 1
+let g:prettier#autoformat_require_pragma = 0
+
 Plug 'tpope/vim-commentary'
 Plug 'machakann/vim-sandwich'
 
