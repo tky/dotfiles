@@ -6,7 +6,7 @@ interface ${1:StackName}StackProps extends StackProps {
 }
 
 export class ${1:StackName}Stack extends Stack {
-  constructor(scope: Construct, id: string, props?: ${1:StackName}StackProps) {
+  constructor(scope: Construct, id: string, props: ${1:StackName}StackProps) {
     super(scope, id, props);
 
     // The code that defines your stack goes here
