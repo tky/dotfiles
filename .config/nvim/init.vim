@@ -24,6 +24,8 @@ Plug 'prettier/vim-prettier', {
 let g:prettier#autoformat_config_present = 1
 let g:prettier#autoformat_require_pragma = 0
 
+Plug 'github/copilot.vim'
+
 Plug 'tpope/vim-commentary'
 Plug 'machakann/vim-sandwich'
 
@@ -333,3 +335,7 @@ xnoremap          [fzf-p]gr    "sy:CocCommand   fzf-preview.ProjectGrep<Space>-F
 nnoremap <silent> [fzf-p]t     :<C-u>CocCommand fzf-preview.BufferTags<CR>
 nnoremap <silent> [fzf-p]q     :<C-u>CocCommand fzf-preview.QuickFix<CR>
 nnoremap <silent> [fzf-p]l     :<C-u>CocCommand fzf-preview.LocationList<CR>
+
+
+imap <C-,> <Plug>(copilot-next)
+imap <C-.> <Plug>(copilot-previous)
