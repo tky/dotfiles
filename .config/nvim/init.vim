@@ -310,8 +310,8 @@ nmap s <Plug>(easymotion-s2)
 let g:clever_f_ignore_case = 1
 " }}}
 
-let g:python_host_prog = $PYENV_ROOT.'/shims/python3'
-let g:python3_host_prog = $PYENV_ROOT.'/shims/python3'
+let g:python_host_prog = $PYENV_ROOT.'/shims/python3.11'
+let g:python3_host_prog = $PYENV_ROOT.'/shims/python3.11'
 
 source ~/.config/nvim/python.vim
 source ~/.config/nvim/ruby.vim

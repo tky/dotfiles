@@ -10,7 +10,6 @@ set splitright
 set clipboard=unnamed
 set hls
 
-
 " windowsのサイズ変更
 noremap <C-j> 5<C-w>-
 noremap <C-k> 5<C-w>+
