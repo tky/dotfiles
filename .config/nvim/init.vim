@@ -74,6 +74,14 @@ Plug 'brglng/vim-im-select', {'do': 'brew tap daipeihust/tap && brew install im-
 
 Plug 'nvie/vim-flake8', { 'do': 'pip install flake8' }
 
+Plug 'nvim-lua/plenary.nvim' 
+Plug 'scalameta/nvim-metals'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
+
+
 call plug#end()
 
 " for ctrlsf {{{
@@ -341,3 +349,5 @@ nnoremap <silent> [fzf-p]l     :<C-u>CocCommand fzf-preview.LocationList<CR>
 
 imap <C-,> <Plug>(copilot-next)
 imap <C-.> <Plug>(copilot-previous)
+
+source ~/.config/nvim/scala.lua
