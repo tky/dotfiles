@@ -8,9 +8,6 @@ local map = vim.keymap.set
 -- global
 vim.opt_global.completeopt = { "menuone", "noinsert", "noselect" }
 
--- LSP mappings
-map("n", "gd",  vim.lsp.buf.definition)
-
 -- completion related settings
 -- This is similiar to what I use
 local cmp = require("cmp")

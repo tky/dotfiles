@@ -351,3 +351,4 @@ imap <C-,> <Plug>(copilot-next)
 imap <C-.> <Plug>(copilot-previous)
 
 source ~/.config/nvim/scala.lua
+autocmd FileType scala lua vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = true })
