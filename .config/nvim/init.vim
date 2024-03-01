@@ -1,6 +1,5 @@
 source ~/.config/nvim/basic.vim
 source ~/.config/nvim/indent.vim
-
 if !empty(glob("~/.local.vimrc"))
   source ~/.local.vimrc
 endif
@@ -54,7 +53,6 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'thinca/vim-quickrun'
 
 Plug 'tyru/open-browser.vim'
-Plug 'Lokaltog/vim-easymotion'
 
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }
 
@@ -81,8 +79,12 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
 
+Plug 'easymotion/vim-easymotion'
+
 
 call plug#end()
+
+nmap s <Plug>(easymotion-overwin-f2)
 
 " for ctrlsf {{{
 let g:ctrlsf_ackprg = 'ag'
@@ -109,7 +111,8 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 
 " Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gD <Plug>(coc-definition)
+nmap <silent> gd :call CocAction('jumpDefinition', 'vsplit')<CR>
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
@@ -314,11 +317,6 @@ nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
 " }}}
 
-" for Lokaltog/vim-easymotion {{{
-let g:EasyMotion_do_mapping = 0
-nmap s <Plug>(easymotion-s2)
-let g:clever_f_ignore_case = 1
-" }}}
 
 let g:python_host_prog = $PYENV_ROOT.'/shims/python3.11'
 let g:python3_host_prog = $PYENV_ROOT.'/shims/python3.11'
@@ -349,6 +347,3 @@ nnoremap <silent> [fzf-p]l     :<C-u>CocCommand fzf-preview.LocationList<CR>
 
 imap <C-,> <Plug>(copilot-next)
 imap <C-.> <Plug>(copilot-previous)
-
-source ~/.config/nvim/scala.lua
-autocmd FileType scala lua vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = true })

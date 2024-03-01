@@ -1,3 +1,4 @@
+vim.cmd("echo 'open scala.lua'")
 local api = vim.api
 local cmd = vim.cmd
 local map = vim.keymap.set
@@ -7,6 +8,8 @@ local map = vim.keymap.set
 ----------------------------------
 -- global
 vim.opt_global.completeopt = { "menuone", "noinsert", "noselect" }
+
+map("n", "gd",  vim.lsp.buf.definition)
 
 -- completion related settings
 -- This is similiar to what I use
