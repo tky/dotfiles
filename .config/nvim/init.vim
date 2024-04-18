@@ -81,6 +81,8 @@ Plug 'hrsh7th/vim-vsnip'
 
 Plug 'easymotion/vim-easymotion'
 
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+
 
 call plug#end()
 

@@ -116,6 +116,12 @@ If you can't jump your Class, check the java vesion that bloop uses to compile y
 
 https://scalacenter.github.io/bloop/docs/server-reference#custom-java-home
 
+## Rust
+
+```
+$ brew install rust-analyzer
+```
+
 ## Neovim
 
 ```
@@ -150,5 +156,9 @@ https://github.com/fannheyward/coc-pyright
 
 ```
 :CocInstall coc-pyright
+```
+
+```
+:CocInstall coc-rust-analyzer
 ```
 
