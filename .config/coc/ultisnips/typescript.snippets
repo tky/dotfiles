@@ -1,13 +1,12 @@
 snippet CDK
-import { Stack, StackProps } from "aws-cdk-lib";
 import { Construct } from 'constructs';
 
-interface ${1:StackName}StackProps extends StackProps {
+export type ${1:ConstructName}Props = {
 }
 
-export class ${1:StackName}Stack extends Stack {
-  constructor(scope: Construct, id: string, props: ${1:StackName}StackProps) {
-    super(scope, id, props);
+export class ${1:ConstructName} extends Construct {
+  constructor(scope: Construct, id: string, props: ${1:ConstructName}Props) {
+    super(scope, id);
 
     // The code that defines your stack goes here
 
