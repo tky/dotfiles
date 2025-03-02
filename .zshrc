@@ -9,6 +9,8 @@ export LANG=ja_JP.UTF-8
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
+
+source $HOME/.local/bin/env
  
  
 # 色を使用出来るようにする
@@ -253,3 +255,5 @@ export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
+
+. "$HOME/.local/bin/env"
