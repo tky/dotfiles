@@ -6,9 +6,12 @@
 # 環境変数
 export LANG=ja_JP.UTF-8
 
+export PATH="$HOME/bin:$PATH"
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
+
+export FZF_DEFAULT_OPTS="--layout=reverse"
 
 source $HOME/.local/bin/env
  
