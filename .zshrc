@@ -6,8 +6,6 @@
 # 環境変数
 export LANG=ja_JP.UTF-8
 
-export PATH="$HOME/bin:$PATH"
-export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
@@ -188,7 +186,6 @@ alias gls="gls --color"
 
 zstyle ':completion:*' list-colors 'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
 
-source ~/.bash_profile
 # enhancd
 if [ -f "/Users/ta-murata/.enhancd/zsh/enhancd.zsh" ]; then
     source "/Users/ta-murata/.enhancd/zsh/enhancd.zsh"
