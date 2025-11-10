@@ -320,8 +320,8 @@ vmap gx <Plug>(openbrowser-smart-search)
 " }}}
 
 
-let g:python_host_prog = $PYENV_ROOT.'/shims/python3.11'
-let g:python3_host_prog = $PYENV_ROOT.'/shims/python3.11'
+let g:python_host_prog = $PYENV_ROOT.'/shims/python3.13'
+let g:python3_host_prog = $PYENV_ROOT.'/shims/python3.13'
 
 source ~/.config/nvim/python.vim
 source ~/.config/nvim/ruby.vim

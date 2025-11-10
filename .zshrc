@@ -13,8 +13,6 @@ eval "$(pyenv init -)"
 
 export FZF_DEFAULT_OPTS="--layout=reverse"
 
-source $HOME/.local/bin/env
- 
  
 # 色を使用出来るようにする
 autoload -Uz colors
@@ -258,7 +256,5 @@ export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
-
-. "$HOME/.local/bin/env"
 
 [[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
