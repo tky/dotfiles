@@ -260,3 +260,5 @@ export SDKMAN_DIR="$HOME/.sdkman"
 export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
 
 . "$HOME/.local/bin/env"
+
+[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"

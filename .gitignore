@@ -34,3 +34,4 @@
 .config/coc/*history.json
 .config/coc/list_history.dat
 .config/github-copilot
+.config/iterm2
