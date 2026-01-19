@@ -39,7 +39,7 @@ Plug 'prabirshrestha/async.vim'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } | Plug 'junegunn/fzf.vim'
 " :CocInstall coc-fzf-preview after plug install.
-Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
+Plug 'yuki-yano/fzf-preview.vim'
 
 Plug '5t111111/denite-rails', { 'for': 'ruby' }
 Plug 'tpope/vim-rails', { 'for': 'ruby' }
