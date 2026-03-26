@@ -137,6 +137,7 @@ alias ll='ls -l'
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
+alias up='cd ../'
  
 alias mkdir='mkdir -p'
  

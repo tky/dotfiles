@@ -36,3 +36,7 @@
 .config/coc/list_history.dat
 .config/github-copilot
 .config/iterm2
+.config/cagent
+.config/configstore
+.config/gh
+.config/git
