@@ -263,4 +263,3 @@ export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
-export PATH="~/.bun/bin:$PATH"
