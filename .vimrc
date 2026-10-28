@@ -7,7 +7,7 @@ set nowrap
 set nobackup
 set noswapfile
 set expandtab
-autocmd FileType go set noexpandtab
+autocmd FileType go setlocal noexpandtab
 set clipboard=unnamed
 set t_Co=256
 set fileencodings=utf-8,iso-2022-jp,euc-jp,cp932,ucs-bom,default,latin1
@@ -15,9 +15,7 @@ set autoread
 syntax on
 
 " %コマンドのジャンプを拡張
-:source $VIMRUNTIME/macros/matchit.vim
-:let b:match_words='\<if\>:\<endif\>,(:),{:},[:],\<begin\>:\<end\>'
-:let b:match_ignorecase = 1
+packadd! matchit
 
 "  カーソル行をハイライト
 set cursorline

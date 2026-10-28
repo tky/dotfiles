@@ -6,16 +6,6 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-if has('nvim')
-  Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
-  Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/denite.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-  Plug 'Shougo/defx.nvim'
-endif
-
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install --frozen-lockfile --production',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html', 'typescript.tsx'] }
@@ -27,37 +17,25 @@ let g:prettier#autoformat_require_pragma = 0
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 Plug 'github/copilot.vim'
 
-Plug 'tpope/vim-commentary'
-Plug 'machakann/vim-sandwich'
+Plug 'nvim-tree/nvim-tree.lua'
 
-Plug 'vim-denops/denops.vim', { 'do': 'brew install deno' }
-Plug 'skanehira/denops-docker.vim'
+Plug 'tpope/vim-commentary'
 
 Plug 'tpope/vim-dadbod'
 Plug 'kristijanhusak/vim-dadbod-ui'
-Plug 'prabirshrestha/async.vim'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } | Plug 'junegunn/fzf.vim'
 " :CocInstall coc-fzf-preview after plug install.
 Plug 'yuki-yano/fzf-preview.vim'
-
-Plug '5t111111/denite-rails', { 'for': 'ruby' }
-Plug 'tpope/vim-rails', { 'for': 'ruby' }
-Plug 'tpope/vim-endwise', { 'for': 'ruby' }
 
 Plug 'dyng/ctrlsf.vim', { 'do': 'brew install the_silver_searcher' }
 Plug 'tpope/vim-fugitive'
 Plug 'idanarye/vim-merginal'
 Plug 'tpope/vim-surround'
 Plug 'nathanaelkane/vim-indent-guides'
-Plug 'thinca/vim-quickrun'
 
 Plug 'tyru/open-browser.vim'
 
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }
-
-Plug 'tyru/caw.vim'
-Plug 'previm/previm'
 
 Plug 'neoclide/coc.nvim', { 'branch': 'release', 'do': { -> coc#util#install()}}
 Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
@@ -66,11 +44,7 @@ Plug 'tpope/vim-abolish'
 Plug 'mattn/emmet-vim', {'for': ['html', 'eruby']}
 Plug 'tpope/vim-repeat'
 
-Plug 'osyo-manga/vim-over'
-
 Plug 'brglng/vim-im-select', {'do': 'brew tap daipeihust/tap && brew install im-select'}
-
-Plug 'nvie/vim-flake8', { 'do': 'pip install flake8' }
 
 Plug 'nvim-lua/plenary.nvim' 
 Plug 'scalameta/nvim-metals'
@@ -87,6 +61,7 @@ Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 call plug#end()
 
 nmap s <Plug>(easymotion-overwin-f2)
+nmap <Space><Space>s <Plug>(easymotion-overwin-f2)
 
 " for ctrlsf {{{
 let g:ctrlsf_ackprg = 'ag'
@@ -95,17 +70,8 @@ let g:ctrlsf_ackprg = 'ag'
 " for coc.nvim {{{
 "
 
-" Used in the tab autocompletion for coc
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
-
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
 
 " Use `[g` and `]g` to navigate diagnostics
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -118,9 +84,6 @@ nmap <silent> gd :call CocAction('jumpDefinition', 'vsplit')<CR>
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-
-" Used to expand decorations in worksheets
-nmap <Leader>ws <Plug>(coc-metals-expand-decoration)
 
 " Use <C-l> for trigger snippet expand.
 imap <C-l> <Plug>(coc-snippets-expand)
@@ -158,14 +121,8 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
 
-" Remap for format selected region
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
 augroup mygroup
   autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType scala setl formatexpr=CocAction('formatSelected')
   " Update signature help on jump placeholder
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
@@ -204,79 +161,84 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
-" Notify coc.nvim that <enter> has been pressed.
-" Currently used for the formatOnType feature.
-
-" Toggle panel with Tree Views
-nnoremap <silent> <space>t :<C-u>CocCommand metals.tvp<CR>
-" Toggle Tree View 'metalsPackages'
-nnoremap <silent> <space>tp :<C-u>CocCommand metals.tvp metalsPackages<CR>
-" Toggle Tree View 'metalsCompile'
-nnoremap <silent> <space>tc :<C-u>CocCommand metals.tvp metalsCompile<CR>
-" Toggle Tree View 'metalsBuild'
-nnoremap <silent> <space>tb :<C-u>CocCommand metals.tvp metalsBuild<CR>
-" Reveal current current class (trait or object) in Tree View 'metalsPackages'
-nnoremap <silent> <space>tf :<C-u>CocCommand metals.revealInTreeView metalsPackages<CR>
 " }}}
-
-autocmd FileType denite call s:denite_my_settings()
-function! s:denite_my_settings() abort
-  nnoremap <silent><buffer><expr> <CR> denite#do_map('denite:do_action')
-  nnoremap <silent><buffer><expr> d denite#do_map('do_action', 'delete')
-  nnoremap <silent><buffer><expr> p denite#do_map('do_action', 'preview')
-  nnoremap <silent><buffer><expr> q denite#do_map('quit')
-  nnoremap <silent><buffer><expr> i denite#do_map('open_filter_buffer')
-  nnoremap <silent><buffer><expr> <Space> denite#do_map('toggle_select').'j'
-  nnoremap <silent><buffer><expr> <C-v> denite#do_map('do_action', 'vsplit')
-  nnoremap <silent><buffer><expr> <c-t> denite#do_map('do_action', 'tabopen')
-endfunction
 
 nnoremap <silent> <C-p> :GFiles<CR>
 
-autocmd FileType defx call s:defx_my_settings()
-function! s:defx_my_settings() abort
-  " Define mappings
-  nnoremap <silent><buffer><expr> <CR> defx#do_action('drop')
-  nnoremap <silent><buffer><expr> c defx#do_action('copy')
-  nnoremap <silent><buffer><expr> m defx#do_action('move')
-  nnoremap <silent><buffer><expr> p defx#do_action('paste')
-  nnoremap <silent><buffer><expr> l defx#do_action('drop')
-  nnoremap <silent><buffer><expr> E defx#do_action('open', 'vsplit')
-  nnoremap <silent><buffer><expr> P defx#do_action('preview')
-  nnoremap <silent><buffer><expr> o defx#do_action('open_tree', 'toggle')
-  nnoremap <silent><buffer><expr> K defx#do_action('new_directory')
-  nnoremap <silent><buffer><expr> N defx#do_action('new_file')
-  nnoremap <silent><buffer><expr> M defx#do_action('new_multiple_files')
-  nnoremap <silent><buffer><expr> C defx#do_action('toggle_columns', 'mark:indent:icon:filename:type:size:time')
-  nnoremap <silent><buffer><expr> S defx#do_action('toggle_sort', 'time')
-  nnoremap <silent><buffer><expr> d defx#do_action('remove')
-  nnoremap <silent><buffer><expr> r defx#do_action('rename')
-  nnoremap <silent><buffer><expr> yy defx#do_action('yank_path')
-  nnoremap <silent><buffer><expr> . defx#do_action('toggle_ignored_files')
-  nnoremap <silent><buffer><expr> ; defx#do_action('repeat')
-  nnoremap <silent><buffer><expr> h defx#do_action('cd', ['..'])
-  nnoremap <silent><buffer><expr> ~ defx#do_action('cd')
-  nnoremap <silent><buffer><expr> q defx#do_action('quit')
-  nnoremap <silent><buffer><expr> <Space> defx#do_action('toggle_select') . 'j'
-  nnoremap <silent><buffer><expr> * defx#do_action('toggle_select_all')
-  nnoremap <silent><buffer><expr> j line('.') == line('$') ? 'gg' : 'j'
-  nnoremap <silent><buffer><expr> k line('.') == 1 ? 'G' : 'k'
-  nnoremap <silent><buffer><expr> <C-l> defx#do_action('redraw')
-  nnoremap <silent><buffer><expr> <C-g> defx#do_action('print')
-  nnoremap <silent><buffer><expr> cd defx#do_action('change_vim_cwd')
-endfunction
+" for nvim-tree {{{
+" ツリーの中のキーは、以前使っていた defx の割り当てにできるだけそろえている
+lua << EOF
+local function on_attach(bufnr)
+  local api = require("nvim-tree.api")
+  -- まず既定のキーを入れ、そのあとで defx と同じキーで上書きする
+  api.config.mappings.default_on_attach(bufnr)
 
-call defx#custom#option('_', {
-      \ 'winwidth': 40,
-      \ 'split': 'vertical',
-      \ 'direction': 'topleft',
-      \ 'show_ignored_files': 1,
-      \ 'buffer_name': 'exlorer',
-      \ 'toggle': 1,
-      \ 'resume': 1,
-      \ })
+  local function map(lhs, rhs, desc)
+    vim.keymap.set("n", lhs, rhs, { buffer = bufnr, noremap = true, silent = true, nowait = true, desc = desc })
+  end
+  local function node() return api.tree.get_node_under_cursor() end
 
-nnoremap <silent> <Leader>d :<C-u> Defx <CR>
+  -- defx の drop と同じく、ファイルなら開き、フォルダならその中へ移る
+  local function drop()
+    local n = node()
+    if n and n.type == "directory" then
+      api.tree.change_root_to_node(n)
+    else
+      api.node.open.edit()
+    end
+  end
+
+  map("<CR>", drop, "開く・フォルダの中へ")
+  map("l", drop, "開く・フォルダの中へ")
+  map("o", api.node.open.edit, "フォルダを開く・閉じる")
+  map("E", api.node.open.vertical, "縦に分けて開く")
+  map("P", api.node.open.preview, "プレビュー")
+  map("c", api.fs.copy.node, "コピー")
+  map("m", api.fs.cut, "移動（切り取り）")
+  map("p", api.fs.paste, "貼り付け")
+  map("N", api.fs.create, "新しいファイル")
+  map("K", api.fs.create, "新しいフォルダ（名前の最後に / を付ける）")
+  map("d", api.fs.remove, "削除")
+  map("r", api.fs.rename, "名前の変更")
+  map("yy", api.fs.copy.absolute_path, "パスをコピー")
+  map(".", api.tree.toggle_hidden_filter, "隠しファイルの表示の切り替え")
+  map("h", api.tree.change_root_to_parent, "1つ上のフォルダへ")
+  map("~", function() api.tree.change_root(vim.env.HOME) end, "ホームへ")
+  map("q", api.tree.close, "閉じる")
+  map("<Space>", function() api.marks.toggle(); vim.cmd("normal! j") end, "選択して次へ")
+  map("C", api.node.show_info_popup, "ファイルの情報")
+  map("<C-l>", api.tree.reload, "表示し直す")
+  map("<C-g>", function() local n = node(); if n then print(n.absolute_path) end end, "パスを表示")
+  map("cd", function()
+    local n = node()
+    if not n then return end
+    local dir = n.type == "directory" and n.absolute_path or vim.fn.fnamemodify(n.absolute_path, ":h")
+    vim.cmd.cd(dir)
+    print(dir)
+  end, "Vim の作業フォルダをここにする")
+  -- 端で j・k を押したら反対の端へ
+  vim.keymap.set("n", "j", function() return vim.fn.line(".") == vim.fn.line("$") and "gg" or "j" end, { buffer = bufnr, expr = true })
+  vim.keymap.set("n", "k", function() return vim.fn.line(".") == 1 and "G" or "k" end, { buffer = bufnr, expr = true })
+end
+
+require("nvim-tree").setup({
+  on_attach = on_attach,
+  view = { width = 40, side = "left" },
+  -- defx の show_ignored_files = 1 と同じく、隠しファイルと Git で無視しているファイルも出す
+  filters = { dotfiles = false, git_ignored = false },
+  -- Nerd Font がなくても崩れないように、アイコンは使わない
+  renderer = {
+    add_trailing = true,
+    icons = {
+      show = { file = false, folder = false, folder_arrow = true, git = false },
+      glyphs = { folder = { arrow_closed = "+", arrow_open = "-" } },
+    },
+  },
+})
+EOF
+
+nnoremap <silent> <Leader>d :<C-u>NvimTreeToggle<CR>
+" }}}
 
 nmap g* :CtrlSF<CR>
 function! s:get_visual_selection()
@@ -321,12 +283,8 @@ vmap gx <Plug>(openbrowser-smart-search)
 " }}}
 
 
-let g:python_host_prog = $PYENV_ROOT.'/shims/python3.13'
 let g:python3_host_prog = $PYENV_ROOT.'/shims/python3.13'
 
-source ~/.config/nvim/python.vim
-source ~/.config/nvim/ruby.vim
-autocmd FileType go source ~/.config/nvim/go.vim
 
 nmap <Leader>f [fzf-p]
 xmap <Leader>f [fzf-p]

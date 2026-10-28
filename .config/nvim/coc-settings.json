@@ -1,18 +1,5 @@
 {
-  "languageserver": {
-    "metals": {
-      "command": "metals-vim",
-      "rootPatterns": ["build.sbt"],
-      "filetypes": ["scala", "sbt"]
-    }
-  },
   "coc.preferences.jumpCommand": "tab drop",
-  "coc.preferences.formatOnSaveFiletypes": ["scala"],
-  "python.jediEnabled": false ,
   "python.pythonPath": "~/.pyenv/shims/python",
-  "solargraph.commandPath": "~/.rbenv/shims/solargraph",
-  "solargraph.useBundler": true,
-  "solargraph.bundlerPath": "~/.rbenv/shims/bundle",
-  "solargraph.diagnostics": true,
   "javascript.suggestionActions.enabled": false
 }
