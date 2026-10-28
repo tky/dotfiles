@@ -264,3 +264,5 @@ export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
