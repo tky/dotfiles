@@ -3,6 +3,9 @@
 ### YOU SHOUD NOT ADD ANY CREDENTIAL ###
 ########################################
 #
+# PATH に同じ場所を二重に足さない（シェルの中でシェルを起動したときなど）
+typeset -U path PATH
+
 # 環境変数
 export LANG=ja_JP.UTF-8
 
@@ -44,7 +47,14 @@ zstyle ':zle:*' word-style unspecified
 # 補完
 # 補完機能を有効にする
 autoload -Uz compinit
-compinit
+# 補完の一覧は 1 日 1 回だけ作り直し、それ以外はキャッシュを使う（起動を速くするため）
+_zcompdump_old=(${ZDOTDIR:-$HOME}/.zcompdump(N.mh+24))
+if (( $#_zcompdump_old )) || [[ ! -f ${ZDOTDIR:-$HOME}/.zcompdump ]]; then
+  compinit
+else
+  compinit -C
+fi
+unset _zcompdump_old
  
 # 補完で小文字でも大文字にマッチさせる
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
@@ -123,12 +133,6 @@ setopt auto_menu
 setopt extended_glob
  
 ########################################
-# キーバインド
- 
-# ^R で履歴検索をするときに * でワイルドカードを使用出来るようにする
-bindkey '^R' history-incremental-pattern-search-backward
- 
-########################################
 # エイリアス
  
 alias la='ls -a'
@@ -169,14 +173,12 @@ case ${OSTYPE} in
 darwin*)
 #Mac用の設定
 export CLICOLOR=1
-alias ls='ls -G -F'
 ;;
 linux*)
 #Linux用の設定
 ;;
 esac
  
-local p_tmux="${TMUX_WINDOW:+[$TMUX_WINDOW]}" # tmux
 # vim:set ft=zsh:
 
 export LSCOLORS=exfxcxdxbxegedabagacad
@@ -187,19 +189,8 @@ alias gls="gls --color"
 
 zstyle ':completion:*' list-colors 'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
 
-# enhancd
-if [ -f "/Users/ta-murata/.enhancd/zsh/enhancd.zsh" ]; then
-    source "/Users/ta-murata/.enhancd/zsh/enhancd.zsh"
-fi
-# enhancd
-if [ -f "/Users/ta-murata/.enhancd/zsh/enhancd.zsh" ]; then
-    source "/Users/ta-murata/.enhancd/zsh/enhancd.zsh"
-fi
-
 
 ################################
-setopt hist_ignore_all_dups
-
 function peco_select_history() {
   local tac
   if which tac > /dev/null; then
@@ -214,46 +205,20 @@ function peco_select_history() {
 zle -N peco_select_history
 bindkey '^r' peco_select_history
 
-function peco-src () {
-  local selected_dir=$(ghq list -p | peco --query "$LBUFFER")
-  if [ -n "$selected_dir" ]; then
-    BUFFER="cd ${selected_dir}"
-    zle accept-line
-  fi
-  zle clear-screen
-}
-zle -N peco-src
-bindkey '^]' peco-src
-
-source ~/.zplug/init.zsh
-zplug "b4b4r07/enhancd", use:init.sh
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
-fi
-
-# Then, source plugins and add commands to $PATH
-zplug load --verbose
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/usr/local/bin/google-cloud-sdk/path.zsh.inc' ]; then . '/usr/local/bin/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/usr/local/bin/google-cloud-sdk/completion.zsh.inc' ]; then . '/usr/local/bin/google-cloud-sdk/completion.zsh.inc'; fi
+# enhancd（zplug は使わず、直接読み込む。起動を速くするため）
+[ -f ~/.zplug/repos/b4b4r07/enhancd/init.sh ] && source ~/.zplug/repos/b4b4r07/enhancd/init.sh
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use  # This loads nvm
+# 起動のたびの nvm use は遅いので、既定の Node を PATH に直接足す
+if [ -r "$NVM_DIR/alias/default" ]; then
+  _nvm_default_bin="$NVM_DIR/versions/node/v${$(<"$NVM_DIR/alias/default")#v}/bin"
+  [ -d "$_nvm_default_bin" ] && export PATH="$_nvm_default_bin:$PATH"
+  unset _nvm_default_bin
+fi
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 eval "$(rbenv init - zsh)"
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
-export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
 
 [[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
 
