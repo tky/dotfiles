@@ -40,3 +40,5 @@
 .config/configstore
 .config/gh
 .config/git
+.config/AWSVPNClient
+.config/jss
